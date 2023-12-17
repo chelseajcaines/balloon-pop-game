@@ -7,7 +7,7 @@ export default function Home() {
         <>
             <h1>Balloon Pop Game</h1>
             <img src={stickPerson} />
-            <button onClick={() => navigate("/opponents")}>Play</button>
+            <button onClick={() => navigate("/choose-opponent")}>Play</button>
         </>
     )
 }
