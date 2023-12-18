@@ -1,4 +1,4 @@
-import AvatarGallery from "../avatar-gallery"
+import PlayerChoosesAvatar from "../avatar-components/avatar-choice"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 
@@ -23,7 +23,7 @@ export default function ComputerPlayerInfo() {
         <>
             <h1>Playing Against Computer</h1>
             <p>Choose your avatar</p>
-            <AvatarGallery />
+            <PlayerChoosesAvatar />
             <p>Enter name</p>
             <input
                 type="text"
