@@ -1,8 +1,6 @@
-const AlphabetArray = () => {
-    const alphabet = Array.from({ length: 26 }, (_, i) =>
-        String.fromCharCode("A".charCodeAt(0) + i)
-    )
+import alphabet from "../data/alphabet-array"
 
+const ChooseLetter = () => {
     return (
         <div>
             {alphabet.map((letter) => (
@@ -24,4 +22,4 @@ const AlphabetArray = () => {
     )
 }
 
-export default AlphabetArray
+export default ChooseLetter

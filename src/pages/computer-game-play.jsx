@@ -1,12 +1,14 @@
-// import {chosenAvatar} from "/pages/.computer"
-import AlphabetArray from "../alphabet-components/alphabet-array"
+import ChooseLetter from "/src/components/Choose-letter"
 
-export default function ComputerGamePlay() {
+const ComputerGamePlay = () => {
     return (
         <>
-            <h1>Computer Game Play</h1>
-            <div>This is where player's avatar is displayed</div>
-            <AlphabetArray />
+            <h1>Player vs Computer - Game play</h1>
+            <p>This is where player's avatar is displayed</p>
+            <p>This is where player's name is displayed</p>
+            <ChooseLetter />
         </>
     )
 }
+
+export default ComputerGamePlay

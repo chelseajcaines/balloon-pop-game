@@ -1,8 +1,8 @@
-import PlayerChoosesAvatar from "../avatar-components/avatar-choice"
+import PlayerChoosesAvatar from "/src/components/Choose-avatar"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 
-export default function ComputerPlayerInfo() {
+const ComputerPlayerInfo = () => {
     const navigate = useNavigate()
     const nextPage = () => {
         navigate("/computer-game-play")
@@ -21,7 +21,7 @@ export default function ComputerPlayerInfo() {
 
     return (
         <>
-            <h1>Playing Against Computer</h1>
+            <h1>Player vs Computer - Player info</h1>
             <p>Choose your avatar</p>
             <PlayerChoosesAvatar />
             <p>Enter name</p>
@@ -35,3 +35,5 @@ export default function ComputerPlayerInfo() {
         </>
     )
 }
+
+export default ComputerPlayerInfo
