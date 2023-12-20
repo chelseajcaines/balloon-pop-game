@@ -2,27 +2,37 @@ import bot from "../assets/bot.png"
 import human from "../assets/human.png"
 import { useNavigate } from "react-router-dom"
 
+const Image = ({ src }) => {
+    return <img src={src} />
+}
+
+const Button = ({ onClick, title }) => {
+    return <button onClick={onClick}>{title}</button>
+}
+
 const ComputerButton = () => {
     const navigate = useNavigate()
-    return (
-        <button onClick={() => navigate("/computer-player-info")}>
-            Computer
-        </button>
-    )
+    const handleClick = () => {
+        navigate("/computer-player-info")
+    }
+    return <Button onClick={handleClick} title="Computer" />
 }
 
 const HumanButton = () => {
     const navigate = useNavigate()
-    return <button onClick={() => navigate("/human-player-info")}>Human</button>
+    const handleClick = () => {
+        navigate("/human-player-info")
+    }
+    return <Button onClick={handleClick} title="Human" />
 }
 
 const ChooseOpponent = () => {
     return (
         <>
             <h1>Choose Your Opponent</h1>
-            <img src={bot} />
+            <Image src={bot} />
             <ComputerButton />
-            <img src={human} />
+            <Image src={human} />
             <HumanButton />
         </>
     )

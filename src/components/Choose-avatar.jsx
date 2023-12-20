@@ -25,6 +25,7 @@ const PlayerChoosesAvatar = () => {
                 ))}
             </div>
             <div>
+                <p>Your Avatar</p>
                 {selectedAvatar && (
                     <img src={selectedAvatar.src} alt={selectedAvatar.alt} />
                 )}
