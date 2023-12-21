@@ -1,4 +1,4 @@
-import alphabetArray from "../data/alphabet-array"
+import { alphabetArray } from "../data/const.js"
 import { useState } from "react"
 
 const ChooseLetter = () => {

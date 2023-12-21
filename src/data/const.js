@@ -1,4 +1,4 @@
-const avatarArray = [
+export const avatarArray = [
     {
         id: 0,
         src: "/src/assets/cat.png",
@@ -26,4 +26,31 @@ const avatarArray = [
     },
 ]
 
-export default avatarArray
+export const alphabetArray = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+]

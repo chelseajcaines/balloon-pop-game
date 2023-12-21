@@ -1,4 +1,4 @@
-import avatarArray from "/src/data/avatar-array"
+import { avatarArray } from "/src/data/const.js"
 import { useState } from "react"
 
 const PlayerChoosesAvatar = () => {
