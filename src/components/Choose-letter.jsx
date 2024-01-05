@@ -3,6 +3,7 @@ import { useState } from "react"
 
 const ChooseLetter = () => {
     const [selectedLetter, setSelectedLetter] = useState([])
+    const [movesCount, setMovesCount] = useState(0)
     const handleLetterClick = (letter) => {
         setSelectedLetter((prevLetters) => {
             if (prevLetters.includes(letter)) {
@@ -11,9 +12,11 @@ const ChooseLetter = () => {
                 return [...prevLetters, letter]
             }
         })
+        setMovesCount((prevMoves) => prevMoves + 1)
     }
     return (
-        <div>
+        <>
+            <div>Moves: {movesCount}</div>
             {alphabetArray.map((letter) => (
                 <div
                     key={letter}
@@ -34,7 +37,7 @@ const ChooseLetter = () => {
                     {letter}
                 </div>
             ))}
-        </div>
+        </>
     )
 }
 

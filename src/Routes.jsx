@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom"
 import Home from "./pages/Home"
-import ChooseOpponent from "./pages/choose-opponent"
-import ComputerPlayerInfo from "./pages/computer-player-info"
-import HumanPlayerInfo from "./pages/human-player-info"
-import ComputerGamePlay from "./pages/computer-game-play"
+import Opponent from "./pages/opponent"
+import SinglePlayerSetup from "./pages/single-player-setup"
+import TwoPlayerSetup from "./pages/two-player-setup"
+import SinglePlayerGamePlay from "./pages/single-player-game-play"
 
 const router = createBrowserRouter([
     {
@@ -11,20 +11,20 @@ const router = createBrowserRouter([
         element: <Home />,
     },
     {
-        path: "/choose-opponent",
-        element: <ChooseOpponent />,
+        path: "/opponent",
+        element: <Opponent />,
     },
     {
-        path: "/computer-player-info",
-        element: <ComputerPlayerInfo />,
+        path: "/single-player-setup",
+        element: <SinglePlayerSetup />,
     },
     {
-        path: "/human-player-info",
-        element: <HumanPlayerInfo />,
+        path: "/two-player-setup",
+        element: <TwoPlayerSetup />,
     },
     {
-        path: "/computer-game-play",
-        element: <ComputerGamePlay />,
+        path: "/single-player-game-play",
+        element: <SinglePlayerGamePlay />,
     },
 ])
 

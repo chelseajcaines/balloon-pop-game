@@ -1,10 +1,17 @@
 import { RouterProvider } from "react-router-dom"
 import router from "./Routes"
+import { useState } from "react"
+import AvatarContext from "/src/contexts/AvatarContext"
 
-export default function App() {
+const App = () => {
+    const [selectedAvatar, setSelectedAvatar] = useState(null)
     return (
-        <div className="App">
-            <RouterProvider router={router} />
-        </div>
+        <AvatarContext.Provider value={{ selectedAvatar, setSelectedAvatar }}>
+            <div className="App">
+                <RouterProvider router={router} />
+            </div>
+        </AvatarContext.Provider>
     )
 }
+
+export default App

@@ -8,7 +8,7 @@ const Button = ({ onClick, title }) => {
 const PlayButton = () => {
     const navigate = useNavigate()
     const handleClick = () => {
-        navigate("/choose-opponent")
+        navigate("/opponent")
     }
 
     return <Button onClick={handleClick} title="Play" />

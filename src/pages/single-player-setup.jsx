@@ -1,39 +1,43 @@
-import PlayerChoosesAvatar from "/src/components/Choose-avatar"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
+import ChooseAvatar from "/src/components/Choose-avatar"
+import PlayerAvatar from "/src/components/PlayerAvatar"
 
-const ComputerPlayerInfo = () => {
+const SignlePlayerSetup = () => {
+    const [inputValue, setInputValue] = useState("")
+    const [inputError, setInputError] = useState("")
+
     const navigate = useNavigate()
     const nextPage = () => {
-        navigate("/computer-game-play")
+        navigate(`/single-player-game-play?name=${inputValue}`)
     }
-    const [inputValue, setInputValue] = useState("")
-    const [error, setError] = useState("")
+
     const handleSubmit = (e) => {
         e.preventDefault()
         if (!inputValue) {
-            setError("Please enter a name")
+            setInputError("Please enter a name")
         } else {
-            setError("")
+            setInputError("")
             nextPage()
         }
     }
 
     return (
         <>
-            <h1>Player vs Computer - Player info</h1>
+            <h1>Single Player Setup</h1>
             <p>Choose your avatar</p>
-            <PlayerChoosesAvatar />
+            <ChooseAvatar />
+            <PlayerAvatar />
             <p>Enter name</p>
             <input
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
             />
-            <p style={{ color: "red" }}>{error}</p>
+            <p style={{ color: "red" }}>{inputError}</p>
             <button onClick={handleSubmit}>Start Game</button>
         </>
     )
 }
 
-export default ComputerPlayerInfo
+export default SignlePlayerSetup

@@ -1,37 +1,28 @@
-import { avatarArray } from "/src/data/const.js"
-import { useState } from "react"
+import { avatarArray } from "/src/data/const"
+import { useContext } from "react"
+import AvatarContext from "/src/contexts/AvatarContext"
 
-const PlayerChoosesAvatar = () => {
-    const [selectedAvatar, setSelectedAvatar] = useState(null)
+const ChooseAvatar = () => {
+    const { setSelectedAvatar } = useContext(AvatarContext)
     const handleAvatarClick = (avatar) => {
         setSelectedAvatar(avatar)
     }
 
     return (
         <>
-            <div>
-                {avatarArray.map((avatar) => (
-                    <div
-                        key={avatar.id}
-                        onClick={() => handleAvatarClick(avatar)}
-                        style={{
-                            cursor: "pointer",
-                            backgroundColor:
-                                selectedAvatar === avatar ? "blue" : "white",
-                        }}
-                    >
-                        <img src={avatar.src} alt={avatar.alt} />
-                    </div>
-                ))}
-            </div>
-            <div>
-                <p>Your Avatar</p>
-                {selectedAvatar && (
-                    <img src={selectedAvatar.src} alt={selectedAvatar.alt} />
-                )}
-            </div>
+            {avatarArray.map((avatar) => (
+                <img
+                    key={avatar.id}
+                    src={avatar.src}
+                    alt={avatar.alt}
+                    style={{ cursor: "pointer", margin: "10px" }}
+                    onClick={() => handleAvatarClick(avatar)}
+                />
+            ))}
         </>
     )
 }
 
-export default PlayerChoosesAvatar
+export default ChooseAvatar
+
+//{selectedAvatar && (<img src={selectedAvatar.src} alt={selectedAvatar.alt} />)}
