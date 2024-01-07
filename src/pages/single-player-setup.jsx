@@ -9,7 +9,7 @@ const SignlePlayerSetup = () => {
 
     const navigate = useNavigate()
     const nextPage = () => {
-        navigate(`/single-player-game-play?name=${inputValue}`)
+        navigate(`/categories`)
     }
 
     const handleSubmit = (e) => {
@@ -41,3 +41,5 @@ const SignlePlayerSetup = () => {
 }
 
 export default SignlePlayerSetup
+
+//navigate(`/single-player-game-play?name=${inputValue}`)
