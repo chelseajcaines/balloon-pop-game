@@ -9,7 +9,7 @@ const SignlePlayerSetup = () => {
 
     const navigate = useNavigate()
     const nextPage = () => {
-        navigate(`/categories`)
+        navigate(`/categories?name=${inputValue}`)
     }
 
     const handleSubmit = (e) => {
