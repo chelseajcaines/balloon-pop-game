@@ -7,14 +7,14 @@ const Categories = () => {
     const playerName = params.get("name")
 
     const navigate = useNavigate()
-    const nextPage = () => {
+    const movieTitles = () => {
         navigate(`/single-player-game-play?name=${playerName}`)
     }
 
     return (
         <>
             <h1>Choose Puzzle Category</h1>
-            <button onClick={nextPage}>Movie Titles</button>
+            <button onClick={movieTitles}>Movie Titles</button>
         </>
     )
 }
