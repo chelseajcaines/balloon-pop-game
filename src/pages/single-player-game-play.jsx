@@ -1,7 +1,8 @@
 import { alphabetArray } from "../data/const.js"
+import { wrongAnswersArray } from "../data/const.js"
 import { useLocation } from "react-router-dom"
-import { useState } from "react"
-import { useEffect } from "react"
+import { useCallback, useState, useEffect } from "react"
+import styles from "/src/stylesheets/Keyboard.module.css"
 import PlayerAvatar from "/src/components/PlayerAvatar"
 
 const SinglePlayerGamePlay = () => {
@@ -9,13 +10,14 @@ const SinglePlayerGamePlay = () => {
     const params = new URLSearchParams(location.search)
     const playerName = params.get("name")
 
-    const [lettersToClick, setLettersToClick] = useState(alphabetArray)
-    const [puzzle, setPuzzle] = useState([])
-    const [lettersToDisplay, setLettersToDisplay] = useState(puzzle)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [puzzle, setPuzzle] = useState("")
+    const [guessedLetters, setGuessedLetters] = useState([])
 
-    const [movesCount, setMovesCount] = useState(0)
+    const incorrectLetters = guessedLetters.filter(
+        (letter) => !puzzle.includes(letter)
+    )
 
     const fetchPuzzle = async () => {
         setError(null)
@@ -32,8 +34,8 @@ const SinglePlayerGamePlay = () => {
                 Math.random() * data.items.length
             )
             const randomPuzzle = data.items[randomPuzzleIndex]?.title || ""
-
-            convertPuzzleToArray(randomPuzzle)
+            const uppercasePuzzle = randomPuzzle.toUpperCase()
+            setPuzzle(uppercasePuzzle)
         } catch (error) {
             setError(error.message)
         } finally {
@@ -41,31 +43,22 @@ const SinglePlayerGamePlay = () => {
         }
     }
 
-    const convertPuzzleToArray = (randomPuzzle) => {
-        const newArray = randomPuzzle.split("").map((letter) => ({
-            letter,
-            guessed: false,
-        }))
-        setPuzzle(newArray)
-    }
+    const isLoser = incorrectLetters.length >= 6
+    const isWinner = puzzle
+        .split("")
+        .every((letter) => guessedLetters.includes(letter))
 
-    console.log(puzzle)
-
-    const handleLetterClick = (index) => {
-        if (lettersToClick[index].clicked) {
-            return
-        }
-        const updatedLettersToDisplay = [...lettersToDisplay]
-        if (lettersToClick[index].clicked === lettersToDisplay[index]) {
-            updatedLettersToDisplay[index].guessed = true
-        }
-        setLettersToDisplay(updatedLettersToDisplay)
-        const updatedLettersToClick = [...lettersToClick]
-        updatedLettersToClick[index].clicked = true
-        setLettersToClick(updatedLettersToClick)
-
-        setMovesCount((prevMoves) => prevMoves + 1)
-    }
+    const addGuessedLetter = useCallback(
+        (letter) => {
+            if (!guessedLetters.includes(letter)) {
+                setGuessedLetters((currentLetters) => [
+                    ...currentLetters,
+                    letter,
+                ])
+            }
+        },
+        [guessedLetters]
+    )
 
     useEffect(() => {
         fetchPuzzle()
@@ -76,33 +69,36 @@ const SinglePlayerGamePlay = () => {
             <h1>Single Player - Game play</h1>
             <PlayerAvatar />
             <p>Player Name: {playerName}</p>
-            <MovesCountDisplay movesCount={movesCount} />
-            <HiddenPuzzle lettersToDisplay={lettersToDisplay} />
-            <PuzzleFetcher isLoading={isLoading} error={error} />
-            <GuessLetterButtons
-                lettersToClick={lettersToClick}
-                handleLetterClick={handleLetterClick}
-            />
+            <div style={{ paddingBottom: "10px" }}>
+                <WrongGuess numberOfGuesses={incorrectLetters.length} />
+            </div>
+            <FetchStatusMessage isLoading={isLoading} error={error} />
+            <div style={{ paddingTop: "10px", paddingBottom: "10px" }}>
+                <WordPuzzle
+                    puzzle={puzzle}
+                    guessedLetters={guessedLetters}
+                    reveal={isLoser}
+                />
+            </div>
+            <div style={{ paddingTop: "10px" }}>
+                <Keyboard
+                    activeLetters={guessedLetters.filter((letter) =>
+                        puzzle.includes(letter)
+                    )}
+                    inactiveLetters={incorrectLetters}
+                    onLetterClick={addGuessedLetter}
+                    disabled={isWinner || isLoser}
+                />
+                <div>
+                    {isWinner && "Winner! - Refresh to play again"}
+                    {isLoser && "Nice Try! - Refresh to play again"}
+                </div>
+            </div>
         </>
     )
 }
 
-const HiddenPuzzle = ({ lettersToDisplay }) => {
-    return (
-        <div>
-            {lettersToDisplay.map((letterObj, index) => (
-                <div
-                    key={index}
-                    style={{ display: "inline-block", margin: "5px" }}
-                >
-                    {letterObj.guessed ? letterObj.letter : "_"}
-                </div>
-            ))}
-        </div>
-    )
-}
-
-const PuzzleFetcher = ({ isLoading, error }) => {
+const FetchStatusMessage = ({ isLoading, error }) => {
     return (
         <div>
             {isLoading ? (
@@ -114,24 +110,73 @@ const PuzzleFetcher = ({ isLoading, error }) => {
     )
 }
 
-const GuessLetterButtons = ({ lettersToClick, handleLetterClick }) => {
+const WrongGuess = ({ numberOfGuesses }) => {
+    return <div>{wrongAnswersArray.slice(0, numberOfGuesses).join(", ")}</div>
+}
+
+const WordPuzzle = ({ puzzle, guessedLetters, reveal = false }) => {
     return (
         <div>
-            {lettersToClick.map((letterObj, index) => (
-                <button
+            {puzzle.split("").map((letter, index) => (
+                <div
                     key={index}
-                    onClick={() => handleLetterClick(index)}
-                    style={{ color: letterObj.clicked ? "red" : "black" }}
+                    style={{
+                        width: "15px",
+                        height: "15px",
+                        display: "inline-block",
+                        padding: "5px",
+                        borderBottom: "1px solid black",
+                        margin: "3px",
+                    }}
                 >
-                    {letterObj.value}
-                </button>
+                    <div
+                        style={{
+                            visibility:
+                                guessedLetters.includes(letter) || reveal
+                                    ? "visible"
+                                    : "hidden",
+                            color:
+                                !guessedLetters.includes(letter) && reveal
+                                    ? "red"
+                                    : "black",
+                        }}
+                    >
+                        {letter}
+                    </div>
+                </div>
             ))}
         </div>
     )
 }
 
-const MovesCountDisplay = ({ movesCount }) => {
-    return <div>Moves:{movesCount}</div>
+const Keyboard = ({
+    activeLetters,
+    inactiveLetters,
+    onLetterClick,
+    disabled = false,
+}) => {
+    return (
+        <div>
+            {alphabetArray.map((letter) => {
+                const isActive = activeLetters.includes(letter)
+                const isInactive = inactiveLetters.includes(letter)
+                return (
+                    <div key={letter} style={{ display: "inline-block" }}>
+                        <button
+                            onClick={() => onLetterClick(letter)}
+                            className={`${styles.btn} ${
+                                isActive ? styles.active : ""
+                            }
+                    ${isInactive ? styles.inactive : ""}`}
+                            disabled={isActive || isInactive || disabled}
+                        >
+                            {letter}
+                        </button>
+                    </div>
+                )
+            })}
+        </div>
+    )
 }
 
 export default SinglePlayerGamePlay

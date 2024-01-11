@@ -1,0 +1,13 @@
+.btn:hover:not(:disabled),
+.btn:focus:not(:disabled) {
+    background-color: blueviolet;
+}
+
+.btn.active {
+    background-color: rgb(97, 17, 172);
+    color: white;
+}
+
+.btn.inactive {
+    opacity: 0.3;
+}
