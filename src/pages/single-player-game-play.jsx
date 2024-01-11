@@ -1,9 +1,10 @@
-import { alphabetArray } from "../data/const.js"
-import { wrongAnswersArray } from "../data/const.js"
 import { useLocation } from "react-router-dom"
 import { useCallback, useState, useEffect } from "react"
-import styles from "/src/stylesheets/Keyboard.module.css"
+import Keyboard from "../components/Keyboard.jsx"
 import PlayerAvatar from "/src/components/PlayerAvatar"
+import WordPuzzle from "../components/WordPuzzle.jsx"
+import WrongGuess from "../components/WrongGuess.jsx"
+import FetchStatusMessage from "../components/FetchStatusMessage.jsx"
 
 const SinglePlayerGamePlay = () => {
     const location = useLocation()
@@ -95,87 +96,6 @@ const SinglePlayerGamePlay = () => {
                 </div>
             </div>
         </>
-    )
-}
-
-const FetchStatusMessage = ({ isLoading, error }) => {
-    return (
-        <div>
-            {isLoading ? (
-                <p>Loading...</p>
-            ) : (
-                <>{error && <p>Error: {error}</p>}</>
-            )}
-        </div>
-    )
-}
-
-const WrongGuess = ({ numberOfGuesses }) => {
-    return <div>{wrongAnswersArray.slice(0, numberOfGuesses).join(", ")}</div>
-}
-
-const WordPuzzle = ({ puzzle, guessedLetters, reveal = false }) => {
-    return (
-        <div>
-            {puzzle.split("").map((letter, index) => (
-                <div
-                    key={index}
-                    style={{
-                        width: "15px",
-                        height: "15px",
-                        display: "inline-block",
-                        padding: "5px",
-                        borderBottom: "1px solid black",
-                        margin: "3px",
-                    }}
-                >
-                    <div
-                        style={{
-                            visibility:
-                                guessedLetters.includes(letter) || reveal
-                                    ? "visible"
-                                    : "hidden",
-                            color:
-                                !guessedLetters.includes(letter) && reveal
-                                    ? "red"
-                                    : "black",
-                        }}
-                    >
-                        {letter}
-                    </div>
-                </div>
-            ))}
-        </div>
-    )
-}
-
-const Keyboard = ({
-    activeLetters,
-    inactiveLetters,
-    onLetterClick,
-    disabled = false,
-}) => {
-    return (
-        <div>
-            {alphabetArray.map((letter) => {
-                const isActive = activeLetters.includes(letter)
-                const isInactive = inactiveLetters.includes(letter)
-                return (
-                    <div key={letter} style={{ display: "inline-block" }}>
-                        <button
-                            onClick={() => onLetterClick(letter)}
-                            className={`${styles.btn} ${
-                                isActive ? styles.active : ""
-                            }
-                    ${isInactive ? styles.inactive : ""}`}
-                            disabled={isActive || isInactive || disabled}
-                        >
-                            {letter}
-                        </button>
-                    </div>
-                )
-            })}
-        </div>
     )
 }
 
