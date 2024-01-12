@@ -15,10 +15,12 @@ const SinglePlayerGamePlay = () => {
     const [error, setError] = useState(null)
     const [puzzle, setPuzzle] = useState("")
     const [guessedLetters, setGuessedLetters] = useState([])
+    const [selectedAvatar, setSelectedAvatar] = useState("")
 
-    const incorrectLetters = guessedLetters.filter(
-        (letter) => !puzzle.includes(letter)
-    )
+    useEffect(() => {
+        const data = window.localStorage.getItem("AVATAR_KEY")
+        setSelectedAvatar(JSON.parse(data))
+    }, [])
 
     const fetchPuzzle = async () => {
         setError(null)
@@ -44,6 +46,14 @@ const SinglePlayerGamePlay = () => {
         }
     }
 
+    useEffect(() => {
+        fetchPuzzle()
+    }, [])
+
+    const incorrectLetters = guessedLetters.filter(
+        (letter) => !puzzle.includes(letter)
+    )
+
     const isLoser = incorrectLetters.length >= 6
     const isWinner = puzzle
         .split("")
@@ -61,14 +71,10 @@ const SinglePlayerGamePlay = () => {
         [guessedLetters]
     )
 
-    useEffect(() => {
-        fetchPuzzle()
-    }, [])
-
     return (
         <>
             <h1>Single Player - Game play</h1>
-            <PlayerAvatar />
+            <PlayerAvatar selectedAvatar={selectedAvatar} />
             <p>Player Name: {playerName}</p>
             <div style={{ paddingBottom: "10px" }}>
                 <WrongGuess numberOfGuesses={incorrectLetters.length} />

@@ -8,7 +8,7 @@ const Categories = () => {
 
     const navigate = useNavigate()
     const movieTitles = () => {
-        navigate(`/single-player-game-play?name=${playerName}`)
+        navigate(`/SinglePlayerGamePlay?name=${playerName}`)
     }
 
     return (

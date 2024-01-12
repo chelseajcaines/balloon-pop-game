@@ -1,16 +1,12 @@
 import { useNavigate } from "react-router-dom"
-import { useState, useContext } from "react"
+import { useState, useEffect } from "react"
 import { avatarArray } from "/src/data/const"
-import AvatarContext from "/src/contexts/AvatarContext"
+import PlayerAvatar from "../components/PlayerAvatar"
 
 const SignlePlayerSetup = () => {
     const [inputValue, setInputValue] = useState("")
     const [inputError, setInputError] = useState("")
-
-    const { selectedAvatar, setSelectedAvatar } = useContext(AvatarContext)
-    const handleAvatarClick = (avatar) => {
-        setSelectedAvatar(avatar)
-    }
+    const [selectedAvatar, setSelectedAvatar] = useState("")
 
     const navigate = useNavigate()
 
@@ -23,6 +19,18 @@ const SignlePlayerSetup = () => {
         return avatarArray[randomIndex]
     }
 
+    const handleAvatarClick = (avatar) => {
+        setSelectedAvatar(avatar)
+        localStorage.setItem("AVATAR_KEY", JSON.stringify(avatar))
+    }
+
+    useEffect(() => {
+        const storedAvatar = localStorage.getItem("AVATAR_KEY")
+        if (storedAvatar) {
+            setSelectedAvatar(JSON.parse(storedAvatar))
+        }
+    }, [])
+
     const handleSubmit = (e) => {
         e.preventDefault()
         if (!inputValue) {
@@ -30,11 +38,12 @@ const SignlePlayerSetup = () => {
         } else if (!selectedAvatar) {
             const randomAvatar = getRandomAvatar()
             setSelectedAvatar(randomAvatar)
+            localStorage.setItem("AVATAR_KEY", JSON.stringify(randomAvatar))
             setInputError("")
-            navigate(`/categories?name=${inputValue}`)
+            navigate(`/Categories?name=${inputValue}`)
         } else {
             setInputError("")
-            navigate(`/categories?name=${inputValue}`)
+            navigate(`/Categories?name=${inputValue}`)
         }
     }
 
@@ -43,7 +52,7 @@ const SignlePlayerSetup = () => {
             <h1>Single Player Setup</h1>
             <p>Choose your avatar</p>
             <AvatarGallery handleAvatarClick={handleAvatarClick} />
-            <PlayerAvatar />
+            <PlayerAvatar selectedAvatar={selectedAvatar} />
             <p>Enter name</p>
             <NameInput value={inputValue} onChange={handleInputValue} />
             <p style={{ color: "red" }}>{inputError}</p>
@@ -69,19 +78,6 @@ const AvatarGallery = ({ handleAvatarClick }) => {
                 />
             ))}
         </>
-    )
-}
-
-const PlayerAvatar = () => {
-    const { selectedAvatar } = useContext(AvatarContext)
-
-    if (!selectedAvatar) return null
-
-    return (
-        <div>
-            <h3>Selected Avatar</h3>
-            <img src={selectedAvatar.src} alt={selectedAvatar.alt} />
-        </div>
     )
 }
 

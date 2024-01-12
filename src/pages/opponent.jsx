@@ -17,7 +17,7 @@ const Opponent = () => {
 const SinglePlayerButton = () => {
     const navigate = useNavigate()
     const handleClick = () => {
-        navigate("/single-player-setup")
+        navigate("/SinglePlayerSetup")
     }
     return <Button onClick={handleClick} title="Single Player" />
 }
@@ -25,7 +25,7 @@ const SinglePlayerButton = () => {
 const TwoPlayerButton = () => {
     const navigate = useNavigate()
     const handleClick = () => {
-        navigate("/two-player-setup")
+        navigate("/TwoPlayerSetup")
     }
     return <Button onClick={handleClick} title="Two Player" />
 }

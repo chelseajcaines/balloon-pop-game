@@ -14,7 +14,7 @@ const Home = () => {
 const PlayButton = () => {
     const navigate = useNavigate()
     const handleClick = () => {
-        navigate("/opponent")
+        navigate("/Opponent")
     }
 
     return <Button onClick={handleClick} />
