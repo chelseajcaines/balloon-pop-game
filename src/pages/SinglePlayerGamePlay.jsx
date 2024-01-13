@@ -57,7 +57,8 @@ const SinglePlayerGamePlay = () => {
     const isLoser = incorrectLetters.length >= 6
     const isWinner = puzzle
         .split("")
-        .every((letter) => guessedLetters.includes(letter))
+        .filter((letter) => ![":", "'", " "].includes(letter))
+        .every((filteredLetter) => guessedLetters.includes(filteredLetter))
 
     const addGuessedLetter = useCallback(
         (letter) => {

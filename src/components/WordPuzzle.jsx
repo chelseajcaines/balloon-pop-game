@@ -9,14 +9,21 @@ const WordPuzzle = ({ puzzle, guessedLetters, reveal = false }) => {
                         height: "15px",
                         display: "inline-block",
                         padding: "5px",
-                        borderBottom: "1px solid black",
+                        borderBottom:
+                            letter === ":" || letter === "'" || letter === " "
+                                ? "none"
+                                : "1px solid black",
                         margin: "3px",
                     }}
                 >
                     <div
                         style={{
                             visibility:
-                                guessedLetters.includes(letter) || reveal
+                                guessedLetters.includes(letter) ||
+                                reveal ||
+                                letter === ":" ||
+                                letter === "'" ||
+                                letter === " "
                                     ? "visible"
                                     : "hidden",
                             color:
