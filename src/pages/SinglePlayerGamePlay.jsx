@@ -72,6 +72,22 @@ const SinglePlayerGamePlay = () => {
         [guessedLetters]
     )
 
+    useEffect(() => {
+        const handleKeyPress = (event) => {
+            const keyPressed = event.key.toUpperCase()
+
+            if (/^[A-Z]$/.test(keyPressed) && !isWinner && !isLoser) {
+                addGuessedLetter(keyPressed)
+            }
+        }
+
+        window.addEventListener("keypress", handleKeyPress)
+
+        return () => {
+            window.removeEventListener("keypress", handleKeyPress)
+        }
+    }, [isWinner, isLoser, addGuessedLetter])
+
     return (
         <>
             <h1>Single Player - Game play</h1>
