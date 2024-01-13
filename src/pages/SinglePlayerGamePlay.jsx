@@ -5,6 +5,7 @@ import PlayerAvatar from "/src/components/PlayerAvatar"
 import WordPuzzle from "../components/WordPuzzle.jsx"
 import WrongGuess from "../components/WrongGuess.jsx"
 import FetchStatusMessage from "../components/FetchStatusMessage.jsx"
+import MovesCounter from "../components/MovesCounter.jsx"
 
 const SinglePlayerGamePlay = () => {
     const location = useLocation()
@@ -16,6 +17,8 @@ const SinglePlayerGamePlay = () => {
     const [puzzle, setPuzzle] = useState("")
     const [guessedLetters, setGuessedLetters] = useState([])
     const [selectedAvatar, setSelectedAvatar] = useState("")
+    const [movesCount, setMovesCount] = useState(0)
+    const [winCount, setWinCount] = useState(0)
 
     useEffect(() => {
         const data = window.localStorage.getItem("AVATAR_KEY")
@@ -38,6 +41,7 @@ const SinglePlayerGamePlay = () => {
             )
             const randomPuzzle = data.items[randomPuzzleIndex]?.title || ""
             const uppercasePuzzle = randomPuzzle.toUpperCase()
+            console.log(uppercasePuzzle)
             setPuzzle(uppercasePuzzle)
         } catch (error) {
             setError(error.message)
@@ -62,14 +66,15 @@ const SinglePlayerGamePlay = () => {
 
     const addGuessedLetter = useCallback(
         (letter) => {
-            if (!guessedLetters.includes(letter)) {
+            if (!guessedLetters.includes(letter) && !isWinner && !isLoser) {
                 setGuessedLetters((currentLetters) => [
                     ...currentLetters,
                     letter,
                 ])
+                setMovesCount((count) => count + 1)
             }
         },
-        [guessedLetters]
+        [guessedLetters, isWinner, isLoser]
     )
 
     useEffect(() => {
@@ -88,6 +93,16 @@ const SinglePlayerGamePlay = () => {
         }
     }, [isWinner, isLoser, addGuessedLetter])
 
+    useEffect(() => {
+        if (isWinner) {
+            setWinCount((prevWinCount) => prevWinCount + 1)
+        }
+
+        if (isLoser) {
+            setWinCount(0)
+        }
+    }, [isWinner, isLoser])
+
     return (
         <>
             <h1>Single Player - Game play</h1>
@@ -104,6 +119,7 @@ const SinglePlayerGamePlay = () => {
                     reveal={isLoser}
                 />
             </div>
+            <MovesCounter movesCount={movesCount} />
             <div style={{ paddingTop: "10px" }}>
                 <Keyboard
                     activeLetters={guessedLetters.filter((letter) =>
@@ -113,10 +129,11 @@ const SinglePlayerGamePlay = () => {
                     onLetterClick={addGuessedLetter}
                     disabled={isWinner || isLoser}
                 />
-                <div>
-                    {isWinner && "Winner! - Refresh to play again"}
-                    {isLoser && "Nice Try! - Refresh to play again"}
-                </div>
+            </div>
+            <div>Wins: {winCount}</div>
+            <div>
+                {isWinner && "Winner! - Refresh to play again"}
+                {isLoser && "Nice Try! - Refresh to play again"}
             </div>
         </>
     )
