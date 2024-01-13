@@ -94,6 +94,7 @@ const SinglePlayerGamePlay = () => {
     }, [isWinner, isLoser, addGuessedLetter])
 
     useEffect(() => {
+        console.log("initial win count", winCount)
         if (isWinner) {
             setWinCount((prevWinCount) => prevWinCount + 1)
         }
