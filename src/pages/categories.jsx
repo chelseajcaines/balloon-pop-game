@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { useLocation } from "react-router-dom"
+import styles from "/src/stylesheets/Categories.module.css"
 
 const Categories = () => {
     const location = useLocation()
@@ -13,8 +14,14 @@ const Categories = () => {
 
     return (
         <>
-            <h1>Choose Puzzle Category</h1>
-            <button onClick={movieTitles}>Movie Titles</button>
+            <div className={styles.pageContainer}>
+                <div className={styles.header}>
+                    <h1>Choose Puzzle Category</h1>
+                    <div className={styles.categoryList}>
+                        <button onClick={movieTitles}>Movie Titles</button>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

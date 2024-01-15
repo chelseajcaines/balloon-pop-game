@@ -14,7 +14,7 @@ const Keyboard = ({
     ]
 
     return (
-        <div>
+        <div className={styles.keyboard}>
             {rows.map((row, index) => (
                 <div key={index} className={styles.row}>
                     {row.map((letter) => {

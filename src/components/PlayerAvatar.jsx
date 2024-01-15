@@ -3,7 +3,6 @@ const PlayerAvatar = ({ selectedAvatar }) => {
 
     return (
         <div>
-            <h3>Selected Avatar</h3>
             {selectedAvatar && (
                 <img src={selectedAvatar.src} alt={selectedAvatar.alt} />
             )}

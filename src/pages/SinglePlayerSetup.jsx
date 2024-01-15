@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
-import { avatarArray } from "/src/data/const"
 import PlayerAvatar from "../components/PlayerAvatar"
+import AvatarGallery from "../components/AvatarGallery"
+import styles from "/src/stylesheets/SinglePlayerSetup.module.css"
 
 const SignlePlayerSetup = () => {
     const [inputValue, setInputValue] = useState("")
@@ -49,36 +50,28 @@ const SignlePlayerSetup = () => {
 
     return (
         <>
-            <h1>Single Player Setup</h1>
-            <p>Choose your avatar</p>
-            <AvatarGallery handleAvatarClick={handleAvatarClick} />
-            <PlayerAvatar selectedAvatar={selectedAvatar} />
-            <p>Enter name</p>
-            <NameInput value={inputValue} onChange={handleInputValue} />
-            <p style={{ color: "red" }}>{inputError}</p>
-            <button onClick={handleSubmit}>Start Game</button>
+            <div className={styles.pageContainer}>
+                <div className={styles.header}>
+                    <h1>Single Player Setup</h1>
+                    <p>Choose your avatar</p>
+                </div>
+                <div className={styles.mainSection}>
+                    <div className={styles.avatarGallery}>
+                        <AvatarGallery handleAvatarClick={handleAvatarClick} />
+                    </div>
+                    <PlayerAvatar selectedAvatar={selectedAvatar} />
+                    <p>Enter name</p>
+                    <NameInput value={inputValue} onChange={handleInputValue} />
+                    <p style={{ color: "red" }}>{inputError}</p>
+                    <button onClick={handleSubmit}>Next</button>
+                </div>
+            </div>
         </>
     )
 }
 
 const NameInput = ({ inputValue, onChange }) => {
     return <input type="text" value={inputValue} onChange={onChange} />
-}
-
-const AvatarGallery = ({ handleAvatarClick }) => {
-    return (
-        <>
-            {avatarArray.map((avatar) => (
-                <img
-                    key={avatar.id}
-                    src={avatar.src}
-                    alt={avatar.alt}
-                    style={{ cursor: "pointer", margin: "10px" }}
-                    onClick={() => handleAvatarClick(avatar)}
-                />
-            ))}
-        </>
-    )
 }
 
 export default SignlePlayerSetup

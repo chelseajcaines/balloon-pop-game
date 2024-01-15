@@ -1,0 +1,33 @@
+.puzzleContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.puzzleLetter {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    padding: 5px;
+    margin: 3px;
+}
+
+.puzzleLetterBorder {
+    border-bottom: 1px solid black;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.red {
+    color: red;
+}
+
+.black {
+    color: black;
+}

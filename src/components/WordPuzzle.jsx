@@ -1,36 +1,33 @@
+import styles from "/src/stylesheets/WordPuzzle.module.css"
+
 const WordPuzzle = ({ puzzle, guessedLetters, reveal = false }) => {
     return (
-        <div>
+        <div className={styles.puzzleContainer}>
             {puzzle.split("").map((letter, index) => (
                 <div
                     key={index}
-                    style={{
-                        width: "15px",
-                        height: "15px",
-                        display: "inline-block",
-                        padding: "5px",
-                        borderBottom:
-                            letter === ":" || letter === "'" || letter === " "
-                                ? "none"
-                                : "1px solid black",
-                        margin: "3px",
-                    }}
+                    className={`${styles.puzzleLetter} ${
+                        letter === ":" || letter === "'" || letter === " "
+                            ? ""
+                            : styles["puzzleLetterBorder"]
+                    }`}
                 >
                     <div
-                        style={{
-                            visibility:
+                        className={`${
+                            styles[
                                 guessedLetters.includes(letter) ||
                                 reveal ||
                                 letter === ":" ||
                                 letter === "'" ||
                                 letter === " "
                                     ? "visible"
-                                    : "hidden",
-                            color:
-                                !guessedLetters.includes(letter) && reveal
-                                    ? "red"
-                                    : "black",
-                        }}
+                                    : "hidden"
+                            ]
+                        } ${
+                            !guessedLetters.includes(letter) && reveal
+                                ? styles.red
+                                : styles.black
+                        }`}
                     >
                         {letter}
                     </div>
