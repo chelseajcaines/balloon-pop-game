@@ -1,4 +1,9 @@
-const QuitModal = ({ isOpen, handleYesButtonClick, handleNoButtonClick }) => {
+const QuitModal = ({
+    isOpen,
+    handleYesButtonClick,
+    handleNoButtonClick,
+    onCancel,
+}) => {
     const modalStyles = {
         position: "fixed",
         top: "50%",
@@ -25,7 +30,7 @@ const QuitModal = ({ isOpen, handleYesButtonClick, handleNoButtonClick }) => {
 
     return (
         <>
-            <div style={overlayStyles}></div>
+            <div style={overlayStyles} onClick={onCancel}></div>
             <div style={modalStyles}>
                 <p>Are you sure?</p>
                 <button onClick={handleYesButtonClick}>Yes</button>

@@ -1,8 +1,7 @@
-const WinModal = ({
+const BackHomeModal = ({
     isOpen,
-    congratsMessage,
-    handleNextPuzzleClick,
-    handleQuitButtonClick,
+    handleHomeYesButtonClick,
+    handleHomeNoButtonClick,
     onCancel,
 }) => {
     const modalStyles = {
@@ -33,13 +32,12 @@ const WinModal = ({
         <>
             <div style={overlayStyles} onClick={onCancel}></div>
             <div style={modalStyles}>
-                <div>{congratsMessage}</div>
-                <p>Next puzzle?</p>
-                <button onClick={handleNextPuzzleClick}>Continue</button>
-                <button onClick={handleQuitButtonClick}>Quit</button>
+                <p>Leave game and retun to home page?</p>
+                <button onClick={handleHomeYesButtonClick}>Yes</button>
+                <button onClick={handleHomeNoButtonClick}>No</button>
             </div>
         </>
     )
 }
 
-export default WinModal
+export default BackHomeModal

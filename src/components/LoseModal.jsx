@@ -1,8 +1,7 @@
-const WinModal = ({
+const LoseModal = ({
     isOpen,
-    congratsMessage,
-    handleNextPuzzleClick,
-    handleQuitButtonClick,
+    handlePlayAgainYesClick,
+    handlePlayAgainNoClick,
     onCancel,
 }) => {
     const modalStyles = {
@@ -33,13 +32,12 @@ const WinModal = ({
         <>
             <div style={overlayStyles} onClick={onCancel}></div>
             <div style={modalStyles}>
-                <div>{congratsMessage}</div>
-                <p>Next puzzle?</p>
-                <button onClick={handleNextPuzzleClick}>Continue</button>
-                <button onClick={handleQuitButtonClick}>Quit</button>
+                <p>Nice Try! Play Again?</p>
+                <button onClick={handlePlayAgainYesClick}>Yes</button>
+                <button onClick={handlePlayAgainNoClick}>No</button>
             </div>
         </>
     )
 }
 
-export default WinModal
+export default LoseModal

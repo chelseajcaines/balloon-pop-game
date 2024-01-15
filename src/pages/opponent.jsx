@@ -1,13 +1,23 @@
 import stickPerson from "../assets/stickPerson.png"
 import stickPeople from "../assets/stickPeople.png"
+import BestScore from "../components/BestScore"
 import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
 
 const Opponent = () => {
+    const [bestScore, setBestScore] = useState(0)
+
+    useEffect(() => {
+        const prevHighScore = localStorage.getItem("HIGH_SCORE_KEY")
+        setBestScore(JSON.parse(prevHighScore))
+    }, [])
+
     return (
         <>
             <h1>Single Player or Play with a Friend</h1>
             <Image src={stickPerson} />
             <SinglePlayerButton />
+            <BestScore bestScore={bestScore} />
             <Image src={stickPeople} />
             <TwoPlayerButton />
         </>
