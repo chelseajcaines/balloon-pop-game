@@ -6,10 +6,9 @@ import WordPuzzle from "../components/WordPuzzle.jsx"
 import WrongGuess from "../components/WrongGuess.jsx"
 import FetchStatusMessage from "../components/FetchStatusMessage.jsx"
 import WinModal from "../components/WinModal.jsx"
-import QuitModal from "/src/components/QuitModal"
 import LoseModal from "../components/LoseModal.jsx"
-import BackHomeModal from "../components/BackHomeModal.jsx"
-import BestScore from "../components/BestScore.jsx"
+import LeaveGameModal from "/src/components/LeaveGameModal"
+import HighScore from "../components/HighScore.jsx"
 
 const SinglePlayerGamePlay = () => {
     const navigate = useNavigate()
@@ -25,12 +24,10 @@ const SinglePlayerGamePlay = () => {
     const [selectedAvatar, setSelectedAvatar] = useState("")
     const [pointsWon, setPointsWon] = useState(0)
     const [showWinModal, setShowWinModal] = useState(false)
-    const [showWinQuitModal, setShowWinQuitModal] = useState(false)
+    const [showLeaveGameModal, setShowLeaveGameModal] = useState(false)
     const [showLoseModal, setShowLoseModal] = useState(false)
-    const [showBackHomeModal, setShowBackHomeModal] = useState(false)
-    const [congratsMessage, setCongratsMessage] = useState("")
     const [currentScore, setCurrentScore] = useState(0)
-    const [bestScore, setBestScore] = useState(0)
+    const [highScore, setHighScore] = useState(0)
 
     useEffect(() => {
         const data = window.localStorage.getItem("AVATAR_KEY")
@@ -65,6 +62,10 @@ const SinglePlayerGamePlay = () => {
         fetchPuzzle()
     }, [])
 
+    const activeLetters = guessedLetters.filter((letter) =>
+        puzzle.includes(letter)
+    )
+
     const incorrectLetters = guessedLetters.filter(
         (letter) => !puzzle.includes(letter)
     )
@@ -80,7 +81,6 @@ const SinglePlayerGamePlay = () => {
             const numberOfPointsWon = 6 - incorrectLetters.length
             setPointsWon(numberOfPointsWon)
             setShowWinModal(true)
-            setCongratsMessage(`Congrats! You won ${pointsWon} points!`)
         }
     }, [isWinner, pointsWon, incorrectLetters.length])
 
@@ -119,67 +119,59 @@ const SinglePlayerGamePlay = () => {
         }
     }, [isWinner, isLoser, addGuessedLetter])
 
-    const handleNextPuzzleClick = () => {
-        setCurrentScore((prevScore) => prevScore + pointsWon)
-        setShowWinModal(false)
-        fetchPuzzle()
-    }
-
     useEffect(() => {
         const prevHighScore = localStorage.getItem("HIGH_SCORE_KEY")
-        setBestScore(JSON.parse(prevHighScore))
+        setHighScore(JSON.parse(prevHighScore))
     }, [])
 
-    const handleYesButtonClick = () => {
+    const handleSaveAndLeaveGame = () => {
         const newScore = currentScore + pointsWon
-        const prevBestScore = JSON.parse(localStorage.getItem("HIGH_SCORE_KEY"))
-        if (newScore <= prevBestScore) {
+        const prevHighScore = JSON.parse(localStorage.getItem("HIGH_SCORE_KEY"))
+        if (newScore <= prevHighScore) {
             localStorage.setItem(
                 "HIGH_SCORE_KEY",
-                JSON.stringify(prevBestScore)
+                JSON.stringify(prevHighScore)
             )
             navigate("/")
-        } else if (newScore > prevBestScore) {
+        } else if (newScore > prevHighScore) {
             localStorage.setItem("HIGH_SCORE_KEY", JSON.stringify(newScore))
             navigate("/")
         }
     }
 
-    const handleNoButtonClick = () => {
-        setShowWinQuitModal(false)
-        handleNextPuzzleClick()
-    }
-
-    const handlePlayAgainYesClick = () => {
-        setCurrentScore(0)
+    const handleSaveAndNextPuzzle = () => {
+        setCurrentScore((prevScore) => prevScore + pointsWon)
         setGuessedLetters([])
         setPuzzle("")
         setIsLoading(true)
+        setShowWinModal(false)
+        setShowLeaveGameModal(false)
         setPointsWon(0)
-        setShowLoseModal(false)
-        fetchPuzzle()
-    }
-
-    const handleLeaveGameClick = () => {
-        setShowBackHomeModal(false)
-        setCurrentScore(0)
-        setGuessedLetters([])
-        setPuzzle("")
-        setIsLoading(true)
-        setPointsWon(0)
-        setShowLoseModal(false)
         fetchPuzzle()
     }
 
     return (
         <>
-            <h1>Single Player - Game play</h1>
-            <PlayerAvatar selectedAvatar={selectedAvatar} />
-            <p>Player Name: {playerName}</p>
+            <div>
+                <h1>Single Player - Game play</h1>
+            </div>
+
+            <div>
+                <PlayerAvatar selectedAvatar={selectedAvatar} />
+            </div>
+
+            <div>
+                <p>Player Name: {playerName}</p>
+            </div>
+
             <div style={{ paddingBottom: "10px" }}>
                 <WrongGuess numberOfGuesses={incorrectLetters.length} />
             </div>
-            <FetchStatusMessage isLoading={isLoading} error={error} />
+
+            <div>
+                <FetchStatusMessage isLoading={isLoading} error={error} />
+            </div>
+
             <div style={{ paddingTop: "10px", paddingBottom: "10px" }}>
                 <WordPuzzle
                     puzzle={puzzle}
@@ -190,56 +182,54 @@ const SinglePlayerGamePlay = () => {
 
             <div style={{ paddingTop: "10px" }}>
                 <Keyboard
-                    activeLetters={guessedLetters.filter((letter) =>
-                        puzzle.includes(letter)
-                    )}
+                    activeLetters={activeLetters}
                     inactiveLetters={incorrectLetters}
                     onLetterClick={addGuessedLetter}
                     disabled={isWinner || isLoser}
                 />
             </div>
-            <div>Current Score: {currentScore}</div>
-            <BestScore bestScore={bestScore} />
-            <button onClick={() => setShowBackHomeModal(true)}>
-                Back to Home Page
-            </button>
 
-            {isWinner && (
-                <WinModal
-                    isOpen={showWinModal}
-                    congratsMessage={congratsMessage}
-                    handleNextPuzzleClick={handleNextPuzzleClick}
-                    handleQuitButtonClick={() => setShowWinQuitModal(true)}
-                    onCancel={handleNextPuzzleClick}
-                />
-            )}
+            <div>
+                <p>Current Score: {currentScore}</p>
+            </div>
 
-            {showWinQuitModal && (
-                <QuitModal
-                    isOpen={showWinQuitModal}
-                    handleYesButtonClick={handleYesButtonClick}
-                    handleNoButtonClick={handleNoButtonClick}
-                    onCancel={handleNoButtonClick}
-                />
-            )}
+            <div>
+                <HighScore highScore={highScore} />
+            </div>
 
-            {isLoser && (
-                <LoseModal
-                    isOpen={showLoseModal}
-                    handlePlayAgainYesClick={handlePlayAgainYesClick}
-                    handlePlayAgainNoClick={() => setShowBackHomeModal(true)}
-                    onCancel={() => setShowBackHomeModal(true)}
-                />
-            )}
+            <div>
+                {isWinner && (
+                    <WinModal
+                        isOpen={showWinModal}
+                        points={pointsWon}
+                        handleContinue={handleSaveAndNextPuzzle}
+                        handleQuit={() => setShowLeaveGameModal(true)}
+                        onCancel={handleSaveAndNextPuzzle}
+                    />
+                )}
+            </div>
 
-            {showBackHomeModal && (
-                <BackHomeModal
-                    isOpen={showBackHomeModal}
-                    handleHomeYesButtonClick={() => navigate("/")}
-                    handleHomeNoButtonClick={handleLeaveGameClick}
-                    onCancel={handleLeaveGameClick}
-                />
-            )}
+            <div>
+                {isLoser && (
+                    <LoseModal
+                        isOpen={showLoseModal}
+                        handleYesClick={handleSaveAndNextPuzzle}
+                        handleNoClick={() => setShowLeaveGameModal(true)}
+                        onCancel={handleSaveAndNextPuzzle}
+                    />
+                )}
+            </div>
+
+            <div>
+                {(showWinModal || showLoseModal) && (
+                    <LeaveGameModal
+                        isOpen={showLeaveGameModal}
+                        handleYesClick={handleSaveAndLeaveGame}
+                        handleNoClick={handleSaveAndNextPuzzle}
+                        onCancel={handleSaveAndNextPuzzle}
+                    />
+                )}
+            </div>
         </>
     )
 }

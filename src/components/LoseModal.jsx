@@ -1,9 +1,4 @@
-const LoseModal = ({
-    isOpen,
-    handlePlayAgainYesClick,
-    handlePlayAgainNoClick,
-    onCancel,
-}) => {
+const LoseModal = ({ isOpen, handleYesClick, handleNoClick, onCancel }) => {
     const modalStyles = {
         position: "fixed",
         top: "50%",
@@ -33,8 +28,8 @@ const LoseModal = ({
             <div style={overlayStyles} onClick={onCancel}></div>
             <div style={modalStyles}>
                 <p>Nice Try! Play Again?</p>
-                <button onClick={handlePlayAgainYesClick}>Yes</button>
-                <button onClick={handlePlayAgainNoClick}>No</button>
+                <button onClick={handleYesClick}>Yes</button>
+                <button onClick={handleNoClick}>No</button>
             </div>
         </>
     )

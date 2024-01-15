@@ -1,10 +1,4 @@
-const WinModal = ({
-    isOpen,
-    congratsMessage,
-    handleNextPuzzleClick,
-    handleQuitButtonClick,
-    onCancel,
-}) => {
+const WinModal = ({ isOpen, points, handleContinue, handleQuit, onCancel }) => {
     const modalStyles = {
         position: "fixed",
         top: "50%",
@@ -33,10 +27,10 @@ const WinModal = ({
         <>
             <div style={overlayStyles} onClick={onCancel}></div>
             <div style={modalStyles}>
-                <div>{congratsMessage}</div>
+                <p>Congrats! You won {points} points!</p>
                 <p>Next puzzle?</p>
-                <button onClick={handleNextPuzzleClick}>Continue</button>
-                <button onClick={handleQuitButtonClick}>Quit</button>
+                <button onClick={handleContinue}>Continue</button>
+                <button onClick={handleQuit}>Quit</button>
             </div>
         </>
     )

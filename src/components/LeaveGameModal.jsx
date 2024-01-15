@@ -1,7 +1,7 @@
-const QuitModal = ({
+const LeaveGameModal = ({
     isOpen,
-    handleYesButtonClick,
-    handleNoButtonClick,
+    handleYesClick,
+    handleNoClick,
     onCancel,
 }) => {
     const modalStyles = {
@@ -32,12 +32,12 @@ const QuitModal = ({
         <>
             <div style={overlayStyles} onClick={onCancel}></div>
             <div style={modalStyles}>
-                <p>Are you sure?</p>
-                <button onClick={handleYesButtonClick}>Yes</button>
-                <button onClick={handleNoButtonClick}>No</button>
+                <p>Leave game and return to home page?</p>
+                <button onClick={handleYesClick}>Yes</button>
+                <button onClick={handleNoClick}>No</button>
             </div>
         </>
     )
 }
 
-export default QuitModal
+export default LeaveGameModal
