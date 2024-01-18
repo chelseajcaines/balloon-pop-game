@@ -36,3 +36,7 @@
 .highScore {
     padding-top: 10px;
 }
+
+.activeButton {
+    border: 2px solid red;
+}

@@ -24,3 +24,16 @@
     display: flex;
     flex-direction: row;
 }
+
+.nextButton {
+    border: 2px solid red;
+}
+
+.activeAvatar,
+.avatar:hover {
+    border: 2px solid blue;
+}
+
+.selectedAvatar {
+    border: 5px solid gold;
+}
