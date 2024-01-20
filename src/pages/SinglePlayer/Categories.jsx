@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
+
 import styles from "/src/stylesheets/Categories.module.css"
 
 const Categories = () => {
@@ -15,7 +16,7 @@ const Categories = () => {
         {
             id: 0,
             text: "Movie Titles",
-            onClick: () => navigate(`/SinglePlayerGamePlay?name=${playerName}`),
+            nextPage: `/SinglePlayer/MovieTitles?name=${playerName}`,
         },
         {
             id: 1,
@@ -25,6 +26,11 @@ const Categories = () => {
         {
             id: 2,
             text: "Button 3",
+            //onClick:
+        },
+        {
+            id: 3,
+            text: "Button 4",
             //onClick:
         },
     ]
@@ -51,6 +57,11 @@ const Categories = () => {
                 }
 
                 setIsActive(buttons[nextIndex].id)
+            } else if (e.key === "Enter") {
+                const currentIndex = buttons.findIndex(
+                    (button) => button.id === isActive
+                )
+                navigate(buttons[currentIndex].nextPage)
             }
         }
 
@@ -58,7 +69,7 @@ const Categories = () => {
         return () => {
             document.removeEventListener("keydown", handleKeyDown)
         }
-    }, [isActive, buttons])
+    }, [isActive, buttons, navigate])
 
     const handleMouseEnter = (buttonId) => {
         setIsActive(buttonId)
@@ -75,7 +86,7 @@ const Categories = () => {
                         {buttons.map((button) => (
                             <button
                                 key={button.id}
-                                onClick={button.onClick}
+                                onClick={() => navigate(button.nextPage)}
                                 onMouseEnter={() => handleMouseEnter(button.id)}
                                 onMouseLeave={handleMouseLeave}
                                 className={

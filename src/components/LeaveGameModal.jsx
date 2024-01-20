@@ -6,6 +6,8 @@ const LeaveGameModal = ({
 }) => {
     const modalStyles = {
         position: "fixed",
+        height: "200px",
+        width: "200px",
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
@@ -23,7 +25,7 @@ const LeaveGameModal = ({
         left: 0,
         width: "100%",
         height: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        backgroundColor: "transparent",
         display: isOpen ? "block" : "none",
         zIndex: 999,
     }

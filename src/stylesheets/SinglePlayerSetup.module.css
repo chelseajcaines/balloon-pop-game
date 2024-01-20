@@ -25,15 +25,25 @@
     flex-direction: row;
 }
 
-.nextButton {
+.activeButton {
     border: 2px solid red;
 }
 
-.activeAvatar,
-.avatar:hover {
+.avatar {
+    cursor: pointer;
+    margin: 10px;
+}
+
+.activeAvatar {
     border: 2px solid blue;
+    cursor: pointer;
 }
 
 .selectedAvatar {
     border: 5px solid gold;
+}
+
+.greyAvatars {
+    opacity: 0.6;
+    border: none;
 }

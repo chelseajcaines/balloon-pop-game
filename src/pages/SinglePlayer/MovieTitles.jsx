@@ -1,14 +1,14 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import { useCallback, useState, useEffect } from "react"
-import Keyboard from "../components/Keyboard.jsx"
+import Keyboard from "../../components/Keyboard.jsx"
 import PlayerAvatar from "/src/components/PlayerAvatar"
-import WordPuzzle from "../components/WordPuzzle.jsx"
-import WrongGuess from "../components/WrongGuess.jsx"
-import FetchStatusMessage from "../components/FetchStatusMessage.jsx"
-import WinModal from "../components/WinModal.jsx"
-import LoseModal from "../components/LoseModal.jsx"
+import WordPuzzle from "../../components/WordPuzzle.jsx"
+import WrongGuess from "../../components/WrongGuess.jsx"
+import FetchStatusMessage from "../../components/FetchStatusMessage.jsx"
+import WinModal from "../../components/WinModal.jsx"
+import LoseModal from "../../components/LoseModal.jsx"
 import LeaveGameModal from "/src/components/LeaveGameModal"
-import HighScore from "../components/HighScore.jsx"
+import HighScore from "../../components/HighScore.jsx"
 import styles from "/src/stylesheets/SinglePlayerGamePlay.module.css"
 
 const SinglePlayerGamePlay = () => {
@@ -79,8 +79,10 @@ const SinglePlayerGamePlay = () => {
 
     useEffect(() => {
         if (isWinner) {
+            setCurrentScore(0)
             const numberOfPointsWon = 6 - incorrectLetters.length
             setPointsWon(numberOfPointsWon)
+            setCurrentScore((prevScore) => prevScore + pointsWon)
             setShowWinModal(true)
         }
     }, [isWinner, pointsWon, incorrectLetters.length])
@@ -159,6 +161,12 @@ const SinglePlayerGamePlay = () => {
         fetchPuzzle()
     }
 
+    const handleCancelAllModals = () => {
+        setShowWinModal(false)
+        setShowLeaveGameModal(false)
+        setShowLoseModal(false)
+    }
+
     return (
         <>
             <div className={styles.pageContainer}>
@@ -209,7 +217,7 @@ const SinglePlayerGamePlay = () => {
                     <button onClick={() => setShowLeaveGameModal(true)}>
                         Back to home page
                     </button>
-                    <button onClick={handleNewPuzzle}>New Puzzle</button>
+                    <button onClick={handleNewPuzzle}>Next Puzzle</button>
                 </div>
                 <div>
                     {isWinner && (
@@ -218,7 +226,8 @@ const SinglePlayerGamePlay = () => {
                             points={pointsWon}
                             handleContinue={handleSaveAndNextPuzzle}
                             handleQuit={() => setShowLeaveGameModal(true)}
-                            onCancel={handleSaveAndNextPuzzle}
+                            onCancel={handleCancelAllModals}
+                            currentScore={currentScore}
                         />
                     )}
                 </div>
@@ -228,7 +237,7 @@ const SinglePlayerGamePlay = () => {
                             isOpen={showLoseModal}
                             handleYesClick={handleSaveAndNextPuzzle}
                             handleNoClick={() => setShowLeaveGameModal(true)}
-                            onCancel={handleSaveAndNextPuzzle}
+                            onCancel={handleCancelAllModals}
                         />
                     )}
                 </div>
@@ -237,8 +246,8 @@ const SinglePlayerGamePlay = () => {
                         <LeaveGameModal
                             isOpen={showLeaveGameModal}
                             handleYesClick={handleSaveAndLeaveGame}
-                            handleNoClick={handleSaveAndNextPuzzle}
-                            onCancel={handleSaveAndNextPuzzle}
+                            handleNoClick={handleCancelAllModals}
+                            onCancel={() => setShowLeaveGameModal(false)}
                         />
                     )}
                 </div>

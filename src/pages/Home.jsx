@@ -9,9 +9,20 @@ const Home = () => {
     const navigate = useNavigate()
 
     const [highScore, setHighScore] = useState(0)
-    const [singlePlayerButtonActive, setSinglePlayerButtonActive] =
-        useState(true)
-    const [twoPlayerButtonActive, setTwoPlayerButtonActive] = useState(true)
+    const [isActive, setIsActive] = useState(0)
+
+    const buttons = [
+        {
+            id: 0,
+            text: "Single Player",
+            nextPage: "/SinglePlayer/Info",
+        },
+        {
+            id: 1,
+            text: "Two Player",
+            nextPage: "/TwoPlayer/Info",
+        },
+    ]
 
     useEffect(() => {
         const prevHighScore = localStorage.getItem("HIGH_SCORE_KEY")
@@ -19,83 +30,67 @@ const Home = () => {
     }, [])
 
     useEffect(() => {
-        setTwoPlayerButtonActive(false)
+        const handleKeyDown = (e) => {
+            if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                const currentIndex = buttons.findIndex(
+                    (button) => button.id === isActive
+                )
+                let nextIndex
 
-        const handleKeyPress = (event) => {
-            if (event.key === "ArrowRight") {
-                setSinglePlayerButtonActive(false)
-                setTwoPlayerButtonActive(true)
-            } else if (event.key === "ArrowLeft") {
-                setSinglePlayerButtonActive(true)
-                setTwoPlayerButtonActive(false)
+                if (e.key === "ArrowRight") {
+                    nextIndex =
+                        currentIndex < buttons.length - 1
+                            ? currentIndex + 1
+                            : currentIndex
+                } else if (e.key === "ArrowLeft") {
+                    nextIndex = currentIndex > 0 ? currentIndex - 1 : 0
+                }
+
+                setIsActive(buttons[nextIndex].id)
+            } else if (e.key === "Enter") {
+                const currentIndex = buttons.findIndex(
+                    (button) => button.id === isActive
+                )
+                navigate(buttons[currentIndex].nextPage)
             }
         }
-        document.addEventListener("keydown", handleKeyPress)
+
+        document.addEventListener("keydown", handleKeyDown)
 
         return () => {
-            document.removeEventListener("keydown", handleKeyPress)
+            document.removeEventListener("keydown", handleKeyDown)
         }
-    }, [])
+    }, [isActive, buttons, navigate])
 
-    useEffect(() => {
-        const handleKeyPress = (event) => {
-            if (
-                singlePlayerButtonActive &&
-                !twoPlayerButtonActive &&
-                event.key === "Enter"
-            ) {
-                navigate("/SinglePlayerSetup")
-            } else if (
-                !singlePlayerButtonActive &&
-                twoPlayerButtonActive &&
-                event.key === "Enter"
-            ) {
-                navigate("/TwoPlayerSetup")
-            }
-        }
-        document.addEventListener("keydown", handleKeyPress)
-        return () => {
-            document.removeEventListener("keydown", handleKeyPress)
-        }
-    }, [singlePlayerButtonActive, twoPlayerButtonActive, navigate])
+    const handleMouseEnter = (buttonId) => {
+        setIsActive(buttonId)
+    }
+
+    const handleMouseLeave = () => {}
 
     return (
         <>
-            <div className={styles.pageContainer}>
-                <div className={styles.header}>
-                    <h1>Welcome to balloon pop game</h1>
-                    <h2>Single Player or Play with a Friend</h2>
-                </div>
-                <div className={styles.mainSection}>
-                    <div className={styles.singlePlayerContainer}>
-                        <img src={stickPerson} alt="StickPersonImage" />
-                        <button
-                            className={
-                                singlePlayerButtonActive
-                                    ? styles.activeButton
-                                    : ""
-                            }
-                            onClick={() => navigate("/SinglePlayerSetup")}
-                        >
-                            Single Player
-                        </button>
-                        <div className={styles.highScore}>
-                            <HighScore highScore={highScore} />
-                        </div>
-                    </div>
-                    <div className={styles.twoPlayerContainer}>
-                        <img src={stickPeople} alt="StickPeopleImage" />
-                        <button
-                            className={
-                                twoPlayerButtonActive ? styles.activeButton : ""
-                            }
-                            onClick={() => navigate("/TwoPlayerSetup")}
-                        >
-                            Two Players
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <h1>Welcome to balloon pop game</h1>
+            <h2>Single Player or Play with a Friend</h2>
+
+            <img src={stickPerson} alt="StickPersonImage" />
+            <img src={stickPeople} alt="StickPeopleImage" />
+
+            {buttons.map((button) => (
+                <button
+                    key={button.id}
+                    onMouseEnter={() => handleMouseEnter(button.id)}
+                    onMouseLeave={handleMouseLeave}
+                    onClick={() => navigate(button.nextPage)}
+                    className={
+                        button.id === isActive ? styles.activeButton : ""
+                    }
+                >
+                    {button.text}
+                </button>
+            ))}
+
+            <HighScore highScore={highScore} />
         </>
     )
 }
