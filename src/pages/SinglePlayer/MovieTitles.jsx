@@ -79,10 +79,8 @@ const SinglePlayerGamePlay = () => {
 
     useEffect(() => {
         if (isWinner) {
-            setCurrentScore(0)
             const numberOfPointsWon = 6 - incorrectLetters.length
             setPointsWon(numberOfPointsWon)
-            setCurrentScore((prevScore) => prevScore + pointsWon)
             setShowWinModal(true)
         }
     }, [isWinner, pointsWon, incorrectLetters.length])

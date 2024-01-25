@@ -2,30 +2,13 @@ import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import styles from "/src/stylesheets/SinglePlayerSetup.module.css"
 
-const SignlePlayerSetup = () => {
-    const [activeAvatar, setActiveAvatar] = useState(0)
+const SinglePlayerSetup = () => {
+    const [activeAvatar, setActiveAvatar] = useState("")
     const [selectedAvatar, setSelectedAvatar] = useState("")
     const [inputValue, setInputValue] = useState("")
     const [inputError, setInputError] = useState("")
-    const [isButtonActive, setIsButtonActive] = useState(false)
-    const [greyOutAvatars, setGreyOutAvatars] = useState(false)
-    const [avatarNavigationEnabled, setAvatarNavigationEnabled] = useState(true)
-
-    const navigate = useNavigate()
-
-    const inputRef = useRef(null)
-
-    const handleInputChange = (e) => {
-        setIsButtonActive(true)
-        setInputValue(e.target.value)
-    }
-
-    const handleInputClick = () => {
-        if (selectedAvatar) {
-            setActiveAvatar("")
-            setGreyOutAvatars(true)
-        }
-    }
+    const [avatarError, setAvatarError] = useState("")
+    const [inputFocus, setInputFocus] = useState(false)
 
     const avatars = [
         {
@@ -55,22 +38,59 @@ const SignlePlayerSetup = () => {
         },
     ]
 
+    const navigate = useNavigate()
+
+    const inputRef = useRef(null)
+
+    const handleInputChange = (e) => {
+        setInputError("")
+        setInputValue(e.target.value)
+    }
+
+    const handleMouseEnter = (avatarId) => {
+        setActiveAvatar(avatarId)
+    }
+
+    const handleAvatarClick = (avatar) => {
+        setSelectedAvatar(avatar)
+        setAvatarError("")
+        inputRef.current.focus()
+    }
+
+    const handleNextPageClick = (e) => {
+        e.preventDefault()
+        if (!inputValue && !selectedAvatar) {
+            setInputError("Please enter a name")
+            setAvatarError("Please select avatar")
+        } else if (!selectedAvatar && inputValue) {
+            setAvatarError("Please select avatar")
+            setInputError("")
+        } else if (selectedAvatar && !inputValue) {
+            setAvatarError("")
+            setInputError("Please enter a name")
+        } else {
+            setInputError("")
+            setAvatarError("")
+            localStorage.setItem("AVATAR_KEY", JSON.stringify(selectedAvatar))
+            navigate(`/SinglePlayer/Categories?name=${inputValue}`)
+        }
+    }
+
+    useEffect(() => {
+        const firstAvatar = avatars[0]
+        setActiveAvatar(firstAvatar.id)
+    }, [])
+
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === "ArrowDown" && selectedAvatar) {
-                inputRef.current.focus()
-                setGreyOutAvatars(true)
-                setActiveAvatar("")
-                setAvatarNavigationEnabled(false)
-            } else if (!avatarNavigationEnabled && e.key === "ArrowUp") {
-                inputRef.current.blur()
-                setAvatarNavigationEnabled(true)
-                setGreyOutAvatars(false)
-                setActiveAvatar(avatars[0].id)
-            } else if (avatarNavigationEnabled) {
-                handleAvatarNavigation(e)
-            } else if (!avatarNavigationEnabled) {
-                handleNextPageEnterKey(e)
+            if (e.key === "ArrowRight") {
+                const currentIndex = avatars.findIndex(
+                    (avatar) => avatar.id === activeAvatar
+                )
+                const newIndex = currentIndex + 1
+                if (newIndex < avatars.length) {
+                    setActiveAvatar(avatars[newIndex].id)
+                }
             }
         }
 
@@ -79,83 +99,89 @@ const SignlePlayerSetup = () => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [
-        avatars,
-        activeAvatar,
-        selectedAvatar,
-        inputRef,
-        greyOutAvatars,
-        avatarNavigationEnabled,
-        inputValue,
-        inputError,
-        navigate,
-    ])
+    }, [activeAvatar, avatars])
 
-    const handleAvatarNavigation = (e) => {
-        if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-            const currentIndex = avatars.findIndex(
-                (avatar) => avatar.id === activeAvatar
-            )
-            let nextIndex
-
-            if (e.key === "ArrowRight") {
-                nextIndex =
-                    currentIndex < avatars.length - 1
-                        ? currentIndex + 1
-                        : currentIndex
-            } else if (e.key === "ArrowLeft") {
-                nextIndex = currentIndex > 0 ? currentIndex - 1 : 0
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "ArrowLeft") {
+                const currentIndex = avatars.findIndex(
+                    (avatar) => avatar.id === activeAvatar
+                )
+                const newIndex = currentIndex - 1
+                setActiveAvatar(avatars[newIndex].id)
             }
-
-            setActiveAvatar(avatars[nextIndex].id)
-        } else if (e.key === "Enter" && activeAvatar) {
-            setSelectedAvatar(avatars[activeAvatar])
         }
-    }
 
-    const handleMouseEnter = (avatar) => {
-        setActiveAvatar(avatar)
-        setGreyOutAvatars(false)
-        inputRef.current.blur()
-    }
+        window.addEventListener("keydown", handleKeyDown)
 
-    const handleMouseLeave = () => {}
-
-    const handleAvatarClick = (avatar) => {
-        setSelectedAvatar(avatar)
-    }
-
-    const getRandomAvatar = () => {
-        const randomIndex = Math.floor(Math.random() * avatars.length)
-        return avatars[randomIndex]
-    }
-
-    const handleNextPageClick = (e) => {
-        e.preventDefault()
-        if (!inputValue) {
-            setInputError("Please enter a name")
-        } else if (!selectedAvatar) {
-            const randomAvatar = getRandomAvatar()
-            setSelectedAvatar(randomAvatar)
-            localStorage.setItem("AVATAR_KEY", JSON.stringify(randomAvatar))
-            setInputError("")
-            navigate(`/SinglePlayer/Categories?name=${inputValue}`)
-        } else if (selectedAvatar && inputValue) {
-            setInputError("")
-            localStorage.setItem("AVATAR_KEY", JSON.stringify(selectedAvatar))
-            navigate(`/SinglePlayer/Categories?name=${inputValue}`)
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
         }
-    }
+    }, [activeAvatar, avatars])
 
-    const handleNextPageEnterKey = (e) => {
-        if (selectedAvatar && !inputValue && e.key === "Enter") {
-            setInputError("Please enter a name")
-        } else if (selectedAvatar && inputValue && e.key === "Enter") {
-            setInputError("")
-            localStorage.setItem("AVATAR_KEY", JSON.stringify(selectedAvatar))
-            navigate(`/SinglePlayer/Categories?name=${inputValue}`)
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "Enter" && activeAvatar !== "") {
+                const selected = avatars.find(
+                    (avatar) => avatar.id === activeAvatar
+                )
+                if (selected) {
+                    setSelectedAvatar(selected)
+                }
+                setAvatarError("")
+            }
         }
-    }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [activeAvatar])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "ArrowDown" && selectedAvatar) {
+                inputRef.current.focus()
+                setActiveAvatar("")
+                setInputFocus(true)
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [selectedAvatar])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "ArrowRight" && inputFocus) {
+                setActiveAvatar("")
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [inputFocus])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "ArrowLeft" && inputFocus) {
+                setActiveAvatar("")
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [inputFocus])
 
     return (
         <>
@@ -167,14 +193,11 @@ const SignlePlayerSetup = () => {
                     key={avatar.id}
                     src={avatar.src}
                     alt={avatar.alt}
-                    onClick={() => handleAvatarClick(avatar)}
                     onMouseEnter={() => handleMouseEnter(avatar.id)}
-                    onMouseLeave={handleMouseLeave}
+                    onClick={() => handleAvatarClick(avatar)}
                     className={
                         avatar.id === activeAvatar
                             ? styles.activeAvatar
-                            : greyOutAvatars
-                            ? styles.greyAvatars
                             : styles.avatar
                     }
                 />
@@ -188,20 +211,19 @@ const SignlePlayerSetup = () => {
                 />
             )}
 
+            <p style={{ color: "red" }}>{avatarError}</p>
+
             <p>Enter name</p>
 
-            <input
-                type="text"
-                onChange={handleInputChange}
-                onClick={handleInputClick}
-                ref={inputRef}
-            />
+            <input type="text" onChange={handleInputChange} ref={inputRef} />
 
             <p style={{ color: "red" }}>{inputError}</p>
 
             <button
                 onClick={handleNextPageClick}
-                className={isButtonActive ? styles.activeButton : ""}
+                className={
+                    inputValue && selectedAvatar ? styles.activeButton : ""
+                }
             >
                 Next
             </button>
@@ -209,4 +231,4 @@ const SignlePlayerSetup = () => {
     )
 }
 
-export default SignlePlayerSetup
+export default SinglePlayerSetup

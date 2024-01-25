@@ -1,0 +1,29 @@
+.playerOneContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.playerTwoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.mainContainer {
+    display: flex;
+    gap: 2rem;
+    margin: 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatarGallery {
+    display: flex;
+    flex-direction: row;
+}
