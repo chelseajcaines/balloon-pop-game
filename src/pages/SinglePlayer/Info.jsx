@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom"
 import styles from "/src/stylesheets/SinglePlayerSetup.module.css"
 
 const SinglePlayerSetup = () => {
-    const [activeAvatar, setActiveAvatar] = useState("")
+    const [activeAvatar, setActiveAvatar] = useState(0)
     const [selectedAvatar, setSelectedAvatar] = useState("")
     const [inputValue, setInputValue] = useState("")
     const [inputError, setInputError] = useState("")
     const [avatarError, setAvatarError] = useState("")
     const [inputFocus, setInputFocus] = useState(false)
+    const [nextButtonActive, setNextButtonActive] = useState(false)
 
     const avatars = [
         {
@@ -54,6 +55,7 @@ const SinglePlayerSetup = () => {
     const handleAvatarClick = (avatar) => {
         setSelectedAvatar(avatar)
         setAvatarError("")
+        setInputFocus(true)
         inputRef.current.focus()
     }
 
@@ -77,13 +79,8 @@ const SinglePlayerSetup = () => {
     }
 
     useEffect(() => {
-        const firstAvatar = avatars[0]
-        setActiveAvatar(firstAvatar.id)
-    }, [])
-
-    useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === "ArrowRight") {
+            if (e.key === "ArrowRight" && !inputFocus) {
                 const currentIndex = avatars.findIndex(
                     (avatar) => avatar.id === activeAvatar
                 )
@@ -183,50 +180,162 @@ const SinglePlayerSetup = () => {
         }
     }, [inputFocus])
 
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "ArrowUp" && inputFocus && !nextButtonActive) {
+                setActiveAvatar(avatars[0].id)
+                setInputFocus(false)
+                inputRef.current.blur()
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [inputFocus, avatars, nextButtonActive])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "Enter" && inputFocus) {
+                setInputError("Please enter a name")
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [inputFocus])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "Enter" && inputFocus && inputValue) {
+                setInputError("")
+                localStorage.setItem(
+                    "AVATAR_KEY",
+                    JSON.stringify(selectedAvatar)
+                )
+                navigate(`/SinglePlayer/Categories?name=${inputValue}`)
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [inputFocus, inputValue, selectedAvatar, navigate])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "ArrowDown" && inputFocus && inputValue) {
+                setInputError("")
+                setNextButtonActive(true)
+                inputRef.current.blur()
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [inputFocus, inputValue])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "Enter" && nextButtonActive) {
+                localStorage.setItem(
+                    "AVATAR_KEY",
+                    JSON.stringify(selectedAvatar)
+                )
+                navigate(`/SinglePlayer/Categories?name=${inputValue}`)
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [nextButtonActive, inputValue, selectedAvatar, navigate])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "ArrowUp" && nextButtonActive) {
+                inputRef.current.focus()
+                setInputFocus(true)
+                setNextButtonActive(false)
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [nextButtonActive])
+
     return (
         <>
-            <h1>Single Player Setup</h1>
-            <p>Choose your avatar</p>
+            <div className={styles.pageContainer}>
+                <div className={styles.header}>
+                    <h1>Single Player Setup</h1>
+                    <p>Choose your avatar</p>
+                </div>
+                <div className={styles.avatarGallery}>
+                    {avatars.map((avatar) => (
+                        <img
+                            key={avatar.id}
+                            src={avatar.src}
+                            alt={avatar.alt}
+                            onMouseEnter={() => handleMouseEnter(avatar.id)}
+                            onClick={() => handleAvatarClick(avatar)}
+                            className={
+                                avatar.id === activeAvatar
+                                    ? styles.activeAvatar
+                                    : styles.avatar
+                            }
+                        />
+                    ))}
+                </div>
 
-            {avatars.map((avatar) => (
-                <img
-                    key={avatar.id}
-                    src={avatar.src}
-                    alt={avatar.alt}
-                    onMouseEnter={() => handleMouseEnter(avatar.id)}
-                    onClick={() => handleAvatarClick(avatar)}
+                {selectedAvatar && (
+                    <img
+                        className={styles.selectedAvatar}
+                        src={selectedAvatar.src}
+                        alt={selectedAvatar.alt}
+                    />
+                )}
+
+                <p style={{ color: "red" }}>{avatarError}</p>
+
+                <p>Enter name</p>
+
+                <input
+                    type="text"
+                    onChange={handleInputChange}
+                    ref={inputRef}
+                />
+
+                <p style={{ color: "red" }}>{inputError}</p>
+
+                <button
+                    onClick={handleNextPageClick}
                     className={
-                        avatar.id === activeAvatar
-                            ? styles.activeAvatar
-                            : styles.avatar
+                        inputValue && selectedAvatar && nextButtonActive
+                            ? styles.activeNextButton
+                            : !nextButtonActive && inputValue && selectedAvatar
+                            ? styles.activeButton
+                            : ""
                     }
-                />
-            ))}
-
-            {selectedAvatar && (
-                <img
-                    className={styles.selectedAvatar}
-                    src={selectedAvatar.src}
-                    alt={selectedAvatar.alt}
-                />
-            )}
-
-            <p style={{ color: "red" }}>{avatarError}</p>
-
-            <p>Enter name</p>
-
-            <input type="text" onChange={handleInputChange} ref={inputRef} />
-
-            <p style={{ color: "red" }}>{inputError}</p>
-
-            <button
-                onClick={handleNextPageClick}
-                className={
-                    inputValue && selectedAvatar ? styles.activeButton : ""
-                }
-            >
-                Next
-            </button>
+                >
+                    Next
+                </button>
+            </div>
         </>
     )
 }

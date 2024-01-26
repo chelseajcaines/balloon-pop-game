@@ -70,27 +70,36 @@ const Home = () => {
 
     return (
         <>
-            <h1>Welcome to balloon pop game</h1>
-            <h2>Single Player or Play with a Friend</h2>
-
-            <img src={stickPerson} alt="StickPersonImage" />
-            <img src={stickPeople} alt="StickPeopleImage" />
-
-            {buttons.map((button) => (
-                <button
-                    key={button.id}
-                    onMouseEnter={() => handleMouseEnter(button.id)}
-                    onMouseLeave={handleMouseLeave}
-                    onClick={() => navigate(button.nextPage)}
-                    className={
-                        button.id === isActive ? styles.activeButton : ""
-                    }
-                >
-                    {button.text}
-                </button>
-            ))}
-
-            <HighScore highScore={highScore} />
+            <div className={styles.pageContainer}>
+                <div className={styles.header}>
+                    <h1>Welcome to balloon pop game</h1>
+                    <h2>Single Player or Play with a Friend</h2>
+                </div>
+                <div className={styles.modeImageContainer}>
+                    <img src={stickPerson} alt="StickPersonImage" />
+                    <img src={stickPeople} alt="StickPeopleImage" />
+                </div>
+                <div className={styles.buttonsContainer}>
+                    {buttons.map((button) => (
+                        <button
+                            key={button.id}
+                            onMouseEnter={() => handleMouseEnter(button.id)}
+                            onMouseLeave={handleMouseLeave}
+                            onClick={() => navigate(button.nextPage)}
+                            className={
+                                button.id === isActive
+                                    ? styles.activeButton
+                                    : ""
+                            }
+                        >
+                            {button.text}
+                        </button>
+                    ))}
+                </div>
+                <div className={styles.highscore}>
+                    <HighScore highScore={highScore} />
+                </div>
+            </div>
         </>
     )
 }

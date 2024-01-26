@@ -1,3 +1,34 @@
 .activeButton {
     border: 2px solid red;
 }
+
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.modeImageContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+
+.buttonsContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 16rem;
+}
+
+.highscore {
+    margin: 0 auto;
+}

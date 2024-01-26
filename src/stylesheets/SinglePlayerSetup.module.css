@@ -13,13 +13,6 @@
     align-items: center;
 }
 
-.mainSection {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    align-items: center;
-}
-
 .avatarGallery {
     display: flex;
     flex-direction: row;
@@ -31,7 +24,7 @@
 
 .avatar {
     cursor: pointer;
-    margin: 10px;
+    gap: 2rem;
 }
 
 .activeAvatar {
@@ -43,7 +36,6 @@
     border: 5px solid gold;
 }
 
-.greyAvatars {
-    opacity: 0.6;
-    border: none;
+.activeNextButton {
+    box-shadow: 0 0 10px 5px red;
 }
