@@ -32,3 +32,19 @@
     flex-direction: row;
     gap: 2rem;
 }
+
+.currentScore {
+    padding-top: 200px;
+}
+
+.activeButton {
+    border: 2px solid red;
+}
+
+.modal {
+    display: block;
+}
+
+.overlay {
+    display: block;
+}
