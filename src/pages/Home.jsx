@@ -1,6 +1,5 @@
 import stickPerson from "../assets/stickPerson.png"
 import stickPeople from "../assets/stickPeople.png"
-import HighScore from "../components/HighScore"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import styles from "/src/stylesheets/Home.module.css"
@@ -8,7 +7,6 @@ import styles from "/src/stylesheets/Home.module.css"
 const Home = () => {
     const navigate = useNavigate()
 
-    const [highScore, setHighScore] = useState(0)
     const [isActive, setIsActive] = useState(0)
 
     const buttons = [
@@ -23,11 +21,6 @@ const Home = () => {
             nextPage: "/TwoPlayer/Info",
         },
     ]
-
-    useEffect(() => {
-        const prevHighScore = localStorage.getItem("HIGH_SCORE_KEY")
-        setHighScore(JSON.parse(prevHighScore))
-    }, [])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -95,9 +88,6 @@ const Home = () => {
                             {button.text}
                         </button>
                     ))}
-                </div>
-                <div className={styles.highscore}>
-                    <HighScore highScore={highScore} />
                 </div>
             </div>
         </>

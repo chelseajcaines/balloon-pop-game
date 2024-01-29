@@ -5,10 +5,6 @@ import PlayerAvatar from "/src/components/PlayerAvatar"
 import WordPuzzle from "../../components/WordPuzzle.jsx"
 import WrongGuess from "../../components/WrongGuess.jsx"
 import FetchStatusMessage from "../../components/FetchStatusMessage.jsx"
-//import WinModal from "../../components/WinModal.jsx"
-//import LoseModal from "../../components/LoseModal.jsx"
-//import LeaveGameModal from "/src/components/LeaveGameModal"
-//import HighScore from "../../components/HighScore.jsx"
 import styles from "/src/stylesheets/SinglePlayerGamePlay.module.css"
 
 const SinglePlayerGamePlay = () => {
@@ -33,26 +29,6 @@ const SinglePlayerGamePlay = () => {
     const [isNextPuzzleClicked, setIsNextPuzzleClicked] = useState(false)
     const [isHomePageButtonClicked, setIsHomePageButtonClicked] =
         useState(false)
-    const [firstPlaceScore, setFirstPlaceScore] = useState("--")
-    const [firstPlaceName, setFirstPlaceName] = useState("--")
-    const [secondPlaceScore, setSecondPlaceScore] = useState("--")
-    const [secondPlaceName, setSecondPlaceName] = useState("--")
-    const [thirdPlaceScore, setThirdPlaceScore] = useState("--")
-    const [thirdPlaceName, setThirdPlaceName] = useState("--")
-    // const [fourthPlaceScore, setFourthPlaceScore] = useState(0)
-    // const [fourthPlaceName, setFourthPlaceName] = useState("--")
-    // const [fifthPlaceScore, setFifthPlaceScore] = useState(0)
-    // const [fifthPlaceName, setFifthPlaceName] = useState("--")
-    // const [sixthPlaceScore, setSixthPlaceScore] = useState(0)
-    // const [sixthPlaceName, setSixthPlaceName] = useState("--")
-    // const [seventhPlaceScore, setSeventhPlaceScore] = useState(0)
-    // const [seventhPlaceName, setSeventhPlaceName] = useState("--")
-    // const [eighthPlaceScore, setEighthPlaceScore] = useState(0)
-    // const [eighthPlaceName, setEighthPlaceName] = useState("--")
-    // const [ninthPlaceScore, setNinthPlaceScore] = useState(0)
-    // const [ninthPlaceName, setNinthPlaceName] = useState("--")
-    // const [tenthPlaceScore, setTenthPlaceScore] = useState(0)
-    // const [tenthPlaceName, setTenthPlaceName] = useState("--")
 
     const modalStyles = {
         position: "fixed",
@@ -77,6 +53,23 @@ const SinglePlayerGamePlay = () => {
         backgroundColor: "rgba(0, 0, 0, 0.5)",
         zIndex: 999,
     }
+
+    const updateLeaderboard = (name, score) => {
+        const leaderboardData =
+            JSON.parse(localStorage.getItem("leaderboard")) || []
+
+        leaderboardData.push({ name, score })
+        leaderboardData.sort((a, b) => b.score - a.score)
+        leaderboardData.splice(10)
+        localStorage.setItem("leaderboard", JSON.stringify(leaderboardData))
+    }
+
+    useEffect(() => {
+        const leaderboardData =
+            JSON.parse(localStorage.getItem("leaderboard")) || []
+        leaderboardData.splice(3)
+        localStorage.setItem("leaderboard", JSON.stringify(leaderboardData))
+    }, [])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -176,6 +169,24 @@ const SinglePlayerGamePlay = () => {
     }, [incorrectLetters.length, playerWins, isWinner, pointsWon])
 
     useEffect(() => {
+        if (playerWins && currentScore > 0) {
+            localStorage.setItem(
+                "PLAYERS_HIGHEST_SCORE_KEY",
+                JSON.stringify(currentScore)
+            )
+        }
+    }, [playerWins, currentScore])
+
+    useEffect(() => {
+        if (isLoser) {
+            const playersLastHighScore = JSON.parse(
+                localStorage.getItem("PLAYERS_HIGHEST_SCORE_KEY")
+            )
+            updateLeaderboard(playerName, playersLastHighScore)
+        }
+    }, [isLoser])
+
+    useEffect(() => {
         if (isLoser) {
             setPointsWon(0)
             setCurrentScore(0)
@@ -272,18 +283,18 @@ const SinglePlayerGamePlay = () => {
     }
 
     const handleSaveAndLeaveGame = () => {
-        const prevHighScore = JSON.parse(localStorage.getItem("HIGH_SCORE_KEY"))
+        // const prevHighScore = JSON.parse(localStorage.getItem("HIGH_SCORE_KEY"))
 
-        if (currentScore <= prevHighScore) {
-            localStorage.setItem(
-                "HIGH_SCORE_KEY",
-                JSON.stringify(prevHighScore)
-            )
-            navigate("/")
-        } else if (currentScore > prevHighScore) {
-            localStorage.setItem("HIGH_SCORE_KEY", JSON.stringify(currentScore))
-            navigate("/")
-        }
+        // if (currentScore <= prevHighScore) {
+        //     localStorage.setItem(
+        //         "HIGH_SCORE_KEY",
+        //         JSON.stringify(prevHighScore)
+        //     )
+        //     navigate("/")
+        // } else if (currentScore > prevHighScore) {
+        //     localStorage.setItem("HIGH_SCORE_KEY", JSON.stringify(currentScore))
+        navigate("/")
+        //}
     }
 
     const leaveGameModalbuttons = [
@@ -554,6 +565,24 @@ const SinglePlayerGamePlay = () => {
         }
     }, [])
 
+    const renderLeaderboard = () => {
+        const leaderboardData =
+            JSON.parse(localStorage.getItem("leaderboard")) || []
+
+        return (
+            <div className={styles.leaderboard}>
+                <h2>Top Ten Leaderboard</h2>
+                <ul>
+                    {leaderboardData.map((entry, index) => (
+                        <li key={index}>
+                            {index + 1}. {entry.name}: {entry.score}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        )
+    }
+
     return (
         <>
             <div className={styles.pageContainer}>
@@ -592,20 +621,7 @@ const SinglePlayerGamePlay = () => {
                 <div className={styles.currentScore}>
                     <p>Current Score: {currentScore}</p>
                 </div>
-                <div>
-                    <div>
-                        First Place: {firstPlaceName}
-                        {firstPlaceScore}
-                    </div>
-                    <div>
-                        Second Place: {secondPlaceName}
-                        {secondPlaceScore}
-                    </div>
-                    <div>
-                        Third Place: {thirdPlaceName}
-                        {thirdPlaceScore}
-                    </div>
-                </div>
+                {renderLeaderboard()}
                 <div className={styles.footer}>
                     <div style={{ display: "block" }}>
                         <button onClick={handleQuit}>Back to home page</button>
