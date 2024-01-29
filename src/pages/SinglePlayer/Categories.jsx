@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 
 import styles from "/src/stylesheets/Categories.module.css"
 
-const Categories = () => {
+const SinglePlayerCategories = () => {
     const [isActive, setIsActive] = useState(0)
 
     const location = useLocation()
@@ -105,4 +105,4 @@ const Categories = () => {
     )
 }
 
-export default Categories
+export default SinglePlayerCategories
