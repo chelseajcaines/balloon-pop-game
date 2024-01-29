@@ -4,11 +4,11 @@ import Keyboard from "../../components/Keyboard.jsx"
 import PlayerAvatar from "/src/components/PlayerAvatar"
 import WordPuzzle from "../../components/WordPuzzle.jsx"
 import WrongGuess from "../../components/WrongGuess.jsx"
-//import FetchStatusMessage from "../../components/FetchStatusMessage.jsx"
+import FetchStatusMessage from "../../components/FetchStatusMessage.jsx"
 //import WinModal from "../../components/WinModal.jsx"
 //import LoseModal from "../../components/LoseModal.jsx"
 //import LeaveGameModal from "/src/components/LeaveGameModal"
-import HighScore from "../../components/HighScore.jsx"
+//import HighScore from "../../components/HighScore.jsx"
 import styles from "/src/stylesheets/SinglePlayerGamePlay.module.css"
 
 const SinglePlayerGamePlay = () => {
@@ -29,11 +29,30 @@ const SinglePlayerGamePlay = () => {
     const [showLeaveGameModal, setShowLeaveGameModal] = useState(false)
     const [showLoseModal, setShowLoseModal] = useState(false)
     const [currentScore, setCurrentScore] = useState(0)
-    const [highScore, setHighScore] = useState(0)
-    const [isActive, setIsActive] = useState("")
+    const [isActive, setIsActive] = useState(0)
     const [isNextPuzzleClicked, setIsNextPuzzleClicked] = useState(false)
     const [isHomePageButtonClicked, setIsHomePageButtonClicked] =
         useState(false)
+    const [firstPlaceScore, setFirstPlaceScore] = useState("--")
+    const [firstPlaceName, setFirstPlaceName] = useState("--")
+    const [secondPlaceScore, setSecondPlaceScore] = useState("--")
+    const [secondPlaceName, setSecondPlaceName] = useState("--")
+    const [thirdPlaceScore, setThirdPlaceScore] = useState("--")
+    const [thirdPlaceName, setThirdPlaceName] = useState("--")
+    // const [fourthPlaceScore, setFourthPlaceScore] = useState(0)
+    // const [fourthPlaceName, setFourthPlaceName] = useState("--")
+    // const [fifthPlaceScore, setFifthPlaceScore] = useState(0)
+    // const [fifthPlaceName, setFifthPlaceName] = useState("--")
+    // const [sixthPlaceScore, setSixthPlaceScore] = useState(0)
+    // const [sixthPlaceName, setSixthPlaceName] = useState("--")
+    // const [seventhPlaceScore, setSeventhPlaceScore] = useState(0)
+    // const [seventhPlaceName, setSeventhPlaceName] = useState("--")
+    // const [eighthPlaceScore, setEighthPlaceScore] = useState(0)
+    // const [eighthPlaceName, setEighthPlaceName] = useState("--")
+    // const [ninthPlaceScore, setNinthPlaceScore] = useState(0)
+    // const [ninthPlaceName, setNinthPlaceName] = useState("--")
+    // const [tenthPlaceScore, setTenthPlaceScore] = useState(0)
+    // const [tenthPlaceName, setTenthPlaceName] = useState("--")
 
     const modalStyles = {
         position: "fixed",
@@ -61,11 +80,7 @@ const SinglePlayerGamePlay = () => {
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (
-                (e.key === "Enter" && isNextPuzzleClicked) ||
-                isHomePageButtonClicked
-            )
-                e.preventDefault()
+            if (e.key === "Enter" && isNextPuzzleClicked) e.preventDefault()
         }
 
         document.addEventListener("keydown", handleKeyDown)
@@ -73,7 +88,19 @@ const SinglePlayerGamePlay = () => {
         return () => {
             document.removeEventListener("keydown", handleKeyDown)
         }
-    }, [isNextPuzzleClicked, isHomePageButtonClicked])
+    }, [isNextPuzzleClicked])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "Enter" && isHomePageButtonClicked) e.preventDefault()
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [isHomePageButtonClicked])
 
     useEffect(() => {
         const data = window.localStorage.getItem("AVATAR_KEY")
@@ -82,6 +109,9 @@ const SinglePlayerGamePlay = () => {
 
     const fetchPuzzle = async () => {
         setError(null)
+        setGuessedLetters([])
+        setPuzzle("")
+        setIsLoading(true)
 
         const endpoint = `https://api.themoviedb.org/3/list/8286021-movies?api_key=277f68e7e4a806dcf0eea77c75c6391f&language=en-US`
 
@@ -117,14 +147,22 @@ const SinglePlayerGamePlay = () => {
     )
 
     const isLoser = incorrectLetters.length >= 6
-    const isWinner = puzzle
-        .split("")
-        .filter((letter) => ![":", "'", " "].includes(letter))
-        .every((filteredLetter) => guessedLetters.includes(filteredLetter))
+
+    const isWinner =
+        guessedLetters.length === 0
+            ? false
+            : puzzle
+                  .split("")
+                  .filter((letter) => ![":", "'", " "].includes(letter))
+                  .every((filteredLetter) =>
+                      guessedLetters.includes(filteredLetter)
+                  )
 
     useEffect(() => {
         if (isWinner) {
             setShowWinModal(true)
+            setShowLoseModal(false)
+            setShowLeaveGameModal(false)
             setPlayerWins(true)
         }
     }, [isWinner])
@@ -133,40 +171,17 @@ const SinglePlayerGamePlay = () => {
         if (isWinner && playerWins) {
             const numberOfPointsWon = 6 - incorrectLetters.length
             setPointsWon(numberOfPointsWon)
+            setCurrentScore((prevScore) => prevScore + pointsWon)
         }
-    }, [incorrectLetters.length, playerWins, isWinner])
-
-    useEffect(() => {
-        setCurrentScore((prevScore) => prevScore + pointsWon)
-        console.log(currentScore)
-    }, [pointsWon])
-
-    useEffect(() => {
-        const prevHighScore = JSON.parse(localStorage.getItem("HIGH_SCORE_KEY"))
-        setHighScore(prevHighScore)
-    }, [])
-
-    useEffect(() => {
-        const prevHighScore = JSON.parse(localStorage.getItem("HIGH_SCORE_KEY"))
-
-        if (currentScore <= prevHighScore) {
-            localStorage.setItem(
-                "HIGH_SCORE_KEY",
-                JSON.stringify(prevHighScore)
-            )
-            setHighScore(prevHighScore)
-        } else if (currentScore > prevHighScore) {
-            localStorage.setItem("HIGH_SCORE_KEY", JSON.stringify(currentScore))
-            setHighScore(currentScore)
-            alert("New Record!")
-        }
-    }, [currentScore])
+    }, [incorrectLetters.length, playerWins, isWinner, pointsWon])
 
     useEffect(() => {
         if (isLoser) {
             setPointsWon(0)
             setCurrentScore(0)
             setShowLoseModal(true)
+            setShowWinModal(false)
+            setShowLeaveGameModal(false)
         }
     }, [isLoser])
 
@@ -208,6 +223,7 @@ const SinglePlayerGamePlay = () => {
     }
 
     const handleQuit = () => {
+        setIsHomePageButtonClicked(true)
         setShowLeaveGameModal(true)
         setShowWinModal(false)
         setShowLoseModal(false)
@@ -256,7 +272,6 @@ const SinglePlayerGamePlay = () => {
     }
 
     const handleSaveAndLeaveGame = () => {
-        setIsHomePageButtonClicked(true)
         const prevHighScore = JSON.parse(localStorage.getItem("HIGH_SCORE_KEY"))
 
         if (currentScore <= prevHighScore) {
@@ -301,8 +316,7 @@ const SinglePlayerGamePlay = () => {
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (showWinModal && !showLoseModal && !showLeaveGameModal) {
-                setIsActive(winModalbuttons[0].id)
+            if (showWinModal) {
                 if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
                     const currentIndex = winModalbuttons.findIndex(
                         (button) => button.id === isActive
@@ -319,12 +333,6 @@ const SinglePlayerGamePlay = () => {
                     }
 
                     setIsActive(winModalbuttons[nextIndex].id)
-                } else if (e.key === "Enter") {
-                    e.preventDefault()
-                    const currentIndex = winModalbuttons.findIndex(
-                        (button) => button.id === isActive
-                    )
-                    winModalbuttons[currentIndex].click()
                 }
             }
         }
@@ -334,12 +342,75 @@ const SinglePlayerGamePlay = () => {
         return () => {
             document.removeEventListener("keydown", handleKeyDown)
         }
-    }, [showWinModal, showLoseModal, showLeaveGameModal, winModalbuttons])
+    }, [showWinModal, winModalbuttons])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (showLoseModal && !showWinModal && !showLeaveGameModal) {
-                setIsActive(loseModalbuttons[0].id)
+            if (showWinModal && e.key === "Enter") {
+                const currentIndex = winModalbuttons.findIndex(
+                    (button) => button.id === isActive
+                )
+                winModalbuttons[currentIndex].click()
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [showWinModal, winModalbuttons])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (!showWinModal && showLeaveGameModal) {
+                if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                    const currentIndex = leaveGameModalbuttons.findIndex(
+                        (button) => button.id === isActive
+                    )
+                    let nextIndex
+
+                    if (e.key === "ArrowRight") {
+                        nextIndex =
+                            currentIndex < leaveGameModalbuttons.length - 1
+                                ? currentIndex + 1
+                                : currentIndex
+                    } else if (e.key === "ArrowLeft") {
+                        nextIndex = currentIndex > 0 ? currentIndex - 1 : 0
+                    }
+                    setIsActive(leaveGameModalbuttons[nextIndex].id)
+                }
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [showWinModal, showLeaveGameModal, leaveGameModalbuttons])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (!showWinModal && showLeaveGameModal && e.key === "Enter") {
+                const currentIndex = leaveGameModalbuttons.findIndex(
+                    (button) => button.id === isActive
+                )
+
+                leaveGameModalbuttons[currentIndex].click()
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [showWinModal, showLeaveGameModal, leaveGameModalbuttons])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (showLoseModal) {
                 if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
                     const currentIndex = loseModalbuttons.findIndex(
                         (button) => button.id === isActive
@@ -356,12 +427,6 @@ const SinglePlayerGamePlay = () => {
                     }
 
                     setIsActive(loseModalbuttons[nextIndex].id)
-                } else if (e.key === "Enter") {
-                    e.preventDefault()
-                    const currentIndex = loseModalbuttons.findIndex(
-                        (button) => button.id === isActive
-                    )
-                    loseModalbuttons[currentIndex].click()
                 }
             }
         }
@@ -371,12 +436,28 @@ const SinglePlayerGamePlay = () => {
         return () => {
             document.removeEventListener("keydown", handleKeyDown)
         }
-    }, [showWinModal, showLoseModal, showLeaveGameModal, loseModalbuttons])
+    }, [showLoseModal, loseModalbuttons])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (!showLoseModal && !showWinModal && showLeaveGameModal) {
-                setIsActive(leaveGameModalbuttons[0].id)
+            if (showLoseModal && e.key === "Enter") {
+                const currentIndex = loseModalbuttons.findIndex(
+                    (button) => button.id === isActive
+                )
+                loseModalbuttons[currentIndex].click()
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [showLoseModal, loseModalbuttons])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (!showLoseModal && showLeaveGameModal) {
                 if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
                     const currentIndex = leaveGameModalbuttons.findIndex(
                         (button) => button.id === isActive
@@ -391,14 +472,7 @@ const SinglePlayerGamePlay = () => {
                     } else if (e.key === "ArrowLeft") {
                         nextIndex = currentIndex > 0 ? currentIndex - 1 : 0
                     }
-
                     setIsActive(leaveGameModalbuttons[nextIndex].id)
-                } else if (e.key === "Enter") {
-                    e.preventDefault()
-                    const currentIndex = leaveGameModalbuttons.findIndex(
-                        (button) => button.id === isActive
-                    )
-                    leaveGameModalbuttons[currentIndex].click()
                 }
             }
         }
@@ -408,7 +482,77 @@ const SinglePlayerGamePlay = () => {
         return () => {
             document.removeEventListener("keydown", handleKeyDown)
         }
-    }, [showWinModal, showLoseModal, showLeaveGameModal, leaveGameModalbuttons])
+    }, [showLoseModal, showLeaveGameModal, leaveGameModalbuttons])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (!showLoseModal && showLeaveGameModal && e.key === "Enter") {
+                const currentIndex = leaveGameModalbuttons.findIndex(
+                    (button) => button.id === isActive
+                )
+
+                leaveGameModalbuttons[currentIndex].click()
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [showLoseModal, showLeaveGameModal, leaveGameModalbuttons])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (
+                showLeaveGameModal &&
+                isHomePageButtonClicked &&
+                e.key === "Enter"
+            ) {
+                const currentIndex = leaveGameModalbuttons.findIndex(
+                    (button) => button.id === isActive
+                )
+
+                leaveGameModalbuttons[currentIndex].click()
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [isHomePageButtonClicked, showLeaveGameModal, leaveGameModalbuttons])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.ctrlKey && e.key === "b") {
+                setShowLeaveGameModal(true)
+                setIsHomePageButtonClicked(true)
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.ctrlKey && e.key === "q") {
+                handleNextPuzzle()
+                setIsNextPuzzleClicked(true)
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [])
 
     return (
         <>
@@ -449,11 +593,28 @@ const SinglePlayerGamePlay = () => {
                     <p>Current Score: {currentScore}</p>
                 </div>
                 <div>
-                    <HighScore highScore={highScore} />
+                    <div>
+                        First Place: {firstPlaceName}
+                        {firstPlaceScore}
+                    </div>
+                    <div>
+                        Second Place: {secondPlaceName}
+                        {secondPlaceScore}
+                    </div>
+                    <div>
+                        Third Place: {thirdPlaceName}
+                        {thirdPlaceScore}
+                    </div>
                 </div>
                 <div className={styles.footer}>
-                    <button onClick={handleQuit}>Back to home page</button>
-                    <button onClick={handleNextPuzzle}>Next Puzzle</button>
+                    <div style={{ display: "block" }}>
+                        <button onClick={handleQuit}>Back to home page</button>
+                        <p>Ctrl + B</p>
+                    </div>
+                    <div style={{ display: "block" }}>
+                        <button onClick={handleNextPuzzle}>Next Puzzle</button>
+                        <p>Ctrl + Q</p>
+                    </div>
                 </div>
                 <div>
                     {isWinner && showWinModal && (
