@@ -20,6 +20,7 @@
     gap: 2rem;
     margin: 0 auto;
     align-items: center;
+    opacity: 0.5;
 }
 
 .playerTwoContainer {
@@ -28,8 +29,65 @@
     gap: 2rem;
     margin: 0 auto;
     align-items: center;
+    opacity: 0.5;
 }
 
 .startButton {
     margin-top: 50px;
+}
+
+.playerOneActive {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 0 auto;
+    align-items: center;
+    border: 5px solid green;
+}
+
+.playerTwoActive {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 0 auto;
+    align-items: center;
+    border: 5px solid green;
+}
+
+.activeAvatar {
+    border: 2px solid blue;
+    cursor: pointer;
+}
+
+.selectedAvatar {
+    border: 5px solid gold;
+}
+
+.activeButton {
+    border: 2px solid red;
+}
+
+.activeStartButton {
+    border: 2px solid red;
+}
+
+.playerHeader {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.checkmarkOne {
+    height: 50px;
+    width: 50px;
+}
+
+.checkmarkTwo {
+    height: 50px;
+    width: 50px;
+}
+
+.activePlayerButton {
+    box-shadow: 0 0 10px 5px red;
 }
