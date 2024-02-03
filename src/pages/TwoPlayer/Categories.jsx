@@ -8,7 +8,8 @@ const TwoPlayerCategories = () => {
 
     const location = useLocation()
     const params = new URLSearchParams(location.search)
-    const playerName = params.get("name")
+    const playerNameOne = params.get("PlayerOneName")
+    const playerNameTwo = params.get("PlayerTwoName")
 
     const navigate = useNavigate()
 
@@ -16,7 +17,7 @@ const TwoPlayerCategories = () => {
         {
             id: 0,
             text: "Movie Titles",
-            nextPage: "/TwoPlayer/MovieTitles",
+            nextPage: `/TwoPlayer/MovieTitles?PlayerOneName=${playerNameOne}&PlayerTwoName=${playerNameTwo}`,
         },
         {
             id: 1,

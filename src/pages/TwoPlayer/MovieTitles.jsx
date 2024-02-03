@@ -1,8 +1,24 @@
 import styles from "/src/stylesheets/TwoPlayerGamePlay.module.css"
-import WrongGuess from "../../components/WrongGuess"
-import WordPuzzle from "../../components/WordPuzzle"
+import { useLocation } from "react-router-dom"
+
+import { useState, useEffect } from "react"
+//import WrongGuess from "../../components/WrongGuess"
+//import WordPuzzle from "../../components/WordPuzzle"
 
 const TwoPlayerMovieTitles = () => {
+    const location = useLocation()
+
+    const params = new URLSearchParams(location.search)
+    const playerNameOne = params.get("PlayerOneName")
+    const playerNameTwo = params.get("PlayerTwoName")
+
+    const [selectedAvatarOne, setSelectedAvatarOne] = useState("")
+
+    useEffect(() => {
+        const data = window.localStorage.getItem("PLAYER_ONE_AVATAR_KEY")
+        setSelectedAvatarOne(JSON.parse(data))
+    }, [])
+
     return (
         <>
             <div className={styles.pageContainer}>
@@ -10,10 +26,15 @@ const TwoPlayerMovieTitles = () => {
                 <div className={styles.playerInfo}>
                     <div className={styles.playerOneInfo}>
                         <div className={styles.playerOneAvatar}>
-                            Player 1 Avatar
+                            {selectedAvatarOne && (
+                                <img
+                                    src={selectedAvatarOne.src}
+                                    alt={selectedAvatarOne.alt}
+                                />
+                            )}
                         </div>
                         <div className={styles.playerOneName}>
-                            Player 1 Name
+                            Player 1 Name: {playerNameOne}
                         </div>
                         <div className={styles.playerOneScore}>
                             Player 1 Score
@@ -24,33 +45,11 @@ const TwoPlayerMovieTitles = () => {
                             Player 2 Avatar
                         </div>
                         <div className={styles.playerTwoName}>
-                            Player 2 Name
+                            Player 2 Name: {playerNameTwo}
                         </div>
                         <div className={styles.playerTwoScore}>
                             Player 2 Score
                         </div>
-                    </div>
-                </div>
-                <div className={styles.wrongGuessContainer}>
-                    <WrongGuess />
-                </div>
-                <div className={styles.puzzleContainer}>
-                    <WordPuzzle />
-                </div>
-                <div>
-                    <FetchStatusMessage />
-                </div>
-                <div style={{ paddingTop: "10px" }}>
-                    <Keyboard />
-                </div>
-                <div className={styles.footer}>
-                    <div style={{ display: "block" }}>
-                        <button>Back to home page</button>
-                        <p>Ctrl + B</p>
-                    </div>
-                    <div style={{ display: "block" }}>
-                        <button>Next Puzzle</button>
-                        <p>Ctrl + Q</p>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom"
 import checkmark from "/src/assets/checkmark.png"
 
 const TwoPlayerSetup = () => {
-    const [activeAvatar, setActiveAvatar] = useState(0)
+    const [activeAvatarOne, setActiveAvatarOne] = useState(0)
+    const [activeAvatarTwo, setActiveAvatarTwo] = useState(0)
     const [selectedAvatarOne, setSelectedAvatarOne] = useState("")
     const [selectedAvatarTwo, setSelectedAvatarTwo] = useState("")
     const [avatarErrorOne, setAvatarErrorOne] = useState("")
@@ -22,6 +23,10 @@ const TwoPlayerSetup = () => {
     const [playerOneReadyButtonActive, setPlayerOneReadyButtonActive] =
         useState(false)
     const [playerTwoReadyButtonActive, setPlayerTwoReadyButtonActive] =
+        useState(false)
+    const [playerOneReadyButtonClicked, setPlayerOneReadyButtonClicked] =
+        useState(false)
+    const [playerTwoReadyButtonClicked, setPlayerTwoReadyButtonClicked] =
         useState(false)
 
     const playerOneAvatars = [
@@ -80,6 +85,8 @@ const TwoPlayerSetup = () => {
         },
     ]
 
+    /////////////////////////////////////////////////////////////////
+
     const navigate = useNavigate()
 
     const oneInputRef = useRef(null)
@@ -96,7 +103,7 @@ const TwoPlayerSetup = () => {
     }
 
     const handleMouseEnter = (avatarId) => {
-        setActiveAvatar(avatarId)
+        setActiveAvatarOne(avatarId)
     }
 
     const handleAvatarClickOne = (avatar) => {
@@ -132,8 +139,10 @@ const TwoPlayerSetup = () => {
                 JSON.stringify(selectedAvatarOne)
             )
             setIsPlayerTwoActive(true)
+            setActiveAvatarTwo(playerTwoAvatars[0].id)
             setIsPlayerOneReady(true)
             setIsPlayerOneActive(false)
+            setPlayerOneReadyButtonClicked(true)
         }
     }
 
@@ -157,18 +166,47 @@ const TwoPlayerSetup = () => {
             )
             setIsPlayerTwoActive(false)
             setIsPlayerTwoReady(true)
+            setPlayerTwoReadyButtonClicked(true)
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "Enter" && playerOneReadyButtonClicked)
+                e.preventDefault()
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [playerOneReadyButtonClicked])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "Enter" && playerTwoReadyButtonClicked)
+                e.preventDefault()
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [playerTwoReadyButtonClicked])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (isPlayerOneActive && e.key === "ArrowRight" && !inputFocusOne) {
                 const currentIndex = playerOneAvatars.findIndex(
-                    (avatar) => avatar.id === activeAvatar
+                    (avatar) => avatar.id === activeAvatarOne
                 )
                 const newIndex = currentIndex + 1
                 if (newIndex < playerOneAvatars.length) {
-                    setActiveAvatar(playerOneAvatars[newIndex].id)
+                    setActiveAvatarOne(playerOneAvatars[newIndex].id)
                 }
             }
         }
@@ -178,16 +216,16 @@ const TwoPlayerSetup = () => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [activeAvatar, playerOneAvatars])
+    }, [activeAvatarOne, playerOneAvatars])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (isPlayerOneActive && e.key === "ArrowLeft") {
                 const currentIndex = playerOneAvatars.findIndex(
-                    (avatar) => avatar.id === activeAvatar
+                    (avatar) => avatar.id === activeAvatarOne
                 )
                 const newIndex = currentIndex - 1
-                setActiveAvatar(playerOneAvatars[newIndex].id)
+                setActiveAvatarOne(playerOneAvatars[newIndex].id)
             }
         }
 
@@ -196,13 +234,17 @@ const TwoPlayerSetup = () => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [activeAvatar, playerOneAvatars])
+    }, [activeAvatarOne, playerOneAvatars])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (isPlayerOneActive && e.key === "Enter" && activeAvatar !== "") {
+            if (
+                isPlayerOneActive &&
+                e.key === "Enter" &&
+                activeAvatarOne !== ""
+            ) {
                 const selected = playerOneAvatars.find(
-                    (avatar) => avatar.id === activeAvatar
+                    (avatar) => avatar.id === activeAvatarOne
                 )
                 if (selected) {
                     setSelectedAvatarOne(selected)
@@ -216,7 +258,7 @@ const TwoPlayerSetup = () => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [activeAvatar])
+    }, [activeAvatarOne])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -226,7 +268,7 @@ const TwoPlayerSetup = () => {
                 selectedAvatarOne
             ) {
                 oneInputRef.current.focus()
-                setActiveAvatar("")
+                setActiveAvatarOne("")
                 setInputFocusOne(true)
             }
         }
@@ -241,7 +283,7 @@ const TwoPlayerSetup = () => {
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (isPlayerOneActive && e.key === "ArrowRight" && inputFocusOne) {
-                setActiveAvatar("")
+                setActiveAvatarOne("")
             }
         }
 
@@ -255,7 +297,7 @@ const TwoPlayerSetup = () => {
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (isPlayerOneActive && e.key === "ArrowLeft" && inputFocusOne) {
-                setActiveAvatar("")
+                setActiveAvatarOne("")
             }
         }
 
@@ -274,7 +316,7 @@ const TwoPlayerSetup = () => {
                 inputFocusOne &&
                 !playerOneReadyButtonActive
             ) {
-                setActiveAvatar(playerOneAvatars[0].id)
+                setActiveAvatarOne(playerOneAvatars[0].id)
                 setInputFocusOne(false)
                 oneInputRef.current.blur()
             }
@@ -317,6 +359,8 @@ const TwoPlayerSetup = () => {
                 setIsPlayerOneActive(false)
                 setIsPlayerOneReady(true)
                 setIsPlayerTwoActive(true)
+                setPlayerOneReadyButtonClicked(true)
+                setActiveAvatarOne("")
             }
         }
 
@@ -362,6 +406,7 @@ const TwoPlayerSetup = () => {
                 setIsPlayerOneActive(false)
                 setIsPlayerOneReady(true)
                 setIsPlayerTwoActive(true)
+                setPlayerOneReadyButtonClicked(true)
             }
         }
 
@@ -392,15 +437,17 @@ const TwoPlayerSetup = () => {
         }
     }, [playerOneReadyButtonActive])
 
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (isPlayerTwoActive && e.key === "ArrowRight" && !inputFocusTwo) {
                 const currentIndex = playerTwoAvatars.findIndex(
-                    (avatar) => avatar.id === activeAvatar
+                    (avatar) => avatar.id === activeAvatarTwo
                 )
                 const newIndex = currentIndex + 1
                 if (newIndex < playerTwoAvatars.length) {
-                    setActiveAvatar(playerTwoAvatars[newIndex].id)
+                    setActiveAvatarTwo(playerTwoAvatars[newIndex].id)
                 }
             }
         }
@@ -410,16 +457,16 @@ const TwoPlayerSetup = () => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [activeAvatar, playerTwoAvatars])
+    }, [activeAvatarTwo, playerTwoAvatars])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (isPlayerTwoActive && e.key === "ArrowLeft") {
                 const currentIndex = playerTwoAvatars.findIndex(
-                    (avatar) => avatar.id === activeAvatar
+                    (avatar) => avatar.id === activeAvatarTwo
                 )
                 const newIndex = currentIndex - 1
-                setActiveAvatar(playerTwoAvatars[newIndex].id)
+                setActiveAvatarTwo(playerTwoAvatars[newIndex].id)
             }
         }
 
@@ -428,13 +475,17 @@ const TwoPlayerSetup = () => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [activeAvatar, playerTwoAvatars])
+    }, [activeAvatarTwo, playerTwoAvatars])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (isPlayerTwoActive && e.key === "Enter" && activeAvatar !== "") {
+            if (
+                isPlayerTwoActive &&
+                e.key === "Enter" &&
+                activeAvatarTwo !== ""
+            ) {
                 const selected = playerTwoAvatars.find(
-                    (avatar) => avatar.id === activeAvatar
+                    (avatar) => avatar.id === activeAvatarTwo
                 )
                 if (selected) {
                     setSelectedAvatarTwo(selected)
@@ -448,7 +499,7 @@ const TwoPlayerSetup = () => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [activeAvatar])
+    }, [activeAvatarTwo])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -458,7 +509,7 @@ const TwoPlayerSetup = () => {
                 selectedAvatarTwo
             ) {
                 twoInputRef.current.focus()
-                setActiveAvatar("")
+                setActiveAvatarTwo("")
                 setInputFocusTwo(true)
             }
         }
@@ -469,172 +520,6 @@ const TwoPlayerSetup = () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
     }, [selectedAvatarTwo])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (isPlayerTwoActive && e.key === "ArrowRight" && inputFocusTwo) {
-                setActiveAvatar("")
-            }
-        }
-
-        window.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [inputFocusTwo])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (isPlayerTwoActive && e.key === "ArrowLeft" && inputFocusTwo) {
-                setActiveAvatar("")
-            }
-        }
-
-        window.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [inputFocusTwo])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (
-                isPlayerTwoActive &&
-                e.key === "ArrowUp" &&
-                inputFocusTwo &&
-                !playerTwoReadyButtonActive
-            ) {
-                setActiveAvatar(playerTwoAvatars[0].id)
-                setInputFocusTwo(false)
-                twoInputRef.current.blur()
-            }
-        }
-
-        window.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [inputFocusTwo, playerTwoAvatars, playerTwoReadyButtonActive])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (isPlayerTwoActive && e.key === "Enter" && inputFocusTwo) {
-                setInputErrorTwo("Please enter a name")
-            }
-        }
-
-        window.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [inputFocusTwo])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (
-                isPlayerTwoActive &&
-                e.key === "Enter" &&
-                inputFocusTwo &&
-                inputValueTwo
-            ) {
-                setInputErrorTwo("")
-                localStorage.setItem(
-                    "PLAYER_TWO_AVATAR_KEY",
-                    JSON.stringify(selectedAvatarTwo)
-                )
-                setIsPlayerTwoActive(false)
-                setIsPlayerTwoReady(true)
-            }
-        }
-
-        window.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [inputFocusTwo, inputValueTwo, selectedAvatarTwo])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (
-                isPlayerTwoActive &&
-                e.key === "ArrowDown" &&
-                inputFocusTwo &&
-                inputValueTwo
-            ) {
-                setInputErrorTwo("")
-                setPlayerTwoReadyButtonActive(true)
-                twoInputRef.current.blur()
-            }
-        }
-
-        window.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [inputFocusTwo, inputValueTwo])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (
-                isPlayerTwoActive &&
-                e.key === "Enter" &&
-                playerTwoReadyButtonActive
-            ) {
-                localStorage.setItem(
-                    "PLAYER_TWO_AVATAR_KEY",
-                    JSON.stringify(selectedAvatarTwo)
-                )
-                setIsPlayerTwoActive(false)
-                setIsPlayerTwoReady(true)
-            }
-        }
-
-        window.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [playerTwoReadyButtonActive, inputValueTwo, selectedAvatarTwo])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (
-                isPlayerTwoActive &&
-                e.key === "ArrowUp" &&
-                playerTwoReadyButtonActive
-            ) {
-                twoInputRef.current.focus()
-                setInputFocusTwo(true)
-                setPlayerTwoReadyButtonActive(false)
-            }
-        }
-
-        window.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [playerTwoReadyButtonActive])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (isPlayerTwoReady && isPlayerTwoReady && e.key === "Enter") {
-                navigate("/TwoPlayer/Categories")
-            }
-        }
-
-        window.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [isPlayerOneReady, isPlayerTwoReady, navigate])
 
     return (
         <>
@@ -667,7 +552,7 @@ const TwoPlayerSetup = () => {
                                     }
                                     className={
                                         isPlayerOneActive &&
-                                        avatar.id === activeAvatar
+                                        avatar.id === activeAvatarOne
                                             ? styles.activeAvatar
                                             : styles.avatar
                                     }
@@ -703,9 +588,10 @@ const TwoPlayerSetup = () => {
                         <p style={{ color: "red" }}>{inputErrorOne}</p>
                         <button
                             className={
-                                inputValueOne &&
-                                selectedAvatarOne &&
-                                playerOneReadyButtonActive
+                                (inputValueOne &&
+                                    selectedAvatarOne &&
+                                    playerOneReadyButtonActive) ||
+                                playerOneReadyButtonClicked
                                     ? styles.activePlayerButton
                                     : !playerOneReadyButtonActive &&
                                       inputValueOne &&
@@ -758,7 +644,7 @@ const TwoPlayerSetup = () => {
                                     }
                                     className={
                                         isPlayerTwoActive &&
-                                        avatar.id === activeAvatar
+                                        avatar.id === activeAvatarTwo
                                             ? styles.activeAvatar
                                             : styles.avatar
                                     }
@@ -828,7 +714,11 @@ const TwoPlayerSetup = () => {
                             ? styles.activeStartButton
                             : styles.startButton
                     }
-                    onClick={() => navigate("/TwoPlayer/Categories")}
+                    onClick={() =>
+                        navigate(
+                            `/TwoPlayer/Categories?PlayerOneName=${inputValueOne}&PlayerTwoName=${inputValueTwo}`
+                        )
+                    }
                 >
                     Start
                 </button>

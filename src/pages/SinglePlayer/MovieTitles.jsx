@@ -283,18 +283,7 @@ const SinglePlayerGamePlay = () => {
     }
 
     const handleSaveAndLeaveGame = () => {
-        // const prevHighScore = JSON.parse(localStorage.getItem("HIGH_SCORE_KEY"))
-
-        // if (currentScore <= prevHighScore) {
-        //     localStorage.setItem(
-        //         "HIGH_SCORE_KEY",
-        //         JSON.stringify(prevHighScore)
-        //     )
-        //     navigate("/")
-        // } else if (currentScore > prevHighScore) {
-        //     localStorage.setItem("HIGH_SCORE_KEY", JSON.stringify(currentScore))
         navigate("/")
-        //}
     }
 
     const leaveGameModalbuttons = [
