@@ -45,37 +45,6 @@ h1 {
     margin-top: 60px;
 }
 
-.button {
-    background-color: transparent;
-    border: 1px solid white;
-    color: white;
-    height: 100px;
-    width: 300px;
-    font-size: 20px;
-    border-radius: 50px;
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-.activeButton {
-    background: radial-gradient(
-        circle at 10% 20%,
-        rgb(253, 239, 132) 0%,
-        rgb(247, 198, 169) 54.2%,
-        rgb(21, 186, 196) 100.3%
-    );
-    transition: ease-in-out 80ms;
-    border: 2px solid white;
-    color: rgb(53, 18, 110);
-    height: 100px;
-    width: 300px;
-    font-size: 20px;
-    border-radius: 50px;
-    box-shadow: 0px 6px 8px rgba(255, 255, 255, 0.61);
-    cursor: pointer;
-}
-
 /* <div class="text-box">
     <a href="#" class="btn btn-white btn-        animate">click me</a>
 </div> */

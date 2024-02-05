@@ -1,4 +1,4 @@
-export const avatarArray = [
+export const avatars = [
     {
         id: 0,
         src: "/src/assets/cat.png",

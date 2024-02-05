@@ -1,0 +1,32 @@
+.title {
+    display: flex;
+    justify-content: center;
+}
+
+.avatarGallery {
+    display: flex;
+    justify-content: center;
+}
+
+.selectedAvatarContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.selectedAvatar {
+    border: 5px solid gold;
+}
+
+.input {
+    display: flex;
+    justify-content: center;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.activeButton {
+    border: 2px solid red;
+}

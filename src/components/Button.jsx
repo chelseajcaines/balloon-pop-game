@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import styles from "/src/stylesheets/Home.module.css"
+import styles from "/src/stylesheets/Button.module.css"
 
 const Button = ({ text, nextPage, isActive, onClick, onMouseEnter }) => {
     const navigate = useNavigate()
