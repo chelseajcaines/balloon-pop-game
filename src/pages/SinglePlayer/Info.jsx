@@ -284,8 +284,8 @@ const SinglePlayerSetup = () => {
             <div className={styles.pageContainer}>
                 <div className={styles.header}>
                     <h1>Single Player Setup</h1>
-                    <p>Choose your avatar</p>
                 </div>
+                <p className={styles.title}>Choose your avatar</p>
                 <div className={styles.avatarGallery}>
                     {avatars.map((avatar) => (
                         <img
@@ -302,39 +302,48 @@ const SinglePlayerSetup = () => {
                         />
                     ))}
                 </div>
+                <div className={styles.selectedAvatarContainer}>
+                    {selectedAvatar && (
+                        <img
+                            className={styles.selectedAvatar}
+                            src={selectedAvatar.src}
+                            alt={selectedAvatar.alt}
+                        />
+                    )}
+                </div>
 
-                {selectedAvatar && (
-                    <img
-                        className={styles.selectedAvatar}
-                        src={selectedAvatar.src}
-                        alt={selectedAvatar.alt}
+                <p style={{ color: "red" }} className={styles.title}>
+                    {avatarError}
+                </p>
+
+                <p className={styles.title}>Enter name</p>
+                <div className={styles.input}>
+                    <input
+                        type="text"
+                        onChange={handleInputChange}
+                        ref={inputRef}
                     />
-                )}
+                </div>
 
-                <p style={{ color: "red" }}>{avatarError}</p>
-
-                <p>Enter name</p>
-
-                <input
-                    type="text"
-                    onChange={handleInputChange}
-                    ref={inputRef}
-                />
-
-                <p style={{ color: "red" }}>{inputError}</p>
-
-                <button
-                    onClick={handleNextPageClick}
-                    className={
-                        inputValue && selectedAvatar && nextButtonActive
-                            ? styles.activeNextButton
-                            : !nextButtonActive && inputValue && selectedAvatar
-                            ? styles.activeButton
-                            : ""
-                    }
-                >
-                    Next
-                </button>
+                <p style={{ color: "red" }} className={styles.title}>
+                    {inputError}
+                </p>
+                <div className={styles.buttonContainer}>
+                    <button
+                        onClick={handleNextPageClick}
+                        className={
+                            inputValue && selectedAvatar && nextButtonActive
+                                ? styles.activeNextButton
+                                : !nextButtonActive &&
+                                  inputValue &&
+                                  selectedAvatar
+                                ? styles.activeButton
+                                : ""
+                        }
+                    >
+                        Next
+                    </button>
+                </div>
             </div>
         </>
     )
