@@ -1,44 +1,60 @@
 .pageContainer {
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    max-width: 1200px;
+    border: 1px solid grey;
     margin: 0 auto;
-    align-items: center;
+    height: 100vh;
 }
 
 .header {
+    height: 100px;
+}
+
+.stats {
     display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    align-items: center;
+    justify-content: space-between;
 }
 
 .playerInfo {
     display: flex;
-    flex-direction: row;
-    gap: 2rem;
+}
+
+.leaderboard h2 {
+    margin: 0;
 }
 
 .mainSection {
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
-    align-items: center;
+    justify-content: center;
+}
+
+.wrongGuess {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.puzzleContainer {
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .footer {
+    margin-top: 40px;
+}
+
+.footerButtons {
     display: flex;
-    flex-direction: row;
-    gap: 2rem;
+    justify-content: center;
+    gap: 15rem;
 }
 
-.currentScore {
-    padding-top: 200px;
-}
-
-.activeButton {
-    border: 2px solid red;
+.footerButtonKeyCommands {
+    display: flex;
+    justify-content: center;
+    gap: 31rem;
+    color: white;
 }
 
 .modal {

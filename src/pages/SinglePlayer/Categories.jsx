@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
-
+import Button from "../../components/Button"
 import styles from "/src/stylesheets/Categories.module.css"
 
 const SinglePlayerCategories = () => {
@@ -21,17 +21,17 @@ const SinglePlayerCategories = () => {
         {
             id: 1,
             text: "Button 2",
-            //onClick:
+            //nextPage:
         },
         {
             id: 2,
             text: "Button 3",
-            //onClick:
+            //nextPage:
         },
         {
             id: 3,
             text: "Button 4",
-            //onClick:
+            //nextPage:
         },
     ]
 
@@ -75,28 +75,22 @@ const SinglePlayerCategories = () => {
         setIsActive(buttonId)
     }
 
-    const handleMouseLeave = () => {}
-
     return (
         <>
             <div className={styles.pageContainer}>
                 <div className={styles.header}>
                     <h1>Choose Puzzle Category</h1>
+                </div>
+                <div className={styles.mainSection}>
                     <div className={styles.categoryList}>
                         {buttons.map((button) => (
-                            <button
+                            <Button
+                                text={button.text}
                                 key={button.id}
                                 onClick={() => navigate(button.nextPage)}
                                 onMouseEnter={() => handleMouseEnter(button.id)}
-                                onMouseLeave={handleMouseLeave}
-                                className={
-                                    button.id === isActive
-                                        ? styles.activeButton
-                                        : ""
-                                }
-                            >
-                                {button.text}
-                            </button>
+                                isActive={button.id === isActive}
+                            />
                         ))}
                     </div>
                 </div>

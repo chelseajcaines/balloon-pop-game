@@ -13,6 +13,12 @@ const Keyboard = ({
         alphabetArray.slice(19),
     ]
 
+    // <div ontouchstart="">
+    //     <div class="button">
+    //         <a href="#">Mobile First</a>
+    //     </div>
+    // </div>
+
     return (
         <div className={styles.keyboard}>
             {rows.map((row, index) => (

@@ -26,7 +26,3 @@
     display: flex;
     justify-content: center;
 }
-
-.activeButton {
-    border: 2px solid red;
-}

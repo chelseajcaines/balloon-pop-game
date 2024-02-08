@@ -3,8 +3,8 @@
 body {
     background: linear-gradient(
         181deg,
-        rgb(121, 45, 129) 15%,
-        rgb(36, 31, 98) 158.5%
+        rgb(155, 121, 255) 15%,
+        rgb(128, 86, 254) 158.5%
     );
     padding: 0;
     height: 100vh;

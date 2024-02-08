@@ -215,11 +215,7 @@ const PlayerInfo = ({ onButtonClick }) => {
                         alt={avatar.alt}
                         onMouseEnter={() => handleMouseEnter(avatar.id)}
                         onClick={() => handleAvatarClick(avatar)}
-                        className={
-                            avatar.id === activeAvatar
-                                ? styles.activeAvatar
-                                : styles.avatar
-                        }
+                        activeAvatar={activeAvatar === avatar.id}
                     />
                 ))}
             </div>
@@ -256,6 +252,7 @@ const PlayerInfo = ({ onButtonClick }) => {
                 <Button
                     text="Next"
                     onClick={onButtonClick || handleNextPageClick}
+                    isActive={selectedAvatar && inputValue}
                 />
             </div>
         </>

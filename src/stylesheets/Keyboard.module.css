@@ -1,10 +1,31 @@
+.btn {
+    background-color: rgb(255, 144, 81);
+    color: white;
+    border-radius: 7px;
+    transition: all 0.2s;
+    font-weight: bold;
+    font-size: 31px;
+    text-align: center;
+    height: 70px;
+    width: 70px;
+    cursor: pointer;
+    position: relative;
+    border: 3px solid #f8f7f5;
+    margin: 2px;
+}
+
+.btn:active {
+    top: 3px;
+    transition: all 0.2s;
+}
+
 .btn:hover:not(:disabled),
 .btn:focus:not(:disabled) {
     background-color: blueviolet;
 }
 
 .btn.active {
-    background-color: rgb(97, 17, 172);
+    background-color: rgb(30, 172, 17);
     color: white;
 }
 
@@ -18,64 +39,3 @@
     margin: 0 auto;
     align-items: center;
 }
-
-/* <div ontouchstart="">
-  <div class="button">
-    <a href="#">Mobile First</a>
-  </div>
-</div> */
-
-/* .button{
-  position:relative;
-  display:inline-block;
-  margin:20px;
-}
-
-.button a{
-  color:white;
-  font-family:Helvetica, sans-serif;
-  font-weight:bold;
-  font-size:36px;
-  text-align: center;
-  text-decoration:none;
-  background-color:#FFA12B;
-  display:block;
-  position:relative;
-  padding:20px 40px;
-  
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  text-shadow: 0px 1px 0px #000;
-  filter: dropshadow(color=#000, offx=0px, offy=1px);
-  
-  -webkit-box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
-  -moz-box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
-  box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
-  
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-}
-
-.button a:active{
-  top:10px;
-  background-color:#F78900;
-  
-  -webkit-box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
-  -moz-box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3pxpx 0 #915100;
-  box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
-}
-
-.button:after{
-  content:"";
-  height:100%;
-  width:100%;
-  padding:4px;
-  position: absolute;
-  bottom:-15px;
-  left:-4px;
-  z-index:-1;
-  background-color:#2B1800;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-} */
