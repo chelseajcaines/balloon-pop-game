@@ -167,7 +167,7 @@ const SinglePlayerGamePlay = () => {
             setPointsWon(numberOfPointsWon)
             setCurrentScore((prevScore) => prevScore + pointsWon)
         }
-    }, [incorrectLetters.length, playerWins, isWinner, pointsWon])
+    }, [guessedLetters, playerWins, isWinner, pointsWon])
 
     useEffect(() => {
         if (playerWins && currentScore > 0) {
