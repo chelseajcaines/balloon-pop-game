@@ -1,4 +1,4 @@
-import styles from "/src/stylesheets/TwoPlayerGamePlay.module.css"
+import "/src/App.css"
 import { useLocation } from "react-router-dom"
 
 import { useState, useEffect } from "react"
@@ -21,11 +21,11 @@ const TwoPlayerMovieTitles = () => {
 
     return (
         <>
-            <div className={styles.pageContainer}>
+            <div className="pageContainer">
                 <h1>Two Player Game Play</h1>
-                <div className={styles.playerInfo}>
-                    <div className={styles.playerOneInfo}>
-                        <div className={styles.playerOneAvatar}>
+                <div className="playerInfoTP">
+                    <div className="playerOneInfo">
+                        <div className="playerOneAvatar">
                             {selectedAvatarOne && (
                                 <img
                                     src={selectedAvatarOne.src}
@@ -33,23 +33,17 @@ const TwoPlayerMovieTitles = () => {
                                 />
                             )}
                         </div>
-                        <div className={styles.playerOneName}>
+                        <div className="playerOneName">
                             Player 1 Name: {playerNameOne}
                         </div>
-                        <div className={styles.playerOneScore}>
-                            Player 1 Score
-                        </div>
+                        <div className="playerOneScore">Player 1 Score</div>
                     </div>
-                    <div className={styles.playerTwoInfo}>
-                        <div className={styles.playerTwoAvatar}>
-                            Player 2 Avatar
-                        </div>
-                        <div className={styles.playerTwoName}>
+                    <div className="playerTwoInfo">
+                        <div className="playerTwoAvatar">Player 2 Avatar</div>
+                        <div className="playerTwoName">
                             Player 2 Name: {playerNameTwo}
                         </div>
-                        <div className={styles.playerTwoScore}>
-                            Player 2 Score
-                        </div>
+                        <div className="playerTwoScore">Player 2 Score</div>
                     </div>
                 </div>
             </div>

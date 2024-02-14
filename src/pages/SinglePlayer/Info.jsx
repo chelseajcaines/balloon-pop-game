@@ -1,13 +1,11 @@
-import { useState, useEffect, useRef } from "react"
-import { useNavigate } from "react-router-dom"
 import PlayerInfo from "../../components/PlayerInfo"
-import styles from "/src/stylesheets/SinglePlayerSetup.module.css"
+import "/src/App.css"
 
 const SinglePlayerSetup = () => {
     return (
         <>
-            <div className={styles.pageContainer}>
-                <div className={styles.header}>
+            <div className="pageContainer">
+                <div className="header">
                     <h1>Single Player Setup</h1>
                 </div>
                 <PlayerInfo />

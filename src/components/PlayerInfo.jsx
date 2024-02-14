@@ -1,4 +1,4 @@
-import styles from "/src/stylesheets/PlayerInfo.module.css"
+import "/src/App.css"
 import Avatar from "/src/components/Avatar"
 import Button from "/src/components/Button"
 import { useState, useRef, useEffect } from "react"
@@ -205,9 +205,9 @@ const PlayerInfo = ({ onButtonClick }) => {
 
     return (
         <>
-            <p className={styles.title}>Choose your avatar</p>
+            <p className="title">Choose your avatar</p>
 
-            <div className={styles.avatarGallery}>
+            <div className="avatarGallery">
                 {avatars.map((avatar) => (
                     <Avatar
                         key={avatar.id}
@@ -220,23 +220,23 @@ const PlayerInfo = ({ onButtonClick }) => {
                 ))}
             </div>
 
-            <div className={styles.selectedAvatarContainer}>
+            <div className="selectedAvatarContainer">
                 {selectedAvatar && (
                     <img
-                        className={styles.selectedAvatar}
+                        className="selectedAvatar"
                         src={selectedAvatar.src}
                         alt={selectedAvatar.alt}
                     />
                 )}
             </div>
 
-            <p style={{ color: "red" }} className={styles.title}>
+            <p style={{ color: "red" }} className="title">
                 {avatarError}
             </p>
 
-            <p className={styles.title}>Enter name</p>
+            <p className="title">Enter name</p>
 
-            <div className={styles.input}>
+            <div className="input">
                 <input
                     type="text"
                     onChange={handleInputChange}
@@ -244,11 +244,11 @@ const PlayerInfo = ({ onButtonClick }) => {
                 />
             </div>
 
-            <p style={{ color: "red" }} className={styles.title}>
+            <p style={{ color: "red" }} className="title">
                 {inputError}
             </p>
 
-            <div className={styles.buttonContainer}>
+            <div className="buttonContainer">
                 <Button
                     text="Next"
                     onClick={onButtonClick || handleNextPageClick}

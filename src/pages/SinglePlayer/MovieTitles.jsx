@@ -6,7 +6,7 @@ import WordPuzzle from "../../components/WordPuzzle.jsx"
 import WrongGuess from "../../components/WrongGuess.jsx"
 import FetchStatusMessage from "../../components/FetchStatusMessage.jsx"
 import Button from "/src/components/Button"
-import styles from "/src/stylesheets/SinglePlayerGamePlay.module.css"
+import "/src/App.css"
 
 const SinglePlayerGamePlay = () => {
     const navigate = useNavigate()
@@ -590,29 +590,27 @@ const SinglePlayerGamePlay = () => {
 
     return (
         <>
-            <div className={styles.pageContainer}>
-                <div className={styles.header}>
+            <div className="pageContainer">
+                <div className="header">
                     <h1>Single Player - Game play</h1>
                 </div>
-                <div className={styles.stats}>
-                    <div className={styles.playerInfo}>
-                        <div className={styles.playerAvatar}>
+                <div className="stats">
+                    <div className="playerInfo">
+                        <div className="playerAvatar">
                             <PlayerAvatar selectedAvatar={selectedAvatar} />
                         </div>
-                        <div className={styles.nameAndScore}>
+                        <div className="nameAndScore">
                             <p>Player Name: {playerName}</p>
                             <p>Current Score: {currentScore}</p>
                         </div>
                     </div>
-                    <div className={styles.leaderboard}>
-                        {renderLeaderboard()}
-                    </div>
+                    <div className="leaderboard">{renderLeaderboard()}</div>
                 </div>
-                <div className={styles.mainSection}>
-                    <div className={styles.wrongGuess}>
+                <div className="mainSectionGamePlay">
+                    <div className="wrongGuess">
                         <WrongGuess numberOfGuesses={incorrectLetters.length} />
                     </div>
-                    <div className={styles.puzzleContainer}>
+                    <div className="puzzleContainer">
                         <WordPuzzle
                             puzzle={puzzle}
                             guessedLetters={guessedLetters}
@@ -635,8 +633,8 @@ const SinglePlayerGamePlay = () => {
                     </div>
                 </div>
 
-                <div className={styles.footer}>
-                    <div className={styles.footerButtons}>
+                <div className="footer">
+                    <div className="footerButtons">
                         {footerButtons.map((button) => (
                             <Button
                                 key={button.id}
@@ -648,7 +646,7 @@ const SinglePlayerGamePlay = () => {
                             />
                         ))}
                     </div>
-                    <div className={styles.footerButtonKeyCommands}>
+                    <div className="footerButtonKeyCommands">
                         <p>Ctrl + B</p>
                         <p>Ctrl + Q</p>
                     </div>
@@ -659,17 +657,17 @@ const SinglePlayerGamePlay = () => {
                             <div
                                 style={overlayStyles}
                                 onClick={handleCancelAllModals}
-                                className={showWinModal ? styles.overlay : ""}
+                                className={showWinModal ? "overlay" : ""}
                             ></div>
                             <div
                                 style={modalStyles}
-                                className={showWinModal ? styles.modal : ""}
+                                className={showWinModal ? "modal" : ""}
                             >
                                 <p>Congrats! You won {pointsWon} points!</p>
                                 <p>Your current score is {currentScore}</p>
                                 <p>Next puzzle?</p>
 
-                                <div className={styles.buttonsContainer}>
+                                <div className="buttonsContainer">
                                     {winModalbuttons.map((button) => (
                                         <button
                                             key={button.id}
@@ -680,7 +678,7 @@ const SinglePlayerGamePlay = () => {
                                             onClick={button.click}
                                             className={
                                                 button.id === isActive
-                                                    ? styles.activeButton
+                                                    ? "activeButtonModal"
                                                     : ""
                                             }
                                         >
@@ -698,15 +696,15 @@ const SinglePlayerGamePlay = () => {
                             <div
                                 style={overlayStyles}
                                 onClick={handleCancelAllModals}
-                                className={showLoseModal ? styles.overlay : ""}
+                                className={showLoseModal ? "overlay" : ""}
                             ></div>
                             <div
                                 style={modalStyles}
-                                className={showLoseModal ? styles.modal : ""}
+                                className={showLoseModal ? "modal" : ""}
                             >
                                 <p>Nice Try! Play Again?</p>
 
-                                <div className={styles.buttonsContainer}>
+                                <div className="buttonsContainer">
                                     {loseModalbuttons.map((button) => (
                                         <button
                                             key={button.id}
@@ -717,7 +715,7 @@ const SinglePlayerGamePlay = () => {
                                             onClick={button.click}
                                             className={
                                                 button.id === isActive
-                                                    ? styles.activeButton
+                                                    ? "activeButtonModal"
                                                     : ""
                                             }
                                         >
@@ -735,19 +733,15 @@ const SinglePlayerGamePlay = () => {
                             <div
                                 style={overlayStyles}
                                 onClick={handleCancelAllModals}
-                                className={
-                                    showLeaveGameModal ? styles.overlay : ""
-                                }
+                                className={showLeaveGameModal ? "overlay" : ""}
                             ></div>
                             <div
                                 style={modalStyles}
-                                className={
-                                    showLeaveGameModal ? styles.modal : ""
-                                }
+                                className={showLeaveGameModal ? "modal" : ""}
                             >
                                 <p>Leave game and return to home page?</p>
 
-                                <div className={styles.buttonsContainer}>
+                                <div className="buttonsContainer">
                                     {leaveGameModalbuttons.map((button) => (
                                         <button
                                             key={button.id}
@@ -758,7 +752,7 @@ const SinglePlayerGamePlay = () => {
                                             onClick={button.click}
                                             className={
                                                 button.id === isActive
-                                                    ? styles.activeButton
+                                                    ? "activeButtonModal"
                                                     : ""
                                             }
                                         >

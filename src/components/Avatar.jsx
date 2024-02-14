@@ -1,4 +1,4 @@
-import styles from "/src/stylesheets/Avatar.module.css"
+import "/src/App.css"
 
 const Avatar = ({ src, alt, key, onMouseEnter, onClick, activeAvatar }) => {
     return (
@@ -9,7 +9,7 @@ const Avatar = ({ src, alt, key, onMouseEnter, onClick, activeAvatar }) => {
                 key={key}
                 onMouseEnter={onMouseEnter}
                 onClick={onClick}
-                className={activeAvatar ? styles.activeAvatar : styles.avatar}
+                className={activeAvatar ? "activeAvatar" : "avatar"}
             />
         </>
     )

@@ -1,4 +1,4 @@
-import styles from "/src/stylesheets/TwoPlayerSetup.module.css"
+import "/src/App.css"
 import { useState, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import checkmark from "/src/assets/checkmark.png"
@@ -523,18 +523,18 @@ const TwoPlayerSetup = () => {
 
     return (
         <>
-            <div className={styles.pageContainer}>
-                <h1 className={styles.header}>Two Player Setup</h1>
-                <div className={styles.playerContainers}>
+            <div className="pageContainerTP">
+                <h1 className="header">Two Player Setup</h1>
+                <div className="playerContainers">
                     <div
                         className={
                             isPlayerOneActive
-                                ? styles.playerOneActive
-                                : styles.playerOneContainer
+                                ? "playerOneActive"
+                                : "playerOneContainer"
                         }
                     >
-                        <p className={styles.playerHeader}>Player 1</p>
-                        <div className={styles.avatarGallery}>
+                        <p className="playerHeader">Player 1</p>
+                        <div className="avatarGallery">
                             {playerOneAvatars.map((avatar) => (
                                 <img
                                     key={avatar.id}
@@ -553,8 +553,8 @@ const TwoPlayerSetup = () => {
                                     className={
                                         isPlayerOneActive &&
                                         avatar.id === activeAvatarOne
-                                            ? styles.activeAvatar
-                                            : styles.avatar
+                                            ? "activeAvatarTP"
+                                            : "avatarTP"
                                     }
                                 />
                             ))}
@@ -563,7 +563,7 @@ const TwoPlayerSetup = () => {
                         <div>
                             {selectedAvatarOne && (
                                 <img
-                                    className={styles.selectedAvatar}
+                                    className="selectedAvatarTP"
                                     src={selectedAvatarOne.src}
                                     alt={selectedAvatarOne.alt}
                                 />
@@ -592,11 +592,11 @@ const TwoPlayerSetup = () => {
                                     selectedAvatarOne &&
                                     playerOneReadyButtonActive) ||
                                 playerOneReadyButtonClicked
-                                    ? styles.activePlayerButton
+                                    ? "activePlayerButton"
                                     : !playerOneReadyButtonActive &&
                                       inputValueOne &&
                                       selectedAvatarOne
-                                    ? styles.activeButton
+                                    ? "activeButtonTP"
                                     : ""
                             }
                             onClick={
@@ -612,7 +612,7 @@ const TwoPlayerSetup = () => {
                                 <img
                                     src={checkmark}
                                     alt={"checkmark"}
-                                    className={styles.checkmarkOne}
+                                    className="checkmarkOne"
                                 />
                             )}
                         </div>
@@ -621,12 +621,12 @@ const TwoPlayerSetup = () => {
                     <div
                         className={
                             isPlayerTwoActive
-                                ? styles.playerTwoActive
-                                : styles.playerTwoContainer
+                                ? "playerTwoActive"
+                                : "playerTwoContainer"
                         }
                     >
-                        <p className={styles.playerHeader}>Player 2</p>
-                        <div className={styles.avatarGallery}>
+                        <p className="playerHeader">Player 2</p>
+                        <div className="avatarGallery">
                             {playerTwoAvatars.map((avatar) => (
                                 <img
                                     key={avatar.id}
@@ -645,8 +645,8 @@ const TwoPlayerSetup = () => {
                                     className={
                                         isPlayerTwoActive &&
                                         avatar.id === activeAvatarTwo
-                                            ? styles.activeAvatar
-                                            : styles.avatar
+                                            ? "activeAvatarTP"
+                                            : "avatarTP"
                                     }
                                 />
                             ))}
@@ -654,7 +654,7 @@ const TwoPlayerSetup = () => {
                         <div>
                             {selectedAvatarTwo && (
                                 <img
-                                    className={styles.selectedAvatar}
+                                    className="selectedAvatarTP"
                                     src={selectedAvatarTwo.src}
                                     alt={selectedAvatarTwo.alt}
                                 />
@@ -682,11 +682,11 @@ const TwoPlayerSetup = () => {
                                 inputValueTwo &&
                                 selectedAvatarTwo &&
                                 playerTwoReadyButtonActive
-                                    ? styles.activePlayerButton
+                                    ? "activePlayerButton"
                                     : !playerTwoReadyButtonActive &&
                                       inputValueTwo &&
                                       selectedAvatarTwo
-                                    ? styles.activeButton
+                                    ? "activeButtonTP"
                                     : ""
                             }
                             onClick={
@@ -702,7 +702,7 @@ const TwoPlayerSetup = () => {
                                 <img
                                     src={checkmark}
                                     alt={"checkmark"}
-                                    className={styles.checkmarkTwo}
+                                    className="checkmarkTwo"
                                 />
                             )}
                         </div>
@@ -711,8 +711,8 @@ const TwoPlayerSetup = () => {
                 <button
                     className={
                         isPlayerOneReady && isPlayerTwoReady
-                            ? styles.activeStartButton
-                            : styles.startButton
+                            ? "activeStartButton"
+                            : "startButton"
                     }
                     onClick={() =>
                         navigate(

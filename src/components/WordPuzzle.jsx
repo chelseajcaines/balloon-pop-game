@@ -1,32 +1,30 @@
-import styles from "/src/stylesheets/WordPuzzle.module.css"
+import "/src/App.css"
 
 const WordPuzzle = ({ puzzle, guessedLetters, reveal = false }) => {
     return (
-        <div className={styles.puzzleContainer}>
+        <div className="puzzleContainer">
             {puzzle.split("").map((letter, index) => (
                 <div
                     key={index}
-                    className={`${styles.puzzleLetter} ${
+                    className={`${"puzzleLetter"} ${
                         letter === ":" || letter === "'" || letter === " "
                             ? ""
-                            : styles["puzzleLetterBorder"]
+                            : ["puzzleLetterBorder"]
                     }`}
                 >
                     <div
-                        className={`${
-                            styles[
-                                guessedLetters.includes(letter) ||
-                                reveal ||
-                                letter === ":" ||
-                                letter === "'" ||
-                                letter === " "
-                                    ? "visible"
-                                    : "hidden"
-                            ]
-                        } ${
+                        className={`${[
+                            guessedLetters.includes(letter) ||
+                            reveal ||
+                            letter === ":" ||
+                            letter === "'" ||
+                            letter === " "
+                                ? "visible"
+                                : "hidden",
+                        ]} ${
                             !guessedLetters.includes(letter) && reveal
-                                ? styles.red
-                                : styles.black
+                                ? "red"
+                                : "black"
                         }`}
                     >
                         {letter}

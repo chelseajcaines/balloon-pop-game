@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
 import Button from "../../components/Button"
-import styles from "/src/stylesheets/Categories.module.css"
+import "/src/App.css"
 
 const SinglePlayerCategories = () => {
     const [isActive, setIsActive] = useState(0)
@@ -77,12 +77,12 @@ const SinglePlayerCategories = () => {
 
     return (
         <>
-            <div className={styles.pageContainer}>
-                <div className={styles.header}>
+            <div className="pageContainer">
+                <div className="header">
                     <h1>Choose Puzzle Category</h1>
                 </div>
-                <div className={styles.mainSection}>
-                    <div className={styles.categoryList}>
+                <div className="mainSection">
+                    <div className="categoryList">
                         {buttons.map((button) => (
                             <Button
                                 text={button.text}

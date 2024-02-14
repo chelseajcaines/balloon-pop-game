@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import styles from "/src/stylesheets/Button.module.css"
+import "/src/App.css"
 
 const Button = ({
     text,
@@ -20,7 +20,7 @@ const Button = ({
             onMouseEnter={onMouseEnter}
             onClick={onClick || handleClick}
             onMouseLeave={onMouseLeave}
-            className={isActive ? styles.activeButton : styles.button}
+            className={isActive ? "activeButton" : "button"}
         >
             {text}
         </button>

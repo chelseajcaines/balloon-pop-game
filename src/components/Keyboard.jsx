@@ -1,4 +1,4 @@
-import styles from "/src/stylesheets/Keyboard.module.css"
+import "/src/App.css"
 import { alphabetArray } from "../data/const.js"
 
 const Keyboard = ({
@@ -14,9 +14,9 @@ const Keyboard = ({
     ]
 
     return (
-        <div className={styles.keyboard}>
+        <div className="keyboard">
             {rows.map((row, index) => (
-                <div key={index} className={styles.row}>
+                <div key={index} className="row">
                     {row.map((letter) => {
                         const isActive = activeLetters.includes(letter)
                         const isInactive = inactiveLetters.includes(letter)
@@ -24,9 +24,9 @@ const Keyboard = ({
                             <button
                                 key={letter}
                                 onClick={() => onLetterClick(letter)}
-                                className={`${styles.btn} ${
-                                    isActive ? styles.active : ""
-                                } ${isInactive ? styles.inactive : ""}`}
+                                className={`${"btn"} ${
+                                    isActive ? "active" : ""
+                                } ${isInactive ? "inactive" : ""}`}
                                 disabled={isActive || isInactive || disabled}
                             >
                                 {letter}
