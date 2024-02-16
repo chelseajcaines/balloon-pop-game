@@ -1,6 +1,5 @@
 import "/src/App.css"
 import { useLocation } from "react-router-dom"
-
 import { useState, useEffect } from "react"
 //import WrongGuess from "../../components/WrongGuess"
 //import WordPuzzle from "../../components/WordPuzzle"
@@ -13,10 +12,16 @@ const TwoPlayerMovieTitles = () => {
     const playerNameTwo = params.get("PlayerTwoName")
 
     const [selectedAvatarOne, setSelectedAvatarOne] = useState("")
+    const [selectedAvatarTwo, setSelectedAvatarTwo] = useState("")
 
     useEffect(() => {
         const data = window.localStorage.getItem("PLAYER_ONE_AVATAR_KEY")
         setSelectedAvatarOne(JSON.parse(data))
+    }, [])
+
+    useEffect(() => {
+        const data = window.localStorage.getItem("PLAYER_TWO_AVATAR_KEY")
+        setSelectedAvatarTwo(JSON.parse(data))
     }, [])
 
     return (
@@ -39,7 +44,14 @@ const TwoPlayerMovieTitles = () => {
                         <div className="playerOneScore">Player 1 Score</div>
                     </div>
                     <div className="playerTwoInfo">
-                        <div className="playerTwoAvatar">Player 2 Avatar</div>
+                        <div className="playerTwoAvatar">
+                            {selectedAvatarTwo && (
+                                <img
+                                    src={selectedAvatarTwo.src}
+                                    alt={selectedAvatarTwo.alt}
+                                />
+                            )}
+                        </div>
                         <div className="playerTwoName">
                             Player 2 Name: {playerNameTwo}
                         </div>
