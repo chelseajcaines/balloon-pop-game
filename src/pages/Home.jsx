@@ -2,8 +2,8 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import balloon from "/src/assets/balloon.png"
 import twoBalloons from "/src/assets/twoBalloons.png"
-import "/src/App.css"
 import Button from "/src/components/Button"
+import "/src/App.css"
 
 const buttons = [
     {
@@ -88,7 +88,7 @@ const Home = () => {
                         <Button
                             key={button.id}
                             text={button.text}
-                            nextPage={button.nextPage}
+                            onClick={() => navigate(button.nextPage)}
                             isActive={button.id === isActive}
                             onMouseEnter={() => handleMouseEnter(button.id)}
                         />

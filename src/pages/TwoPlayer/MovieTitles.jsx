@@ -1,8 +1,6 @@
 import "/src/App.css"
 import { useLocation } from "react-router-dom"
 import { useState, useEffect } from "react"
-//import WrongGuess from "../../components/WrongGuess"
-//import WordPuzzle from "../../components/WordPuzzle"
 
 const TwoPlayerMovieTitles = () => {
     const location = useLocation()

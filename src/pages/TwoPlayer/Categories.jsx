@@ -81,6 +81,8 @@ const TwoPlayerCategories = () => {
             <div className="pageContainer">
                 <div className="header">
                     <h1>Choose Puzzle Category</h1>
+                </div>
+                <div className="mainSection">
                     <div className="categoryList">
                         {buttons.map((button) => (
                             <Button

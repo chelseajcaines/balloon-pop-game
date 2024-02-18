@@ -2,18 +2,15 @@ import "/src/App.css"
 import Avatar from "/src/components/Avatar"
 import Button from "/src/components/Button"
 import { useState, useRef, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 import { avatars } from "/src/data/const.js"
 
-const PlayerInfo = ({ onButtonClick }) => {
+const PlayerInfo = () => {
     const [activeAvatar, setActiveAvatar] = useState(0)
     const [selectedAvatar, setSelectedAvatar] = useState("")
     const [avatarError, setAvatarError] = useState("")
     const [inputFocus, setInputFocus] = useState(false)
     const [inputError, setInputError] = useState("")
     const [inputValue, setInputValue] = useState("")
-
-    const navigate = useNavigate()
 
     const inputRef = useRef(null)
 
@@ -47,8 +44,6 @@ const PlayerInfo = ({ onButtonClick }) => {
         } else {
             setInputError("")
             setAvatarError("")
-            localStorage.setItem("AVATAR_KEY", JSON.stringify(selectedAvatar))
-            navigate(`/SinglePlayer/Categories?name=${inputValue}`)
         }
     }
 
@@ -70,7 +65,7 @@ const PlayerInfo = ({ onButtonClick }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [activeAvatar, avatars])
+    }, [activeAvatar])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -88,7 +83,7 @@ const PlayerInfo = ({ onButtonClick }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [activeAvatar, avatars])
+    }, [activeAvatar])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -168,7 +163,7 @@ const PlayerInfo = ({ onButtonClick }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [inputFocus, avatars])
+    }, [inputFocus])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -188,11 +183,7 @@ const PlayerInfo = ({ onButtonClick }) => {
         const handleKeyDown = (e) => {
             if (e.key === "Enter" && inputFocus && inputValue) {
                 setInputError("")
-                localStorage.setItem(
-                    "AVATAR_KEY",
-                    JSON.stringify(selectedAvatar)
-                )
-                navigate(`/SinglePlayer/Categories?name=${inputValue}`)
+                setAvatarError("")
             }
         }
 
@@ -201,7 +192,7 @@ const PlayerInfo = ({ onButtonClick }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [inputFocus, inputValue, selectedAvatar, navigate])
+    }, [inputFocus, inputValue, selectedAvatar])
 
     return (
         <>
@@ -251,7 +242,7 @@ const PlayerInfo = ({ onButtonClick }) => {
             <div className="buttonContainer">
                 <Button
                     text="Next"
-                    onClick={onButtonClick || handleNextPageClick}
+                    onClick={handleNextPageClick}
                     isActive={selectedAvatar && inputValue}
                 />
             </div>
