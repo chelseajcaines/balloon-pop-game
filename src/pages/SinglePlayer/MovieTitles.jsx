@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import { useState, useEffect, useCallback } from "react"
 import Keyboard from "../../components/Keyboard.jsx"
-import PlayerAvatar from "/src/components/PlayerAvatar"
 import WordPuzzle from "../../components/WordPuzzle.jsx"
 import WrongGuess from "../../components/WrongGuess.jsx"
 import FetchStatusMessage from "../../components/FetchStatusMessage.jsx"
 import Button from "/src/components/Button"
+import PlayerInfoDisplay from "../../components/PlayerInfoDisplay.jsx"
 import "/src/App.css"
 
 const SinglePlayerGamePlay = () => {
@@ -596,13 +596,12 @@ const SinglePlayerGamePlay = () => {
                 </div>
                 <div className="stats">
                     <div className="playerInfo">
-                        <div className="playerAvatar">
-                            <PlayerAvatar selectedAvatar={selectedAvatar} />
-                        </div>
-                        <div className="nameAndScore">
-                            <p>Player Name: {playerName}</p>
-                            <p>Current Score: {currentScore}</p>
-                        </div>
+                        <PlayerInfoDisplay
+                            singlePlayer={true}
+                            selectedAvatar={selectedAvatar}
+                            playerName={playerName}
+                            score={currentScore}
+                        />
                     </div>
                     <div className="leaderboard">{renderLeaderboard()}</div>
                 </div>

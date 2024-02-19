@@ -2,15 +2,20 @@ import "/src/App.css"
 import Avatar from "/src/components/Avatar"
 import Button from "/src/components/Button"
 import { useState, useRef, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { avatars } from "/src/data/const.js"
 
-const PlayerInfo = () => {
+const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
     const [activeAvatar, setActiveAvatar] = useState(0)
     const [selectedAvatar, setSelectedAvatar] = useState("")
     const [avatarError, setAvatarError] = useState("")
     const [inputFocus, setInputFocus] = useState(false)
     const [inputError, setInputError] = useState("")
     const [inputValue, setInputValue] = useState("")
+    const [playerOneReady, setPlayerOneReady] = useState(false)
+    const [playerTwoReady, setPlayerTwoReady] = useState(false)
+
+    const navigate = useNavigate()
 
     const inputRef = useRef(null)
 
@@ -30,7 +35,7 @@ const PlayerInfo = () => {
         setInputValue(e.target.value)
     }
 
-    const handleNextPageClick = (e) => {
+    const handleClickSinglePlayer = (e) => {
         e.preventDefault()
         if (!inputValue && !selectedAvatar) {
             setInputError("Please enter a name")
@@ -44,6 +49,60 @@ const PlayerInfo = () => {
         } else {
             setInputError("")
             setAvatarError("")
+            localStorage.setItem("AVATAR_KEY", JSON.stringify(selectedAvatar))
+            navigate(`/SinglePlayer/Categories?name=${inputValue}`)
+        }
+    }
+
+    const handleClickPlayerOne = (e) => {
+        e.preventDefault()
+        if (!inputValue && !selectedAvatar) {
+            setInputError("Please enter a name")
+            setAvatarError("Please select avatar")
+        } else if (!selectedAvatar && inputValue) {
+            setAvatarError("Please select avatar")
+            setInputError("")
+        } else if (selectedAvatar && !inputValue) {
+            setAvatarError("")
+            setInputError("Please enter a name")
+        } else {
+            setInputError("")
+            setAvatarError("")
+            localStorage.setItem(
+                "PLAYER_ONE_AVATAR_KEY",
+                JSON.stringify(selectedAvatar)
+            )
+            localStorage.setItem(
+                "PLAYER_ONE_NAME_KEY",
+                JSON.stringify(inputValue)
+            )
+            setPlayerOneReady(true)
+        }
+    }
+
+    const handleClickPlayerTwo = (e) => {
+        e.preventDefault()
+        if (!inputValue && !selectedAvatar) {
+            setInputError("Please enter a name")
+            setAvatarError("Please select avatar")
+        } else if (!selectedAvatar && inputValue) {
+            setAvatarError("Please select avatar")
+            setInputError("")
+        } else if (selectedAvatar && !inputValue) {
+            setAvatarError("")
+            setInputError("Please enter a name")
+        } else {
+            setInputError("")
+            setAvatarError("")
+            localStorage.setItem(
+                "PLAYER_TWO_AVATAR_KEY",
+                JSON.stringify(selectedAvatar)
+            )
+            localStorage.setItem(
+                "PLAYER_TWO_NAME_KEY",
+                JSON.stringify(inputValue)
+            )
+            setPlayerTwoReady(true)
         }
     }
 
@@ -181,7 +240,12 @@ const PlayerInfo = () => {
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === "Enter" && inputFocus && inputValue) {
+            if (
+                e.key === "Enter" &&
+                inputFocus &&
+                inputValue &&
+                selectedAvatar
+            ) {
                 setInputError("")
                 setAvatarError("")
             }
@@ -196,55 +260,72 @@ const PlayerInfo = () => {
 
     return (
         <>
-            <p className="title">Choose your avatar</p>
+            <div
+                className={
+                    (playerOne && playerOneReady) ||
+                    (playerTwo && playerTwoReady)
+                        ? "disable"
+                        : ""
+                }
+            >
+                <p className="title">Choose your avatar</p>
 
-            <div className="avatarGallery">
-                {avatars.map((avatar) => (
-                    <Avatar
-                        key={avatar.id}
-                        src={avatar.src}
-                        alt={avatar.alt}
-                        onMouseEnter={() => handleMouseEnter(avatar.id)}
-                        onClick={() => handleAvatarClick(avatar)}
-                        activeAvatar={activeAvatar === avatar.id}
+                <div className="avatarGallery">
+                    {avatars.map((avatar) => (
+                        <Avatar
+                            key={avatar.id}
+                            src={avatar.src}
+                            alt={avatar.alt}
+                            onMouseEnter={() => handleMouseEnter(avatar.id)}
+                            onClick={() => handleAvatarClick(avatar)}
+                            activeAvatar={activeAvatar === avatar.id}
+                        />
+                    ))}
+                </div>
+
+                <div className="selectedAvatarContainer">
+                    {selectedAvatar && (
+                        <img
+                            className="selectedAvatar"
+                            src={selectedAvatar.src}
+                            alt={selectedAvatar.alt}
+                        />
+                    )}
+                </div>
+
+                <p style={{ color: "red" }} className="title">
+                    {avatarError}
+                </p>
+
+                <p className="title">Enter name</p>
+
+                <div className="input">
+                    <input
+                        type="text"
+                        onChange={handleInputChange}
+                        ref={inputRef}
                     />
-                ))}
-            </div>
+                </div>
 
-            <div className="selectedAvatarContainer">
-                {selectedAvatar && (
-                    <img
-                        className="selectedAvatar"
-                        src={selectedAvatar.src}
-                        alt={selectedAvatar.alt}
+                <p style={{ color: "red" }} className="title">
+                    {inputError}
+                </p>
+
+                <div className="buttonContainer" onClick={onClick}>
+                    <Button
+                        text="Ready"
+                        onClick={
+                            singlePlayer
+                                ? handleClickSinglePlayer
+                                : playerOne
+                                ? handleClickPlayerOne
+                                : playerTwo
+                                ? handleClickPlayerTwo
+                                : undefined
+                        }
+                        isActive={selectedAvatar && inputValue}
                     />
-                )}
-            </div>
-
-            <p style={{ color: "red" }} className="title">
-                {avatarError}
-            </p>
-
-            <p className="title">Enter name</p>
-
-            <div className="input">
-                <input
-                    type="text"
-                    onChange={handleInputChange}
-                    ref={inputRef}
-                />
-            </div>
-
-            <p style={{ color: "red" }} className="title">
-                {inputError}
-            </p>
-
-            <div className="buttonContainer">
-                <Button
-                    text="Next"
-                    onClick={handleNextPageClick}
-                    isActive={selectedAvatar && inputValue}
-                />
+                </div>
             </div>
         </>
     )

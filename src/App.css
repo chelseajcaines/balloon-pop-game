@@ -178,10 +178,6 @@ h1 {
     justify-content: space-between;
 }
 
-.playerInfo {
-    display: flex;
-}
-
 .leaderboard h2 {
     margin: 0;
 }
@@ -272,20 +268,13 @@ h1 {
     border: 2px solid red;
 }
 
-.pageContainerTP {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin: 0 auto;
-    align-items: center;
-}
-
 .playerContainers {
     display: flex;
     flex-direction: row;
     gap: 15rem;
     margin: 0 auto;
     align-items: center;
+    justify-content: center;
 }
 
 .playerOneContainer {
@@ -366,15 +355,7 @@ h1 {
     box-shadow: 0 0 10px 5px red;
 }
 
-.playerInfoTP {
-    display: flex;
-    flex-direction: row;
-    gap: 30rem;
-    margin: 0 auto;
-    align-items: center;
-}
-
-.playerOneInfo {
+.playerInfo {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -382,10 +363,11 @@ h1 {
     align-items: center;
 }
 
-.playerTwoInfo {
+.disable {
+    opacity: 0.5;
+}
+
+.footerPlayButton {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin: 0 auto;
-    align-items: center;
+    justify-content: center;
 }
