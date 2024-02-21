@@ -6,6 +6,7 @@ import WrongGuess from "../../components/WrongGuess.jsx"
 import FetchStatusMessage from "../../components/FetchStatusMessage.jsx"
 import Button from "/src/components/Button"
 import PlayerInfoDisplay from "../../components/PlayerInfoDisplay.jsx"
+import Modal from "../../components/Modal.jsx"
 import "/src/App.css"
 
 const SinglePlayerGamePlay = () => {
@@ -221,32 +222,6 @@ const SinglePlayerGamePlay = () => {
         fetchPuzzle()
     }
 
-    const winModalbuttons = [
-        {
-            id: 0,
-            text: "Continue",
-            click: handleWinThenContinue,
-        },
-        {
-            id: 1,
-            text: "Quit",
-            click: handleQuit,
-        },
-    ]
-
-    const loseModalbuttons = [
-        {
-            id: 0,
-            text: "Yes",
-            click: handleLoseThenContinue,
-        },
-        {
-            id: 1,
-            text: "No",
-            click: handleQuit,
-        },
-    ]
-
     const handleCancelAllModals = () => {
         setShowWinModal(false)
         setShowLeaveGameModal(false)
@@ -257,19 +232,6 @@ const SinglePlayerGamePlay = () => {
         navigate("/")
     }
 
-    const leaveGameModalbuttons = [
-        {
-            id: 0,
-            text: "Yes",
-            click: handleSaveAndLeaveGame,
-        },
-        {
-            id: 1,
-            text: "No",
-            click: handleCancelAllModals,
-        },
-    ]
-
     const handleNextPuzzle = () => {
         setGuessedLetters([])
         setPuzzle("")
@@ -278,224 +240,6 @@ const SinglePlayerGamePlay = () => {
         fetchPuzzle()
         setIsNextPuzzleClicked(true)
     }
-
-    const handleMouseEnter = (buttonId) => {
-        setIsActive(buttonId)
-    }
-
-    const handleMouseLeave = () => {
-        setIsActive("")
-    }
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (showWinModal) {
-                if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-                    const currentIndex = winModalbuttons.findIndex(
-                        (button) => button.id === isActive
-                    )
-                    let nextIndex
-
-                    if (e.key === "ArrowRight") {
-                        nextIndex =
-                            currentIndex < winModalbuttons.length - 1
-                                ? currentIndex + 1
-                                : currentIndex
-                    } else if (e.key === "ArrowLeft") {
-                        nextIndex = currentIndex > 0 ? currentIndex - 1 : 0
-                    }
-
-                    setIsActive(winModalbuttons[nextIndex].id)
-                }
-            }
-        }
-
-        document.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [showWinModal, winModalbuttons])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (showWinModal && e.key === "Enter") {
-                const currentIndex = winModalbuttons.findIndex(
-                    (button) => button.id === isActive
-                )
-                winModalbuttons[currentIndex].click()
-            }
-        }
-
-        document.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [showWinModal, winModalbuttons])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (!showWinModal && showLeaveGameModal) {
-                if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-                    const currentIndex = leaveGameModalbuttons.findIndex(
-                        (button) => button.id === isActive
-                    )
-                    let nextIndex
-
-                    if (e.key === "ArrowRight") {
-                        nextIndex =
-                            currentIndex < leaveGameModalbuttons.length - 1
-                                ? currentIndex + 1
-                                : currentIndex
-                    } else if (e.key === "ArrowLeft") {
-                        nextIndex = currentIndex > 0 ? currentIndex - 1 : 0
-                    }
-                    setIsActive(leaveGameModalbuttons[nextIndex].id)
-                }
-            }
-        }
-
-        document.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [showWinModal, showLeaveGameModal, leaveGameModalbuttons])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (!showWinModal && showLeaveGameModal && e.key === "Enter") {
-                const currentIndex = leaveGameModalbuttons.findIndex(
-                    (button) => button.id === isActive
-                )
-
-                leaveGameModalbuttons[currentIndex].click()
-            }
-        }
-
-        document.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [showWinModal, showLeaveGameModal, leaveGameModalbuttons])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (showLoseModal) {
-                if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-                    const currentIndex = loseModalbuttons.findIndex(
-                        (button) => button.id === isActive
-                    )
-                    let nextIndex
-
-                    if (e.key === "ArrowRight") {
-                        nextIndex =
-                            currentIndex < loseModalbuttons.length - 1
-                                ? currentIndex + 1
-                                : currentIndex
-                    } else if (e.key === "ArrowLeft") {
-                        nextIndex = currentIndex > 0 ? currentIndex - 1 : 0
-                    }
-
-                    setIsActive(loseModalbuttons[nextIndex].id)
-                }
-            }
-        }
-
-        document.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [showLoseModal, loseModalbuttons])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (showLoseModal && e.key === "Enter") {
-                const currentIndex = loseModalbuttons.findIndex(
-                    (button) => button.id === isActive
-                )
-                loseModalbuttons[currentIndex].click()
-            }
-        }
-
-        document.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [showLoseModal, loseModalbuttons])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (!showLoseModal && showLeaveGameModal) {
-                if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-                    const currentIndex = leaveGameModalbuttons.findIndex(
-                        (button) => button.id === isActive
-                    )
-                    let nextIndex
-
-                    if (e.key === "ArrowRight") {
-                        nextIndex =
-                            currentIndex < leaveGameModalbuttons.length - 1
-                                ? currentIndex + 1
-                                : currentIndex
-                    } else if (e.key === "ArrowLeft") {
-                        nextIndex = currentIndex > 0 ? currentIndex - 1 : 0
-                    }
-                    setIsActive(leaveGameModalbuttons[nextIndex].id)
-                }
-            }
-        }
-
-        document.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [showLoseModal, showLeaveGameModal, leaveGameModalbuttons])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (!showLoseModal && showLeaveGameModal && e.key === "Enter") {
-                const currentIndex = leaveGameModalbuttons.findIndex(
-                    (button) => button.id === isActive
-                )
-
-                leaveGameModalbuttons[currentIndex].click()
-            }
-        }
-
-        document.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [showLoseModal, showLeaveGameModal, leaveGameModalbuttons])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (
-                showLeaveGameModal &&
-                isHomePageButtonClicked &&
-                e.key === "Enter"
-            ) {
-                const currentIndex = leaveGameModalbuttons.findIndex(
-                    (button) => button.id === isActive
-                )
-
-                leaveGameModalbuttons[currentIndex].click()
-            }
-        }
-
-        document.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [isHomePageButtonClicked, showLeaveGameModal, leaveGameModalbuttons])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -619,107 +363,35 @@ const SinglePlayerGamePlay = () => {
                         <p>Ctrl + Q</p>
                     </div>
                 </div>
-                <div>
-                    {isWinner && showWinModal && (
-                        <div>
-                            <div
-                                onClick={handleCancelAllModals}
-                                className={showWinModal ? "overlay" : ""}
-                            ></div>
-                            <div className={showWinModal ? "modal" : ""}>
-                                <p>Congrats! You won {pointsWon} points!</p>
-                                <p>Your current score is {currentScore}</p>
-                                <p>Next puzzle?</p>
 
-                                <div className="buttonsContainer">
-                                    {winModalbuttons.map((button) => (
-                                        <button
-                                            key={button.id}
-                                            onMouseEnter={() =>
-                                                handleMouseEnter(button.id)
-                                            }
-                                            onMouseLeave={handleMouseLeave}
-                                            onClick={button.click}
-                                            className={
-                                                button.id === isActive
-                                                    ? "activeButtonModal"
-                                                    : ""
-                                            }
-                                        >
-                                            {button.text}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-                <div>
-                    {isLoser && showLoseModal && (
-                        <div>
-                            <div
-                                onClick={handleCancelAllModals}
-                                className={showLoseModal ? "overlay" : ""}
-                            ></div>
-                            <div className={showLoseModal ? "modal" : ""}>
-                                <p>Nice Try! Play Again?</p>
+                {isWinner && showWinModal && (
+                    <Modal
+                        winModal={true}
+                        handleCancelAllModals={handleCancelAllModals}
+                        handleWinThenContinue={handleWinThenContinue}
+                        handleQuit={handleQuit}
+                        pointsWon={pointsWon}
+                        currentScore={currentScore}
+                    />
+                )}
 
-                                <div className="buttonsContainer">
-                                    {loseModalbuttons.map((button) => (
-                                        <button
-                                            key={button.id}
-                                            onMouseEnter={() =>
-                                                handleMouseEnter(button.id)
-                                            }
-                                            onMouseLeave={handleMouseLeave}
-                                            onClick={button.click}
-                                            className={
-                                                button.id === isActive
-                                                    ? "activeButtonModal"
-                                                    : ""
-                                            }
-                                        >
-                                            {button.text}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-                <div>
-                    {showLeaveGameModal && (
-                        <div>
-                            <div
-                                onClick={handleCancelAllModals}
-                                className={showLeaveGameModal ? "overlay" : ""}
-                            ></div>
-                            <div className={showLeaveGameModal ? "modal" : ""}>
-                                <p>Leave game and return to home page?</p>
+                {isLoser && showLoseModal && (
+                    <Modal
+                        loseModal={true}
+                        handleCancelAllModals={handleCancelAllModals}
+                        handleLoseThenContinue={handleLoseThenContinue}
+                        handleQuit={handleQuit}
+                    />
+                )}
 
-                                <div className="buttonsContainer">
-                                    {leaveGameModalbuttons.map((button) => (
-                                        <button
-                                            key={button.id}
-                                            onMouseEnter={() =>
-                                                handleMouseEnter(button.id)
-                                            }
-                                            onMouseLeave={handleMouseLeave}
-                                            onClick={button.click}
-                                            className={
-                                                button.id === isActive
-                                                    ? "activeButtonModal"
-                                                    : ""
-                                            }
-                                        >
-                                            {button.text}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
+                {showLeaveGameModal && (
+                    <Modal
+                        leaveGameModal={true}
+                        handleCancelAllModals={handleCancelAllModals}
+                        handleSaveAndLeaveGame={handleSaveAndLeaveGame}
+                        handleQuit={handleQuit}
+                    />
+                )}
             </div>
         </>
     )
