@@ -19,7 +19,6 @@ const SinglePlayerGamePlay = () => {
     const [error, setError] = useState(null)
     const [puzzle, setPuzzle] = useState("")
     const [guessedLetters, setGuessedLetters] = useState([])
-    const [selectedAvatar, setSelectedAvatar] = useState("")
     const [playerWins, setPlayerWins] = useState(false)
     const [pointsWon, setPointsWon] = useState(0)
     const [showWinModal, setShowWinModal] = useState(false)
@@ -30,30 +29,6 @@ const SinglePlayerGamePlay = () => {
     const [isNextPuzzleClicked, setIsNextPuzzleClicked] = useState(false)
     const [isHomePageButtonClicked, setIsHomePageButtonClicked] =
         useState(false)
-
-    const modalStyles = {
-        position: "fixed",
-        height: "200px",
-        width: "200px",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        padding: "20px",
-        backgroundColor: "white",
-        borderRadius: "8px",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-        zIndex: 1000,
-    }
-
-    const overlayStyles = {
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        zIndex: 999,
-    }
 
     const updateLeaderboard = (name, score) => {
         const leaderboardData =
@@ -95,11 +70,6 @@ const SinglePlayerGamePlay = () => {
             document.removeEventListener("keydown", handleKeyDown)
         }
     }, [isHomePageButtonClicked])
-
-    useEffect(() => {
-        const data = window.localStorage.getItem("AVATAR_KEY")
-        setSelectedAvatar(JSON.parse(data))
-    }, [])
 
     const fetchPuzzle = async () => {
         setError(null)
@@ -598,7 +568,6 @@ const SinglePlayerGamePlay = () => {
                     <div className="playerInfo">
                         <PlayerInfoDisplay
                             singlePlayer={true}
-                            selectedAvatar={selectedAvatar}
                             playerName={playerName}
                             score={currentScore}
                         />
@@ -654,14 +623,10 @@ const SinglePlayerGamePlay = () => {
                     {isWinner && showWinModal && (
                         <div>
                             <div
-                                style={overlayStyles}
                                 onClick={handleCancelAllModals}
                                 className={showWinModal ? "overlay" : ""}
                             ></div>
-                            <div
-                                style={modalStyles}
-                                className={showWinModal ? "modal" : ""}
-                            >
+                            <div className={showWinModal ? "modal" : ""}>
                                 <p>Congrats! You won {pointsWon} points!</p>
                                 <p>Your current score is {currentScore}</p>
                                 <p>Next puzzle?</p>
@@ -693,14 +658,10 @@ const SinglePlayerGamePlay = () => {
                     {isLoser && showLoseModal && (
                         <div>
                             <div
-                                style={overlayStyles}
                                 onClick={handleCancelAllModals}
                                 className={showLoseModal ? "overlay" : ""}
                             ></div>
-                            <div
-                                style={modalStyles}
-                                className={showLoseModal ? "modal" : ""}
-                            >
+                            <div className={showLoseModal ? "modal" : ""}>
                                 <p>Nice Try! Play Again?</p>
 
                                 <div className="buttonsContainer">
@@ -730,14 +691,10 @@ const SinglePlayerGamePlay = () => {
                     {showLeaveGameModal && (
                         <div>
                             <div
-                                style={overlayStyles}
                                 onClick={handleCancelAllModals}
                                 className={showLeaveGameModal ? "overlay" : ""}
                             ></div>
-                            <div
-                                style={modalStyles}
-                                className={showLeaveGameModal ? "modal" : ""}
-                            >
+                            <div className={showLeaveGameModal ? "modal" : ""}>
                                 <p>Leave game and return to home page?</p>
 
                                 <div className="buttonsContainer">

@@ -5,13 +5,18 @@ const PlayerInfoDisplay = ({
     playerOne,
     playerTwo,
     score,
-    selectedAvatar,
     playerName,
 }) => {
+    const [selectedAvatar, setSelectedAvatar] = useState("")
     const [selectedAvatarOne, setSelectedAvatarOne] = useState("")
     const [selectedAvatarTwo, setSelectedAvatarTwo] = useState("")
     const [playerNameOne, setPlayerNameOne] = useState("")
     const [playerNameTwo, setPlayerNameTwo] = useState("")
+
+    useEffect(() => {
+        const data = window.localStorage.getItem("AVATAR_KEY")
+        setSelectedAvatar(JSON.parse(data))
+    }, [])
 
     useEffect(() => {
         const data = window.localStorage.getItem("PLAYER_ONE_AVATAR_KEY")
