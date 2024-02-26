@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom"
 import Home from "./pages/Home"
 import SinglePlayerSetup from "./pages/SinglePlayer/Info"
-import SinglePlayerGamePlay from "./pages/SinglePlayer/MovieTitles"
+import SinglePlayerMovieTitles from "./pages/SinglePlayer/MovieTitles"
 import TwoPlayerSetup from "./pages/TwoPlayer/Info"
 import SinglePlayerCategories from "./pages/SinglePlayer/Categories"
 import TwoPlayerCategories from "./pages/TwoPlayer/Categories"
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/SinglePlayer/MovieTitles",
-        element: <SinglePlayerGamePlay />,
+        element: <SinglePlayerMovieTitles />,
     },
     {
         path: "/TwoPlayer/Info",

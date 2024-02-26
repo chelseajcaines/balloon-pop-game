@@ -48,7 +48,7 @@ h1 {
 }
 
 .header {
-    height: 200px;
+    height: 50px;
 }
 
 .buttonsContainer {
@@ -143,11 +143,6 @@ h1 {
     margin-bottom: 10px;
 }
 
-.puzzleContainer {
-    margin-top: 50px;
-    margin-bottom: 50px;
-}
-
 .footer {
     margin-top: 40px;
 }
@@ -222,6 +217,21 @@ h1 {
     margin: 2px;
 }
 
+.btnP2 {
+    background-color: rgb(16, 204, 179);
+    color: white;
+    border-radius: 7px;
+    transition: all 0.2s;
+    font-weight: bold;
+    font-size: 31px;
+    text-align: center;
+    height: 70px;
+    width: 70px;
+    cursor: pointer;
+    position: relative;
+    border: 3px solid #f8f7f5;
+    margin: 2px;
+}
 .btn:active {
     top: 3px;
     transition: all 0.2s;
@@ -252,6 +262,8 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .puzzleLetter {
@@ -381,6 +393,13 @@ h1 {
     align-items: center;
 }
 
+.playerInfoTP {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10rem;
+}
+
 .disable {
     opacity: 0.5;
 }
@@ -388,4 +407,14 @@ h1 {
 .footerPlayButton {
     display: flex;
     justify-content: center;
+}
+
+.playerOneTurn {
+    background-color: rgb(255, 144, 81);
+    border: 2px solid rgb(233, 107, 34);
+}
+
+.playerTwoTurn {
+    background-color: rgb(16, 204, 179);
+    border: 2px solid rgb(2, 168, 146);
 }
