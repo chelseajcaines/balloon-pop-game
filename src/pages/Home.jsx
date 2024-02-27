@@ -1,22 +1,10 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { homeButtons } from "../data/const"
 import balloon from "/src/assets/balloon.png"
 import twoBalloons from "/src/assets/twoBalloons.png"
 import Button from "/src/components/Button"
 import "/src/App.css"
-
-const buttons = [
-    {
-        id: 0,
-        text: "Single Player",
-        nextPage: "/SinglePlayer/Info",
-    },
-    {
-        id: 1,
-        text: "Two Player",
-        nextPage: "/TwoPlayer/Info",
-    },
-]
 
 const Home = () => {
     const navigate = useNavigate()
@@ -26,26 +14,26 @@ const Home = () => {
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-                const currentIndex = buttons.findIndex(
+                const currentIndex = homeButtons.findIndex(
                     (button) => button.id === isActive
                 )
                 let nextIndex
 
                 if (e.key === "ArrowRight") {
                     nextIndex =
-                        currentIndex < buttons.length - 1
+                        currentIndex < homeButtons.length - 1
                             ? currentIndex + 1
                             : currentIndex
                 } else if (e.key === "ArrowLeft") {
                     nextIndex = currentIndex > 0 ? currentIndex - 1 : 0
                 }
 
-                setIsActive(buttons[nextIndex].id)
+                setIsActive(homeButtons[nextIndex].id)
             } else if (e.key === "Enter") {
-                const currentIndex = buttons.findIndex(
+                const currentIndex = homeButtons.findIndex(
                     (button) => button.id === isActive
                 )
-                navigate(buttons[currentIndex].nextPage)
+                navigate(homeButtons[currentIndex].nextPage)
             }
         }
 
@@ -84,7 +72,7 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="buttonsContainer">
-                    {buttons.map((button) => (
+                    {homeButtons.map((button) => (
                         <Button
                             key={button.id}
                             text={button.text}

@@ -12,6 +12,10 @@ const Modal = ({
     handleQuit,
     pointsWon,
     currentScore,
+    playerOneModal,
+    playerTwoModal,
+    playerNameOne,
+    playerNameTwo,
 }) => {
     const [isActive, setIsActive] = useState(0)
 
@@ -280,6 +284,70 @@ const Modal = ({
 
                         <div className="buttonsContainer">
                             {leaveGameModalButtons.map((button) => (
+                                <button
+                                    key={button.id}
+                                    onMouseEnter={() =>
+                                        handleMouseEnter(button.id)
+                                    }
+                                    onMouseLeave={handleMouseLeave}
+                                    onClick={button.click}
+                                    className={
+                                        button.id === isActive
+                                            ? "activeButtonModal"
+                                            : ""
+                                    }
+                                >
+                                    {button.text}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+            {playerOneModal && (
+                <div>
+                    <div
+                        onClick={handleCancelAllModals}
+                        className={"overlay"}
+                    ></div>
+                    <div className={"modal"}>
+                        <p>Congrats, {playerNameOne}! You won the game!</p>
+                        <p>Next puzzle?</p>
+
+                        <div className="buttonsContainer">
+                            {winModalButtons.map((button) => (
+                                <button
+                                    key={button.id}
+                                    onMouseEnter={() =>
+                                        handleMouseEnter(button.id)
+                                    }
+                                    onMouseLeave={handleMouseLeave}
+                                    onClick={button.click}
+                                    className={
+                                        button.id === isActive
+                                            ? "activeButtonModal"
+                                            : ""
+                                    }
+                                >
+                                    {button.text}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+            {playerTwoModal && (
+                <div>
+                    <div
+                        onClick={handleCancelAllModals}
+                        className={"overlay"}
+                    ></div>
+                    <div className={"modal"}>
+                        <p>Congrats, {playerNameTwo}! You won the game!</p>
+                        <p>Next puzzle?</p>
+
+                        <div className="buttonsContainer">
+                            {winModalButtons.map((button) => (
                                 <button
                                     key={button.id}
                                     onMouseEnter={() =>

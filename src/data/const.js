@@ -56,3 +56,41 @@ export const alphabetArray = [
 ]
 
 export const wrongAnswersArray = ["X1", "X2", "X3", "X4", "X5", "X6"]
+
+export const categoryButtons = [
+    {
+        id: 0,
+        text: "Movie Titles",
+    },
+    {
+        id: 1,
+        text: "Button 2",
+        //singlePlayerGame:
+        //twoPlayerGame:
+    },
+    {
+        id: 2,
+        text: "Button 3",
+        //singlePlayerGame:
+        //twoPlayerGame:
+    },
+    {
+        id: 3,
+        text: "Button 4",
+        //singlePlayerGame:
+        //twoPlayerGame:
+    },
+]
+
+export const homeButtons = [
+    {
+        id: 0,
+        text: "Single Player",
+        nextPage: "/SinglePlayer/Info",
+    },
+    {
+        id: 1,
+        text: "Two Player",
+        nextPage: "/TwoPlayer/Info",
+    },
+]

@@ -1,7 +1,7 @@
 import Button from "/src/components/Button"
 import { useState } from "react"
 
-const Footer = ({ handleQuit, handleNextPuzzle, setShowLeaveGameModal }) => {
+const Footer = ({ handleQuit, handleNextPuzzle }) => {
     const [isActive, setIsActive] = useState(0)
 
     const footerButtons = [

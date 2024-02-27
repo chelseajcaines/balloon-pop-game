@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
+import { categoryButtons } from "../data/const"
 import Button from "/src/components/Button"
 
 const PuzzleCategories = ({ singlePlayer, twoPlayer }) => {
@@ -11,31 +12,6 @@ const PuzzleCategories = ({ singlePlayer, twoPlayer }) => {
 
     const navigate = useNavigate()
 
-    const buttons = [
-        {
-            id: 0,
-            text: "Movie Titles",
-        },
-        {
-            id: 1,
-            text: "Button 2",
-            //singlePlayerGame:
-            //twoPlayerGame:
-        },
-        {
-            id: 2,
-            text: "Button 3",
-            //singlePlayerGame:
-            //twoPlayerGame:
-        },
-        {
-            id: 3,
-            text: "Button 4",
-            //singlePlayerGame:
-            //twoPlayerGame:
-        },
-    ]
-
     useEffect(() => {
         setIsActive(0)
     }, [])
@@ -43,26 +19,26 @@ const PuzzleCategories = ({ singlePlayer, twoPlayer }) => {
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-                const currentIndex = buttons.findIndex(
+                const currentIndex = categoryButtons.findIndex(
                     (button) => button.id === isActive
                 )
                 let nextIndex
 
                 if (e.key === "ArrowDown") {
                     nextIndex =
-                        currentIndex < buttons.length - 1
+                        currentIndex < categoryButtons.length - 1
                             ? currentIndex + 1
                             : currentIndex
                 } else if (e.key === "ArrowUp") {
                     nextIndex = currentIndex > 0 ? currentIndex - 1 : 0
                 }
 
-                setIsActive(buttons[nextIndex].id)
+                setIsActive(categoryButtons[nextIndex].id)
             } else if (e.key === "Enter") {
-                const currentIndex = buttons.findIndex(
+                const currentIndex = categoryButtons.findIndex(
                     (button) => button.id === isActive
                 )
-                navigate(buttons[currentIndex].nextPage)
+                navigate(categoryButtons[currentIndex].nextPage)
             }
         }
 
@@ -70,7 +46,7 @@ const PuzzleCategories = ({ singlePlayer, twoPlayer }) => {
         return () => {
             document.removeEventListener("keydown", handleKeyDown)
         }
-    }, [isActive, buttons, navigate])
+    }, [isActive, categoryButtons, navigate])
 
     const handleMouseEnter = (buttonId) => {
         setIsActive(buttonId)
@@ -84,7 +60,7 @@ const PuzzleCategories = ({ singlePlayer, twoPlayer }) => {
                 </div>
                 <div className="mainSection">
                     <div className="categoryList">
-                        {buttons.map((button) => (
+                        {categoryButtons.map((button) => (
                             <Button
                                 text={button.text}
                                 key={button.id}

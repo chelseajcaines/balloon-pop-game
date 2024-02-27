@@ -1,5 +1,6 @@
 import "/src/App.css"
 import { useState, useEffect, useCallback } from "react"
+import { useNavigate } from "react-router-dom"
 import { movieTitlesEndpoint } from "../data/apiEndpoints"
 import PlayerInfoDisplay from "/src/components/PlayerInfoDisplay"
 import GamePlaySection from "./GamePlaySection"
@@ -16,6 +17,14 @@ const TwoPlayerGamePlay = ({ movieTitles }) => {
         useState(false)
     const [playerTwoTurn, setPlayerTwoTurn] = useState(false)
     const [currentLetter, setCurrentLetter] = useState("")
+    const [playerOneScore, setPlayerOneScore] = useState(0)
+    const [playerTwoScore, setPlayerTwoScore] = useState(0)
+    const [showPlayerOneModal, setShowPlayerOneModal] = useState(false)
+    const [showPlayerTwoModal, setShowPlayerTwoModal] = useState(false)
+    const [playerNameOne, setPlayerNameOne] = useState("")
+    const [playerNameTwo, setPlayerNameTwo] = useState("")
+
+    const navigate = useNavigate()
 
     const chooseCategorie = () => {
         if (movieTitles) {
@@ -123,14 +132,24 @@ const TwoPlayerGamePlay = ({ movieTitles }) => {
     const handleQuit = () => {
         setIsHomePageButtonClicked(true)
         setShowLeaveGameModal(true)
+        setShowPlayerOneModal(false)
+        setShowPlayerTwoModal(false)
     }
 
     const handleCancelAllModals = () => {
         setShowLeaveGameModal(false)
+        setShowPlayerOneModal(false)
+        setShowPlayerTwoModal(false)
     }
 
     const handleSaveAndLeaveGame = () => {
         navigate("/")
+    }
+
+    const handleWinThenContinue = () => {
+        setShowPlayerOneModal(false)
+        setShowPlayerTwoModal(false)
+        handleNextPuzzle()
     }
 
     useEffect(() => {
@@ -175,16 +194,42 @@ const TwoPlayerGamePlay = ({ movieTitles }) => {
         }
     }, [isHomePageButtonClicked])
 
+    useEffect(() => {
+        if (!playerTwoTurn && isWinner) {
+            setPlayerOneScore((prevScore) => prevScore + 1)
+            setShowPlayerOneModal(true)
+        } else if (playerTwoTurn && isWinner) {
+            setPlayerTwoScore((prevScore) => prevScore + 1)
+            setShowPlayerTwoModal(true)
+        }
+    }, [playerTwoTurn, isWinner])
+
+    useEffect(() => {
+        const data = window.localStorage.getItem("PLAYER_ONE_NAME_KEY")
+        setPlayerNameOne(JSON.parse(data))
+    }, [])
+
+    useEffect(() => {
+        const data = window.localStorage.getItem("PLAYER_TWO_NAME_KEY")
+        setPlayerNameTwo(JSON.parse(data))
+    }, [])
+
     return (
         <>
             <div className="pageContainer">
                 <h1>Two Player Game Play</h1>
                 <div className="playerInfoTP">
                     <div className={!playerTwoTurn ? "playerOneTurn" : ""}>
-                        <PlayerInfoDisplay playerOne={true} />
+                        <PlayerInfoDisplay
+                            playerOne={true}
+                            score={playerOneScore}
+                        />
                     </div>
                     <div className={playerTwoTurn ? "playerTwoTurn" : ""}>
-                        <PlayerInfoDisplay playerTwo={true} />
+                        <PlayerInfoDisplay
+                            playerTwo={true}
+                            score={playerTwoScore}
+                        />
                     </div>
                 </div>
                 <GamePlaySection
@@ -208,7 +253,24 @@ const TwoPlayerGamePlay = ({ movieTitles }) => {
                         leaveGameModal={true}
                         handleCancelAllModals={handleCancelAllModals}
                         handleSaveAndLeaveGame={handleSaveAndLeaveGame}
+                    />
+                )}
+                {showPlayerOneModal && (
+                    <Modal
+                        playerOneModal={true}
+                        playerNameOne={playerNameOne}
+                        handleCancelAllModals={handleCancelAllModals}
                         handleQuit={handleQuit}
+                        handleWinThenContinue={handleWinThenContinue}
+                    />
+                )}
+                {showPlayerTwoModal && (
+                    <Modal
+                        playerTwoModal={true}
+                        playerNameTwo={playerNameTwo}
+                        handleCancelAllModals={handleCancelAllModals}
+                        handleQuit={handleQuit}
+                        handleWinThenContinue={handleWinThenContinue}
                     />
                 )}
             </div>
