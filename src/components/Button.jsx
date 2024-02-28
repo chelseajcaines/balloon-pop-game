@@ -1,12 +1,26 @@
 import "/src/App.css"
 
-const Button = ({ text, isActive, onClick, onMouseEnter, onMouseLeave }) => {
+const Button = ({
+    text,
+    isActive,
+    onClick,
+    onMouseEnter,
+    onMouseLeave,
+    playerTwoDisabled,
+    playerOneDisabled,
+}) => {
     return (
         <button
             onMouseEnter={onMouseEnter}
             onClick={onClick}
             onMouseLeave={onMouseLeave}
-            className={isActive ? "activeButton" : "button"}
+            className={
+                playerTwoDisabled || playerOneDisabled
+                    ? "buttonDisabled"
+                    : isActive
+                    ? "activeButton"
+                    : "button"
+            }
         >
             {text}
         </button>

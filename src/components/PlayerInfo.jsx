@@ -5,15 +5,21 @@ import { useState, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { avatars } from "/src/data/const.js"
 
-const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
+const PlayerInfo = ({
+    singlePlayer,
+    playerOne,
+    playerTwo,
+    onClick,
+    playerDisabled,
+    setPlayerOneReady,
+    setPlayerTwoReady,
+}) => {
     const [activeAvatar, setActiveAvatar] = useState(0)
     const [selectedAvatar, setSelectedAvatar] = useState("")
     const [avatarError, setAvatarError] = useState("")
     const [inputFocus, setInputFocus] = useState(false)
     const [inputError, setInputError] = useState("")
     const [inputValue, setInputValue] = useState("")
-    const [playerOneReady, setPlayerOneReady] = useState(false)
-    const [playerTwoReady, setPlayerTwoReady] = useState(false)
 
     const navigate = useNavigate()
 
@@ -76,7 +82,6 @@ const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
                 "PLAYER_ONE_NAME_KEY",
                 JSON.stringify(inputValue)
             )
-            setPlayerOneReady(true)
         }
     }
 
@@ -102,13 +107,38 @@ const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
                 "PLAYER_TWO_NAME_KEY",
                 JSON.stringify(inputValue)
             )
-            setPlayerTwoReady(true)
         }
     }
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === "ArrowRight" && !inputFocus) {
+            if (
+                e.key === "ArrowRight" &&
+                !inputFocus &&
+                playerOne &&
+                !playerDisabled
+            ) {
+                const currentIndex = avatars.findIndex(
+                    (avatar) => avatar.id === activeAvatar
+                )
+                const newIndex = currentIndex + 1
+                if (newIndex < avatars.length) {
+                    setActiveAvatar(avatars[newIndex].id)
+                }
+            } else if (
+                e.key === "ArrowRight" &&
+                !inputFocus &&
+                playerTwo &&
+                !playerDisabled
+            ) {
+                const currentIndex = avatars.findIndex(
+                    (avatar) => avatar.id === activeAvatar
+                )
+                const newIndex = currentIndex + 1
+                if (newIndex < avatars.length) {
+                    setActiveAvatar(avatars[newIndex].id)
+                }
+            } else if (e.key === "ArrowRight" && !inputFocus && singlePlayer) {
                 const currentIndex = avatars.findIndex(
                     (avatar) => avatar.id === activeAvatar
                 )
@@ -124,11 +154,23 @@ const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [activeAvatar])
+    }, [activeAvatar, playerOne, playerTwo, playerDisabled, singlePlayer])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === "ArrowLeft") {
+            if (e.key === "ArrowLeft" && playerOne && !playerDisabled) {
+                const currentIndex = avatars.findIndex(
+                    (avatar) => avatar.id === activeAvatar
+                )
+                const newIndex = currentIndex - 1
+                setActiveAvatar(avatars[newIndex].id)
+            } else if (e.key === "ArrowLeft" && playerTwo && !playerDisabled) {
+                const currentIndex = avatars.findIndex(
+                    (avatar) => avatar.id === activeAvatar
+                )
+                const newIndex = currentIndex - 1
+                setActiveAvatar(avatars[newIndex].id)
+            } else if (e.key === "ArrowLeft" && singlePlayer) {
                 const currentIndex = avatars.findIndex(
                     (avatar) => avatar.id === activeAvatar
                 )
@@ -142,11 +184,41 @@ const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [activeAvatar])
+    }, [activeAvatar, playerOne, playerTwo, playerDisabled, singlePlayer])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === "Enter" && activeAvatar !== "") {
+            if (
+                e.key === "Enter" &&
+                activeAvatar !== "" &&
+                playerOne &&
+                !playerDisabled
+            ) {
+                const selected = avatars.find(
+                    (avatar) => avatar.id === activeAvatar
+                )
+                if (selected) {
+                    setSelectedAvatar(selected)
+                }
+                setAvatarError("")
+            } else if (
+                e.key === "Enter" &&
+                activeAvatar !== "" &&
+                playerTwo &&
+                !playerDisabled
+            ) {
+                const selected = avatars.find(
+                    (avatar) => avatar.id === activeAvatar
+                )
+                if (selected) {
+                    setSelectedAvatar(selected)
+                }
+                setAvatarError("")
+            } else if (
+                e.key === "Enter" &&
+                activeAvatar !== "" &&
+                singlePlayer
+            ) {
                 const selected = avatars.find(
                     (avatar) => avatar.id === activeAvatar
                 )
@@ -162,11 +234,33 @@ const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [activeAvatar])
+    }, [activeAvatar, playerOne, playerTwo, playerDisabled, singlePlayer])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === "ArrowDown" && selectedAvatar) {
+            if (
+                e.key === "ArrowDown" &&
+                selectedAvatar &&
+                playerOne &&
+                !playerDisabled
+            ) {
+                inputRef.current.focus()
+                setActiveAvatar("")
+                setInputFocus(true)
+            } else if (
+                e.key === "ArrowDown" &&
+                selectedAvatar &&
+                playerTwo &&
+                !playerDisabled
+            ) {
+                inputRef.current.focus()
+                setActiveAvatar("")
+                setInputFocus(true)
+            } else if (
+                e.key === "ArrowDown" &&
+                selectedAvatar &&
+                singlePlayer
+            ) {
                 inputRef.current.focus()
                 setActiveAvatar("")
                 setInputFocus(true)
@@ -178,11 +272,25 @@ const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [selectedAvatar])
+    }, [selectedAvatar, playerOne, playerTwo, playerDisabled, singlePlayer])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === "ArrowRight" && inputFocus) {
+            if (
+                e.key === "ArrowRight" &&
+                inputFocus &&
+                playerOne &&
+                !playerDisabled
+            ) {
+                setActiveAvatar("")
+            } else if (
+                e.key === "ArrowRight" &&
+                inputFocus &&
+                playerTwo &&
+                !playerDisabled
+            ) {
+                setActiveAvatar("")
+            } else if (e.key === "ArrowRight" && inputFocus && singlePlayer) {
                 setActiveAvatar("")
             }
         }
@@ -192,11 +300,25 @@ const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [inputFocus])
+    }, [inputFocus, playerOne, playerTwo, playerDisabled, singlePlayer])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === "ArrowLeft" && inputFocus) {
+            if (
+                e.key === "ArrowLeft" &&
+                inputFocus &&
+                playerOne &&
+                !playerDisabled
+            ) {
+                setActiveAvatar("")
+            } else if (
+                e.key === "ArrowLeft" &&
+                inputFocus &&
+                playerTwo &&
+                !playerDisabled
+            ) {
+                setActiveAvatar("")
+            } else if (e.key === "ArrowLeft" && inputFocus && singlePlayer) {
                 setActiveAvatar("")
             }
         }
@@ -206,11 +328,29 @@ const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [inputFocus])
+    }, [inputFocus, playerOne, playerTwo, playerDisabled, singlePlayer])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === "ArrowUp" && inputFocus) {
+            if (
+                e.key === "ArrowUp" &&
+                inputFocus &&
+                playerOne &&
+                !playerDisabled
+            ) {
+                setActiveAvatar(avatars[0].id)
+                setInputFocus(false)
+                inputRef.current.blur()
+            } else if (
+                e.key === "ArrowUp" &&
+                inputFocus &&
+                playerTwo &&
+                !playerDisabled
+            ) {
+                setActiveAvatar(avatars[0].id)
+                setInputFocus(false)
+                inputRef.current.blur()
+            } else if (e.key === "ArrowUp" && inputFocus && singlePlayer) {
                 setActiveAvatar(avatars[0].id)
                 setInputFocus(false)
                 inputRef.current.blur()
@@ -222,11 +362,25 @@ const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [inputFocus])
+    }, [inputFocus, playerOne, playerTwo, playerDisabled, singlePlayer])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === "Enter" && inputFocus) {
+            if (
+                e.key === "Enter" &&
+                inputFocus &&
+                playerOne &&
+                !playerDisabled
+            ) {
+                setInputError("Please enter a name")
+            } else if (
+                e.key === "Enter" &&
+                inputFocus &&
+                playerTwo &&
+                !playerDisabled
+            ) {
+                setInputError("Please enter a name")
+            } else if (e.key === "Enter" && inputFocus && singlePlayer) {
                 setInputError("Please enter a name")
             }
         }
@@ -236,7 +390,7 @@ const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [inputFocus])
+    }, [inputFocus, playerOne, playerTwo, playerDisabled, singlePlayer])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -244,10 +398,54 @@ const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
                 e.key === "Enter" &&
                 inputFocus &&
                 inputValue &&
-                selectedAvatar
+                selectedAvatar &&
+                playerOne &&
+                !playerDisabled
             ) {
                 setInputError("")
                 setAvatarError("")
+                setPlayerOneReady()
+                localStorage.setItem(
+                    "PLAYER_ONE_AVATAR_KEY",
+                    JSON.stringify(selectedAvatar)
+                )
+                localStorage.setItem(
+                    "PLAYER_ONE_NAME_KEY",
+                    JSON.stringify(inputValue)
+                )
+            } else if (
+                e.key === "Enter" &&
+                inputFocus &&
+                inputValue &&
+                selectedAvatar &&
+                playerTwo &&
+                !playerDisabled
+            ) {
+                setInputError("")
+                setAvatarError("")
+                setPlayerTwoReady()
+                localStorage.setItem(
+                    "PLAYER_TWO_AVATAR_KEY",
+                    JSON.stringify(selectedAvatar)
+                )
+                localStorage.setItem(
+                    "PLAYER_TWO_NAME_KEY",
+                    JSON.stringify(inputValue)
+                )
+            } else if (
+                e.key === "Enter" &&
+                inputFocus &&
+                inputValue &&
+                selectedAvatar &&
+                singlePlayer
+            ) {
+                setInputError("")
+                setAvatarError("")
+                localStorage.setItem(
+                    "AVATAR_KEY",
+                    JSON.stringify(selectedAvatar)
+                )
+                navigate(`/SinglePlayer/Categories?name=${inputValue}`)
             }
         }
 
@@ -256,18 +454,20 @@ const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [inputFocus, inputValue, selectedAvatar])
+    }, [
+        inputFocus,
+        inputValue,
+        selectedAvatar,
+        playerOne,
+        playerTwo,
+        playerDisabled,
+        singlePlayer,
+        navigate,
+    ])
 
     return (
         <>
-            <div
-                className={
-                    (playerOne && playerOneReady) ||
-                    (playerTwo && playerTwoReady)
-                        ? "disable"
-                        : ""
-                }
-            >
+            <div className={playerDisabled ? "disable" : ""}>
                 <p className="title">Choose your avatar</p>
 
                 <div className="avatarGallery">
@@ -276,9 +476,22 @@ const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
                             key={avatar.id}
                             src={avatar.src}
                             alt={avatar.alt}
-                            onMouseEnter={() => handleMouseEnter(avatar.id)}
-                            onClick={() => handleAvatarClick(avatar)}
-                            activeAvatar={activeAvatar === avatar.id}
+                            playerDisabled={playerDisabled}
+                            onMouseEnter={
+                                playerDisabled
+                                    ? undefined
+                                    : () => handleMouseEnter(avatar.id)
+                            }
+                            onClick={
+                                playerDisabled
+                                    ? undefined
+                                    : () => handleAvatarClick(avatar)
+                            }
+                            activeAvatar={
+                                playerDisabled
+                                    ? undefined
+                                    : activeAvatar === avatar.id
+                            }
                         />
                     ))}
                 </div>
@@ -302,8 +515,11 @@ const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
                 <div className="input">
                     <input
                         type="text"
-                        onChange={handleInputChange}
+                        onChange={
+                            playerDisabled ? undefined : handleInputChange
+                        }
                         ref={inputRef}
+                        readOnly={playerDisabled}
                     />
                 </div>
 
@@ -311,11 +527,17 @@ const PlayerInfo = ({ singlePlayer, playerOne, playerTwo, onClick }) => {
                     {inputError}
                 </p>
 
-                <div className="buttonContainer" onClick={onClick}>
+                <div
+                    className="buttonContainer"
+                    onClick={selectedAvatar && inputValue ? onClick : undefined}
+                >
                     <Button
                         text="Ready"
+                        playerDisabled={playerDisabled}
                         onClick={
-                            singlePlayer
+                            playerDisabled
+                                ? undefined
+                                : singlePlayer
                                 ? handleClickSinglePlayer
                                 : playerOne
                                 ? handleClickPlayerOne

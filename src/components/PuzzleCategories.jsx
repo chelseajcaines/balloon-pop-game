@@ -34,11 +34,16 @@ const PuzzleCategories = ({ singlePlayer, twoPlayer }) => {
                 }
 
                 setIsActive(categoryButtons[nextIndex].id)
-            } else if (e.key === "Enter") {
+            } else if (e.key === "Enter" && singlePlayer) {
                 const currentIndex = categoryButtons.findIndex(
                     (button) => button.id === isActive
                 )
-                navigate(categoryButtons[currentIndex].nextPage)
+                navigate(`/SinglePlayer/MovieTitles?name=${playerName}`)
+            } else if (e.key === "Enter" && twoPlayer) {
+                const currentIndex = categoryButtons.findIndex(
+                    (button) => button.id === isActive
+                )
+                navigate("/TwoPlayer/MovieTitles")
             }
         }
 
@@ -46,7 +51,7 @@ const PuzzleCategories = ({ singlePlayer, twoPlayer }) => {
         return () => {
             document.removeEventListener("keydown", handleKeyDown)
         }
-    }, [isActive, categoryButtons, navigate])
+    }, [isActive, categoryButtons, singlePlayer, twoPlayer, navigate])
 
     const handleMouseEnter = (buttonId) => {
         setIsActive(buttonId)

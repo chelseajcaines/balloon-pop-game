@@ -1,6 +1,13 @@
 import "/src/App.css"
 
-const Avatar = ({ src, alt, onMouseEnter, onClick, activeAvatar }) => {
+const Avatar = ({
+    src,
+    alt,
+    onMouseEnter,
+    onClick,
+    activeAvatar,
+    playerDisabled,
+}) => {
     return (
         <>
             <img
@@ -8,7 +15,13 @@ const Avatar = ({ src, alt, onMouseEnter, onClick, activeAvatar }) => {
                 alt={alt}
                 onMouseEnter={onMouseEnter}
                 onClick={onClick}
-                className={activeAvatar ? "activeAvatar" : "avatar"}
+                className={
+                    playerDisabled
+                        ? "avatarDisabled"
+                        : activeAvatar
+                        ? "activeAvatar"
+                        : "avatar"
+                }
             />
         </>
     )

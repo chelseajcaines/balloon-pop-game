@@ -2,13 +2,43 @@ import "/src/App.css"
 import PlayerInfo from "../../components/PlayerInfo"
 import Button from "../../components/Button"
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const TwoPlayerSetup = () => {
-    const [playerOneReady, setPlayerOneReady] = useState(false)
-    const [playerTwoReady, setPlayerTwoReady] = useState(false)
+    const [playerTwoDisbaled, setPlayerTwoDisbaled] = useState(true)
+    const [playerOneDisabled, setPlayerOneDisabled] = useState(false)
+    const [bothPlayersDisabled, setBothPlayersDisabled] = useState(false)
 
     const navigate = useNavigate()
+
+    useEffect(() => {
+        setBothPlayersDisabled(false)
+        setPlayerTwoDisbaled(true)
+    }, [])
+
+    const handleNextPlayer = () => {
+        setPlayerTwoDisbaled(false)
+        setPlayerOneDisabled(true)
+    }
+
+    const handleBothPlayers = () => {
+        setPlayerTwoDisbaled(true)
+        setBothPlayersDisabled(true)
+    }
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "Enter" && bothPlayersDisabled) {
+                navigate("/TwoPlayer/Categories/")
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [bothPlayersDisabled, navigate])
 
     return (
         <>
@@ -17,22 +47,27 @@ const TwoPlayerSetup = () => {
                 <div className="playerContainers">
                     <PlayerInfo
                         playerOne={true}
-                        onClick={() => setPlayerOneReady(true)}
+                        playerDisabled={playerOneDisabled}
+                        onClick={handleNextPlayer}
+                        setPlayerOneReady={handleNextPlayer}
                     />
                     <PlayerInfo
                         playerTwo={true}
-                        onClick={() => setPlayerTwoReady(true)}
+                        playerDisabled={playerTwoDisbaled}
+                        onClick={handleBothPlayers}
+                        setPlayerTwoReady={handleBothPlayers}
                     />
                 </div>
                 <div className="footerPlayButton">
                     <Button
                         text="Start"
-                        isActive={playerOneReady && playerTwoReady}
+                        bothPlayersDisabled={bothPlayersDisabled}
                         onClick={
-                            playerOneReady && playerTwoReady
+                            bothPlayersDisabled
                                 ? () => navigate("/TwoPlayer/Categories/")
                                 : undefined
                         }
+                        isActive={bothPlayersDisabled}
                     />
                 </div>
             </div>
