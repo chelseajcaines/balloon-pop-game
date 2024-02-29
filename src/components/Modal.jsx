@@ -16,6 +16,10 @@ const Modal = ({
     playerTwoModal,
     playerNameOne,
     playerNameTwo,
+    leaderboardModal,
+    leaderboard,
+    allPuzzlesPlayed,
+    handleStartFresh,
 }) => {
     const [isActive, setIsActive] = useState(0)
 
@@ -55,6 +59,19 @@ const Modal = ({
             id: 1,
             text: "No",
             click: handleCancelAllModals,
+        },
+    ]
+
+    const allPuzzlesPlayedModalButtons = [
+        {
+            id: 0,
+            text: "Yes",
+            click: handleStartFresh,
+        },
+        {
+            id: 1,
+            text: "No",
+            click: handleQuit,
         },
     ]
 
@@ -198,6 +215,114 @@ const Modal = ({
             document.removeEventListener("keydown", handleKeyDown)
         }
     }, [leaveGameModal, leaveGameModalButtons])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (playerOneModal) {
+                if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                    const currentIndex = winModalButtons.findIndex(
+                        (button) => button.id === isActive
+                    )
+                    let nextIndex
+
+                    if (e.key === "ArrowRight") {
+                        nextIndex =
+                            currentIndex < winModalButtons.length - 1
+                                ? currentIndex + 1
+                                : currentIndex
+                    } else if (e.key === "ArrowLeft") {
+                        nextIndex = currentIndex > 0 ? currentIndex - 1 : 0
+                    }
+                    setIsActive(winModalButtons[nextIndex].id)
+                }
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [playerOneModal, winModalButtons])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (playerOneModal && e.key === "Enter") {
+                const currentIndex = winModalButtons.findIndex(
+                    (button) => button.id === isActive
+                )
+
+                winModalButtons[currentIndex].click()
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [playerOneModal, winModalButtons])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (playerTwoModal) {
+                if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                    const currentIndex = winModalButtons.findIndex(
+                        (button) => button.id === isActive
+                    )
+                    let nextIndex
+
+                    if (e.key === "ArrowRight") {
+                        nextIndex =
+                            currentIndex < winModalButtons.length - 1
+                                ? currentIndex + 1
+                                : currentIndex
+                    } else if (e.key === "ArrowLeft") {
+                        nextIndex = currentIndex > 0 ? currentIndex - 1 : 0
+                    }
+                    setIsActive(winModalButtons[nextIndex].id)
+                }
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [playerTwoModal, winModalButtons])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (playerTwoModal && e.key === "Enter") {
+                const currentIndex = winModalButtons.findIndex(
+                    (button) => button.id === isActive
+                )
+
+                winModalButtons[currentIndex].click()
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [playerTwoModal, winModalButtons])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (leaderboardModal && e.key === "Enter") {
+                handleCancelAllModals()
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [leaderboardModal])
 
     const handleMouseEnter = (buttonId) => {
         setIsActive(buttonId)
@@ -365,6 +490,50 @@ const Modal = ({
                                 </button>
                             ))}
                         </div>
+                    </div>
+                </div>
+            )}
+            {leaderboardModal && (
+                <div>
+                    <div
+                        onClick={handleCancelAllModals}
+                        className={"overlay"}
+                    ></div>
+                    <div className={"leaderboardModal"}>
+                        <div>{leaderboard}</div>
+                        <button
+                            className="activeButtonModal"
+                            onClick={handleCancelAllModals}
+                        >
+                            Back to game
+                        </button>
+                    </div>
+                </div>
+            )}
+            {allPuzzlesPlayed && (
+                <div>
+                    <div className={"overlay"}></div>
+                    <div className={"modal"}>
+                        <div>
+                            Amazing! You've completed all puzzles with a total
+                            score of {currentScore} points. Thank you for
+                            playing Balloon Pop! Would you like to play again?
+                        </div>
+                        {allPuzzlesPlayedModalButtons.map((button) => (
+                            <button
+                                key={button.id}
+                                onMouseEnter={() => handleMouseEnter(button.id)}
+                                onMouseLeave={handleMouseLeave}
+                                onClick={button.click}
+                                className={
+                                    button.id === isActive
+                                        ? "activeButtonModal"
+                                        : ""
+                                }
+                            >
+                                {button.text}
+                            </button>
+                        ))}
                     </div>
                 </div>
             )}

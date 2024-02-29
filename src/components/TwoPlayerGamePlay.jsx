@@ -23,6 +23,7 @@ const TwoPlayerGamePlay = ({ movieTitles }) => {
     const [showPlayerTwoModal, setShowPlayerTwoModal] = useState(false)
     const [playerNameOne, setPlayerNameOne] = useState("")
     const [playerNameTwo, setPlayerNameTwo] = useState("")
+    const [showLoseModal, setShowLoseModal] = useState(false)
 
     const navigate = useNavigate()
 
@@ -134,12 +135,14 @@ const TwoPlayerGamePlay = ({ movieTitles }) => {
         setShowLeaveGameModal(true)
         setShowPlayerOneModal(false)
         setShowPlayerTwoModal(false)
+        setShowLoseModal(false)
     }
 
     const handleCancelAllModals = () => {
         setShowLeaveGameModal(false)
         setShowPlayerOneModal(false)
         setShowPlayerTwoModal(false)
+        setShowLoseModal(false)
     }
 
     const handleSaveAndLeaveGame = () => {
@@ -150,6 +153,17 @@ const TwoPlayerGamePlay = ({ movieTitles }) => {
         setShowPlayerOneModal(false)
         setShowPlayerTwoModal(false)
         handleNextPuzzle()
+    }
+
+    const handleLoseThenContinue = () => {
+        setGuessedLetters([])
+        setPuzzle("")
+        setIsLoading(true)
+        handleCancelAllModals()
+        setPointsWon(0)
+        setCurrentScore(0)
+        fetchPuzzle()
+        handleCancelAllModals()
     }
 
     useEffect(() => {
@@ -203,6 +217,12 @@ const TwoPlayerGamePlay = ({ movieTitles }) => {
             setShowPlayerTwoModal(true)
         }
     }, [playerTwoTurn, isWinner])
+
+    useEffect(() => {
+        if (isLoser) {
+            setShowLoseModal(true)
+        }
+    }, [isLoser])
 
     useEffect(() => {
         const data = window.localStorage.getItem("PLAYER_ONE_NAME_KEY")
@@ -271,6 +291,14 @@ const TwoPlayerGamePlay = ({ movieTitles }) => {
                         handleCancelAllModals={handleCancelAllModals}
                         handleQuit={handleQuit}
                         handleWinThenContinue={handleWinThenContinue}
+                    />
+                )}
+                {showLoseModal && (
+                    <Modal
+                        loseModal={true}
+                        handleCancelAllModals={handleCancelAllModals}
+                        handleQuit={handleQuit}
+                        handleLoseThenContinue={handleLoseThenContinue}
                     />
                 )}
             </div>

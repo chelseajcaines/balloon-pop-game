@@ -18,13 +18,19 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
     const [puzzle, setPuzzle] = useState("")
+    const [usedPuzzles, setUsedPuzzles] = useState([])
     const [guessedLetters, setGuessedLetters] = useState([])
     const [playerWins, setPlayerWins] = useState(false)
     const [pointsWon, setPointsWon] = useState(0)
     const [showWinModal, setShowWinModal] = useState(false)
     const [showLeaveGameModal, setShowLeaveGameModal] = useState(false)
     const [showLoseModal, setShowLoseModal] = useState(false)
+    const [showLeaderboardModal, setShowLeaderboardModal] = useState(false)
+    const [showAllPuzzlesPlayedModal, setShowAllPuzzlesPlayedModal] =
+        useState(false)
     const [currentScore, setCurrentScore] = useState(0)
+    const [isLeaderboardButtonClicked, setIsLeaderboardButtonClicked] =
+        useState(false)
     const [isNextPuzzleClicked, setIsNextPuzzleClicked] = useState(false)
     const [isHomePageButtonClicked, setIsHomePageButtonClicked] =
         useState(false)
@@ -63,6 +69,19 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         }
     }, [isHomePageButtonClicked])
 
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === "Enter" && isLeaderboardButtonClicked)
+                e.preventDefault()
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [isLeaderboardButtonClicked])
+
     const chooseCategorie = () => {
         if (movieTitles) {
             return movieTitlesEndpoint
@@ -76,16 +95,20 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         setIsLoading(true)
 
         try {
-            const response = await fetch(chooseCategorie())
-            if (!response.ok) {
-                throw new Error("Failed to fetch movie data.")
-            }
-            const data = await response.json()
-            const randomPuzzleIndex = Math.floor(
-                Math.random() * data.items.length
-            )
-            const randomPuzzle = data.items[randomPuzzleIndex]?.title || ""
-            const uppercasePuzzle = randomPuzzle.toUpperCase()
+            let newPuzzle = ""
+            do {
+                const response = await fetch(chooseCategorie())
+                if (!response.ok) {
+                    throw new Error("Failed to fetch movie data.")
+                }
+                const data = await response.json()
+                const randomPuzzleIndex = Math.floor(
+                    Math.random() * data.items.length
+                )
+                newPuzzle = data.items[randomPuzzleIndex]?.title || ""
+            } while (usedPuzzles.includes(newPuzzle.toUpperCase())) // Fetch new puzzle if it's already used
+
+            const uppercasePuzzle = newPuzzle.toUpperCase()
             setPuzzle(uppercasePuzzle)
         } catch (error) {
             setError(error.message)
@@ -117,6 +140,20 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
                   .every((filteredLetter) =>
                       guessedLetters.includes(filteredLetter)
                   )
+
+    useEffect(() => {
+        if (isWinner || isLoser) {
+            setUsedPuzzles((prevPuzzles) => [...prevPuzzles, puzzle])
+        }
+        console.log(usedPuzzles)
+    }, [isLoser, isWinner, puzzle])
+
+    useEffect(() => {
+        if (usedPuzzles.length === 10 && (isWinner || isLoser)) {
+            setShowAllPuzzlesPlayedModal(true)
+            setShowWinModal(false)
+        }
+    }, [usedPuzzles, isWinner, isLoser])
 
     useEffect(() => {
         if (isWinner) {
@@ -205,6 +242,7 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         setShowLeaveGameModal(true)
         setShowWinModal(false)
         setShowLoseModal(false)
+        setShowAllPuzzlesPlayedModal(false)
     }
 
     const handleLoseThenContinue = () => {
@@ -221,6 +259,8 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         setShowWinModal(false)
         setShowLeaveGameModal(false)
         setShowLoseModal(false)
+        setShowLeaderboardModal(false)
+        setShowAllPuzzlesPlayedModal(false)
     }
 
     const handleSaveAndLeaveGame = () => {
@@ -234,6 +274,21 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         setPointsWon(0)
         fetchPuzzle()
         setIsNextPuzzleClicked(true)
+    }
+
+    const handleShowLeaderboard = () => {
+        setShowLeaderboardModal(true)
+        setIsLeaderboardButtonClicked(true)
+    }
+
+    const handleStartFresh = () => {
+        setUsedPuzzles([])
+        setGuessedLetters([])
+        setPuzzle("")
+        setIsLoading(true)
+        setPointsWon(0)
+        fetchPuzzle()
+        handleCancelAllModals()
     }
 
     useEffect(() => {
@@ -266,6 +321,21 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         }
     }, [])
 
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.ctrlKey && e.key === "y") {
+                setShowLeaderboardModal(true)
+                setIsLeaderboardButtonClicked(true)
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [])
+
     return (
         <>
             <div className="pageContainer">
@@ -279,9 +349,6 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
                             playerName={playerName}
                             score={currentScore}
                         />
-                    </div>
-                    <div className="leaderboard">
-                        <Leaderboard />
                     </div>
                 </div>
                 <div className="mainSectionGamePlay">
@@ -301,11 +368,13 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
 
                 <div className="footer">
                     <Footer
+                        singlePlayer={true}
                         handleQuit={handleQuit}
                         handleNextPuzzle={handleNextPuzzle}
                         setShowLeaveGameModal={() =>
                             setShowLeaveGameModal(true)
                         }
+                        handleShowLeaderboard={handleShowLeaderboard}
                     />
                 </div>
 
@@ -335,6 +404,21 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
                         handleCancelAllModals={handleCancelAllModals}
                         handleSaveAndLeaveGame={handleSaveAndLeaveGame}
                         handleQuit={handleQuit}
+                    />
+                )}
+                {showLeaderboardModal && (
+                    <Modal
+                        leaderboardModal={true}
+                        handleCancelAllModals={handleCancelAllModals}
+                        leaderboard={<Leaderboard />}
+                    />
+                )}
+                {showAllPuzzlesPlayedModal && (
+                    <Modal
+                        allPuzzlesPlayed={true}
+                        handleQuit={handleQuit}
+                        handleStartFresh={handleStartFresh}
+                        currentScore={currentScore}
                     />
                 )}
             </div>

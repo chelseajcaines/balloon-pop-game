@@ -1,12 +1,24 @@
 import Button from "/src/components/Button"
 import { useState } from "react"
 
-const Footer = ({ handleQuit, handleNextPuzzle }) => {
+const Footer = ({
+    handleQuit,
+    handleNextPuzzle,
+    singlePlayer,
+    handleShowLeaderboard,
+}) => {
     const [isActiveQuit, setIsActiveQuit] = useState(false)
     const [isActiveNextPuzzle, setIsActiveNextPuzzle] = useState(false)
+    const [isActiveTopTen, setIsActiveTopTen] = useState(false)
     return (
         <>
-            <div className="footerButtonsContainer">
+            <div
+                className={
+                    singlePlayer
+                        ? "singlePlayerFooterButtonsContainer"
+                        : "footerButtonsContainer"
+                }
+            >
                 <Button
                     text="Back to home page"
                     onClick={handleQuit}
@@ -21,10 +33,26 @@ const Footer = ({ handleQuit, handleNextPuzzle }) => {
                     onMouseEnter={() => setIsActiveNextPuzzle(true)}
                     onMouseLeave={() => setIsActiveNextPuzzle(false)}
                 />
+                {singlePlayer && (
+                    <Button
+                        text="Top 10"
+                        onClick={handleShowLeaderboard}
+                        isActive={isActiveTopTen}
+                        onMouseEnter={() => setIsActiveTopTen(true)}
+                        onMouseLeave={() => setIsActiveTopTen(false)}
+                    />
+                )}
             </div>
-            <div className="footerButtonKeyCommands">
+            <div
+                className={
+                    singlePlayer
+                        ? "singlePlayerFooterButtonKeyCommands"
+                        : "footerButtonKeyCommands"
+                }
+            >
                 <p>Ctrl + B</p>
                 <p>Ctrl + Q</p>
+                {singlePlayer && <p>Ctrl + Y</p>}
             </div>
         </>
     )
