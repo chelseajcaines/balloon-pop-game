@@ -20,6 +20,9 @@ const Modal = ({
     leaderboard,
     allPuzzlesPlayed,
     handleStartFresh,
+    singlePlayer,
+    twoPlayer,
+    handlePuzzlesPlayedThenQuit,
 }) => {
     const [isActive, setIsActive] = useState(0)
 
@@ -324,6 +327,54 @@ const Modal = ({
         }
     }, [leaderboardModal])
 
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (allPuzzlesPlayed) {
+                if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                    const currentIndex = allPuzzlesPlayedModalButtons.findIndex(
+                        (button) => button.id === isActive
+                    )
+                    let nextIndex
+
+                    if (e.key === "ArrowRight") {
+                        nextIndex =
+                            currentIndex <
+                            allPuzzlesPlayedModalButtons.length - 1
+                                ? currentIndex + 1
+                                : currentIndex
+                    } else if (e.key === "ArrowLeft") {
+                        nextIndex = currentIndex > 0 ? currentIndex - 1 : 0
+                    }
+                    setIsActive(allPuzzlesPlayedModalButtons[nextIndex].id)
+                }
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [allPuzzlesPlayed, allPuzzlesPlayedModalButtons])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (allPuzzlesPlayed && e.key === "Enter") {
+                const currentIndex = allPuzzlesPlayedModalButtons.findIndex(
+                    (button) => button.id === isActive
+                )
+
+                allPuzzlesPlayedModalButtons[currentIndex].click()
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [allPuzzlesPlayed, allPuzzlesPlayedModalButtons])
+
     const handleMouseEnter = (buttonId) => {
         setIsActive(buttonId)
     }
@@ -415,7 +466,11 @@ const Modal = ({
                                         handleMouseEnter(button.id)
                                     }
                                     onMouseLeave={handleMouseLeave}
-                                    onClick={button.click}
+                                    onClick={
+                                        allPuzzlesPlayed
+                                            ? handlePuzzlesPlayedThenQuit
+                                            : button.click
+                                    }
                                     className={
                                         button.id === isActive
                                             ? "activeButtonModal"
@@ -514,11 +569,21 @@ const Modal = ({
                 <div>
                     <div className={"overlay"}></div>
                     <div className={"modal"}>
-                        <div>
-                            Amazing! You've completed all puzzles with a total
-                            score of {currentScore} points. Thank you for
-                            playing Balloon Pop! Would you like to play again?
-                        </div>
+                        {singlePlayer && (
+                            <div>
+                                Amazing! You've completed all puzzles with a
+                                total score of ${currentScore} points. Thank you
+                                for playing Balloon Pop! Would you like to play
+                                again?
+                            </div>
+                        )}
+                        {twoPlayer && (
+                            <div>
+                                Amazing! You've completed all puzzles. Thank you
+                                for playing Balloon Pop! Would you like to play
+                                again?
+                            </div>
+                        )}
                         {allPuzzlesPlayedModalButtons.map((button) => (
                             <button
                                 key={button.id}

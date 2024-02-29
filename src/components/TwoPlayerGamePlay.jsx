@@ -24,6 +24,9 @@ const TwoPlayerGamePlay = ({ movieTitles }) => {
     const [playerNameOne, setPlayerNameOne] = useState("")
     const [playerNameTwo, setPlayerNameTwo] = useState("")
     const [showLoseModal, setShowLoseModal] = useState(false)
+    const [usedPuzzles, setUsedPuzzles] = useState([])
+    const [showAllPuzzlesPlayedModal, setShowAllPuzzlesPlayedModal] =
+        useState(false)
 
     const navigate = useNavigate()
 
@@ -40,16 +43,20 @@ const TwoPlayerGamePlay = ({ movieTitles }) => {
         setIsLoading(true)
 
         try {
-            const response = await fetch(chooseCategorie())
-            if (!response.ok) {
-                throw new Error("Failed to fetch movie data.")
-            }
-            const data = await response.json()
-            const randomPuzzleIndex = Math.floor(
-                Math.random() * data.items.length
-            )
-            const randomPuzzle = data.items[randomPuzzleIndex]?.title || ""
-            const uppercasePuzzle = randomPuzzle.toUpperCase()
+            let newPuzzle = ""
+            do {
+                const response = await fetch(chooseCategorie())
+                if (!response.ok) {
+                    throw new Error("Failed to fetch movie data.")
+                }
+                const data = await response.json()
+                const randomPuzzleIndex = Math.floor(
+                    Math.random() * data.items.length
+                )
+                newPuzzle = data.items[randomPuzzleIndex]?.title || ""
+            } while (usedPuzzles.includes(newPuzzle.toUpperCase())) // Fetch new puzzle if it's already used
+
+            const uppercasePuzzle = newPuzzle.toUpperCase()
             setPuzzle(uppercasePuzzle)
         } catch (error) {
             setError(error.message)
@@ -95,6 +102,21 @@ const TwoPlayerGamePlay = ({ movieTitles }) => {
 
         [guessedLetters, isWinner, isLoser, playerTwoTurn, activeLetters]
     )
+
+    useEffect(() => {
+        if (isWinner || isLoser) {
+            setUsedPuzzles((prevPuzzles) => [...prevPuzzles, puzzle])
+        }
+        console.log(usedPuzzles)
+    }, [isLoser, isWinner, puzzle])
+
+    useEffect(() => {
+        if (usedPuzzles.length === 10 && (isWinner || isLoser)) {
+            setShowAllPuzzlesPlayedModal(true)
+            setShowWinModal(false)
+            setShowLoseModal(false)
+        }
+    }, [usedPuzzles, isWinner, isLoser])
 
     useEffect(() => {
         const activeLettersNew = guessedLetters.filter((letter) =>
@@ -162,6 +184,16 @@ const TwoPlayerGamePlay = ({ movieTitles }) => {
         handleCancelAllModals()
         setPointsWon(0)
         setCurrentScore(0)
+        fetchPuzzle()
+        handleCancelAllModals()
+    }
+
+    const handleStartFresh = () => {
+        setUsedPuzzles([])
+        setGuessedLetters([])
+        setPuzzle("")
+        setIsLoading(true)
+        setPointsWon(0)
         fetchPuzzle()
         handleCancelAllModals()
     }
@@ -299,6 +331,14 @@ const TwoPlayerGamePlay = ({ movieTitles }) => {
                         handleCancelAllModals={handleCancelAllModals}
                         handleQuit={handleQuit}
                         handleLoseThenContinue={handleLoseThenContinue}
+                    />
+                )}
+                {showAllPuzzlesPlayedModal && (
+                    <Modal
+                        allPuzzlesPlayed={true}
+                        handleQuit={handleQuit}
+                        handleStartFresh={handleStartFresh}
+                        twoPlayer={true}
                     />
                 )}
             </div>

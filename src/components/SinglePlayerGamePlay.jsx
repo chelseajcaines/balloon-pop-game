@@ -152,6 +152,7 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         if (usedPuzzles.length === 10 && (isWinner || isLoser)) {
             setShowAllPuzzlesPlayedModal(true)
             setShowWinModal(false)
+            setShowLoseModal(false)
         }
     }, [usedPuzzles, isWinner, isLoser])
 
@@ -218,6 +219,10 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
 
             if (/^[A-Z]$/.test(keyPressed) && !isWinner && !isLoser) {
                 addGuessedLetter(keyPressed)
+                setIsActive(true)
+                setTimeout(() => {
+                    setIsActive(false)
+                }, 200)
             }
         }
 
@@ -263,6 +268,11 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         setShowAllPuzzlesPlayedModal(false)
     }
 
+    const handlePuzzlesPlayedThenQuit = () => {
+        setShowAllPuzzlesPlayedModal(true)
+        setShowLeaveGameModal(false)
+    }
+
     const handleSaveAndLeaveGame = () => {
         navigate("/")
     }
@@ -289,6 +299,7 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         setPointsWon(0)
         fetchPuzzle()
         handleCancelAllModals()
+        setCurrentScore(0)
     }
 
     useEffect(() => {
@@ -419,6 +430,10 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
                         handleQuit={handleQuit}
                         handleStartFresh={handleStartFresh}
                         currentScore={currentScore}
+                        singlePlayer={true}
+                        handlePuzzlesPlayedThenQuit={
+                            handlePuzzlesPlayedThenQuit
+                        }
                     />
                 )}
             </div>
