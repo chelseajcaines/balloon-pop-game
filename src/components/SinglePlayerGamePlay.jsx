@@ -219,10 +219,6 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
 
             if (/^[A-Z]$/.test(keyPressed) && !isWinner && !isLoser) {
                 addGuessedLetter(keyPressed)
-                setIsActive(true)
-                setTimeout(() => {
-                    setIsActive(false)
-                }, 200)
             }
         }
 
@@ -295,7 +291,6 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         setUsedPuzzles([])
         setGuessedLetters([])
         setPuzzle("")
-        setIsLoading(true)
         setPointsWon(0)
         fetchPuzzle()
         handleCancelAllModals()
