@@ -10,19 +10,21 @@ const Avatar = ({
 }) => {
     return (
         <>
-            <img
-                src={src}
-                alt={alt}
-                onMouseEnter={onMouseEnter}
-                onClick={onClick}
-                className={
-                    playerDisabled
-                        ? "avatarDisabled"
-                        : activeAvatar
-                        ? "activeAvatar"
-                        : "avatar"
-                }
-            />
+            <div className="avatarWrapper">
+                <img
+                    src={src}
+                    alt={alt}
+                    onMouseEnter={onMouseEnter}
+                    onClick={onClick}
+                    className={
+                        playerDisabled
+                            ? "avatarDisabled"
+                            : activeAvatar
+                            ? "activeAvatar"
+                            : "avatar"
+                    }
+                />
+            </div>
         </>
     )
 }

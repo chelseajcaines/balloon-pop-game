@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mouse+Memoirs&display=swap");
 
 body {
     background: linear-gradient(
@@ -27,6 +28,14 @@ h1 {
     justify-content: center;
 }
 
+.titleImageHome {
+    height: 300px;
+}
+
+.titleImage {
+    height: 100px;
+}
+
 .balloon {
     height: 350px;
 }
@@ -49,6 +58,9 @@ h1 {
 
 .header {
     height: 50px;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
 }
 
 .buttonsContainer {
@@ -59,23 +71,49 @@ h1 {
     margin-top: 60px;
 }
 
+.infoMain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+}
+
 .title {
     display: flex;
     justify-content: center;
+    font-family: "Mouse Memoirs", "sans-serif";
+    color: #fca75d;
+    -webkit-text-stroke: 2px #4a0062;
+    font-size: 80px;
 }
 
 .avatarGallery {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
+    gap: 10px;
 }
 
-.selectedAvatarContainer {
+.leftHalf {
+    width: 600px;
+    height: 600px;
+}
+
+.rightHalf {
+    width: 600px;
+    height: 600px;
+}
+
+/* .selectedAvatarContainer {
     display: flex;
     justify-content: center;
-}
+    height: 200px;
+} */
 
 .selectedAvatar {
-    border: 5px solid gold;
+    border: 5px solid rgb(179, 152, 3);
+    background-color: gold;
 }
 
 .input {
@@ -90,11 +128,16 @@ h1 {
 
 .avatar {
     cursor: pointer;
+    height: 100px;
+    width: 100px;
+    background-color: azure;
 }
 
 .activeAvatar {
-    border: 2px solid blue;
+    background-color: rgb(38, 141, 141);
     cursor: pointer;
+    height: 100px;
+    width: 100px;
 }
 
 .avatarDisabled {
@@ -114,6 +157,8 @@ h1 {
     transition: color 0.3s ease-in-out;
     cursor: pointer;
     outline: none;
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 40px;
 }
 
 .buttonDisabled {
@@ -143,6 +188,8 @@ h1 {
     box-shadow: 0px 6px 8px rgba(255, 255, 255, 0.61);
     cursor: pointer;
     outline: none;
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 40px;
 }
 
 .mainSection {
@@ -251,7 +298,7 @@ h1 {
 }
 
 .btn {
-    background-color: rgb(255, 144, 81);
+    background-color: #ff9051;
     color: white;
     border-radius: 7px;
     transition: all 0.2s;
@@ -268,7 +315,7 @@ h1 {
 }
 
 .btnP2 {
-    background-color: rgb(16, 204, 179);
+    background-color: #10ccb3;
     color: white;
     border-radius: 7px;
     transition: all 0.2s;

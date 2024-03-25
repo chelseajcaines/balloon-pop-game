@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { homeButtons } from "../data/const"
 import balloon from "/src/assets/balloon.png"
 import twoBalloons from "/src/assets/twoBalloons.png"
+import title from "/src/assets/title.png"
 import Button from "/src/components/Button"
 import "/src/App.css"
 
@@ -52,7 +53,11 @@ const Home = () => {
         <>
             <div className="pageContainer">
                 <div className="header">
-                    <h1>BALLOON POP</h1>
+                    <img
+                        src={title}
+                        alt="Balloon Pop"
+                        className="titleImageHome"
+                    />
                 </div>
                 <div className="imagesContainer">
                     <div className="imageContainer">

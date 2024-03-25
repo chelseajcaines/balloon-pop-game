@@ -1,4 +1,5 @@
 import PlayerInfo from "../../components/PlayerInfo"
+import title from "/src/assets/title.png"
 import "/src/App.css"
 
 const SinglePlayerSetup = () => {
@@ -6,7 +7,7 @@ const SinglePlayerSetup = () => {
         <>
             <div className="pageContainer">
                 <div className="header">
-                    <h1>Single Player Setup</h1>
+                    <img src={title} alt="Balloon Pop" className="titleImage" />
                 </div>
                 <PlayerInfo singlePlayer={true} />
             </div>

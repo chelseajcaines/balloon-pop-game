@@ -467,87 +467,94 @@ const PlayerInfo = ({
 
     return (
         <>
-            <div className={playerDisabled ? "disable" : ""}>
-                <p className="title">Choose your avatar</p>
+            <div
+                className={
+                    playerDisabled ? "disable" : singlePlayer ? "infoMain" : ""
+                }
+            >
+                <div className="leftHalf">
+                    <p className="title">Choose your avatar</p>
 
-                <div className="avatarGallery">
-                    {avatars.map((avatar) => (
-                        <Avatar
-                            key={avatar.id}
-                            src={avatar.src}
-                            alt={avatar.alt}
-                            playerDisabled={playerDisabled}
-                            onMouseEnter={
-                                playerDisabled
-                                    ? undefined
-                                    : () => handleMouseEnter(avatar.id)
+                    <div className="avatarGallery">
+                        {avatars.map((avatar) => (
+                            <Avatar
+                                key={avatar.id}
+                                src={avatar.src}
+                                alt={avatar.alt}
+                                playerDisabled={playerDisabled}
+                                onMouseEnter={
+                                    playerDisabled
+                                        ? undefined
+                                        : () => handleMouseEnter(avatar.id)
+                                }
+                                onClick={
+                                    playerDisabled
+                                        ? undefined
+                                        : () => handleAvatarClick(avatar)
+                                }
+                                activeAvatar={
+                                    playerDisabled
+                                        ? undefined
+                                        : activeAvatar === avatar.id
+                                }
+                            />
+                        ))}
+                    </div>
+
+                    {/* <div className="selectedAvatarContainer">
+                        {selectedAvatar && (
+                            <img
+                                className="selectedAvatar"
+                                src={selectedAvatar.src}
+                                alt={selectedAvatar.alt}
+                            />
+                        )}
+                    </div> */}
+
+                    <p style={{ color: "red" }} className="title">
+                        {avatarError}
+                    </p>
+                </div>
+
+                <div className="rightHalf">
+                    <p className="title">Enter name</p>
+
+                    <div className="input">
+                        <input
+                            type="text"
+                            onChange={
+                                playerDisabled ? undefined : handleInputChange
                             }
-                            onClick={
-                                playerDisabled
-                                    ? undefined
-                                    : () => handleAvatarClick(avatar)
-                            }
-                            activeAvatar={
-                                playerDisabled
-                                    ? undefined
-                                    : activeAvatar === avatar.id
-                            }
+                            ref={inputRef}
+                            readOnly={playerDisabled}
                         />
-                    ))}
+                    </div>
+
+                    <p style={{ color: "red" }} className="title">
+                        {inputError}
+                    </p>
                 </div>
-
-                <div className="selectedAvatarContainer">
-                    {selectedAvatar && (
-                        <img
-                            className="selectedAvatar"
-                            src={selectedAvatar.src}
-                            alt={selectedAvatar.alt}
-                        />
-                    )}
-                </div>
-
-                <p style={{ color: "red" }} className="title">
-                    {avatarError}
-                </p>
-
-                <p className="title">Enter name</p>
-
-                <div className="input">
-                    <input
-                        type="text"
-                        onChange={
-                            playerDisabled ? undefined : handleInputChange
-                        }
-                        ref={inputRef}
-                        readOnly={playerDisabled}
-                    />
-                </div>
-
-                <p style={{ color: "red" }} className="title">
-                    {inputError}
-                </p>
-
-                <div
-                    className="buttonContainer"
-                    onClick={selectedAvatar && inputValue ? onClick : undefined}
-                >
-                    <Button
-                        text="Ready"
-                        playerDisabled={playerDisabled}
-                        onClick={
-                            playerDisabled
-                                ? undefined
-                                : singlePlayer
-                                ? handleClickSinglePlayer
-                                : playerOne
-                                ? handleClickPlayerOne
-                                : playerTwo
-                                ? handleClickPlayerTwo
-                                : undefined
-                        }
-                        isActive={selectedAvatar && inputValue}
-                    />
-                </div>
+            </div>
+            <div
+                className="buttonContainer"
+                onClick={selectedAvatar && inputValue ? onClick : undefined}
+            >
+                <Button
+                    text="Ready"
+                    playerDisabled={playerDisabled}
+                    onClick={
+                        playerDisabled
+                            ? undefined
+                            : singlePlayer
+                            ? handleClickSinglePlayer
+                            : playerOne
+                            ? handleClickPlayerOne
+                            : playerTwo
+                            ? handleClickPlayerTwo
+                            : undefined
+                    }
+                    isActive={selectedAvatar && inputValue}
+                />
             </div>
         </>
     )
