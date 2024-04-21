@@ -1,6 +1,8 @@
-#### Check out Balloon Pop by clicking this link! https://chelseajcaines.github.io/balloon-pop-game/
+<a href="https://chelseajcaines.github.io/balloon-pop-game/" style="text-decoration: none;">
+  <h1>Check out Balloon Pop!</h1> 
+</a>
 
-<hr/>
+
 
 ## Balloon Pop 🎈 🎈 🎈
 
