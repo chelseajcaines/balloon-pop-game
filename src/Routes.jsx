@@ -13,60 +13,63 @@ import TwoPlayerPhrases from "./pages/TwoPlayer/Phrases"
 import TwoPlayerFood from "./pages/TwoPlayer/Food"
 import TwoPlayerBrands from "./pages/TwoPlayer/Brands"
 
-const router = createBrowserRouter([
-    { basename: import.meta.env.DEV ? "/" : "/balloon-pop-game/" },
-    {
-        path: "/",
-        element: <Home />,
-    },
-    {
-        path: "/SinglePlayer/Info",
-        element: <SinglePlayerSetup />,
-    },
-    {
-        path: "/SinglePlayer/Categories",
-        element: <SinglePlayerCategories />,
-    },
-    {
-        path: "/SinglePlayer/MovieTitles",
-        element: <SinglePlayerMovieTitles />,
-    },
-    {
-        path: "/SinglePlayer/Phrases",
-        element: <SinglePlayerPhrases />,
-    },
-    {
-        path: "/SinglePlayer/Food",
-        element: <SinglePlayerFood />,
-    },
-    {
-        path: "/SinglePlayer/Brands",
-        element: <SinglePlayerBrands />,
-    },
-    {
-        path: "/TwoPlayer/Info",
-        element: <TwoPlayerSetup />,
-    },
-    {
-        path: "/TwoPlayer/Categories",
-        element: <TwoPlayerCategories />,
-    },
-    {
-        path: "/TwoPlayer/MovieTitles",
-        element: <TwoPlayerMovieTitles />,
-    },
-    {
-        path: "/TwoPlayer/Phrases",
-        element: <TwoPlayerPhrases />,
-    },
-    {
-        path: "/TwoPlayer/Food",
-        element: <TwoPlayerFood />,
-    },
-    {
-        path: "/TwoPlayer/Brands",
-        element: <TwoPlayerBrands />,
-    },
-])
+const router = createBrowserRouter(
+    [
+        { basename: import.meta.env.DEV ? "/" : "/balloon-pop-game/" },
+        {
+            path: "/",
+            element: <Home />,
+        },
+        {
+            path: "/SinglePlayer/Info",
+            element: <SinglePlayerSetup />,
+        },
+        {
+            path: "/SinglePlayer/Categories",
+            element: <SinglePlayerCategories />,
+        },
+        {
+            path: "/SinglePlayer/MovieTitles",
+            element: <SinglePlayerMovieTitles />,
+        },
+        {
+            path: "/SinglePlayer/Phrases",
+            element: <SinglePlayerPhrases />,
+        },
+        {
+            path: "/SinglePlayer/Food",
+            element: <SinglePlayerFood />,
+        },
+        {
+            path: "/SinglePlayer/Brands",
+            element: <SinglePlayerBrands />,
+        },
+        {
+            path: "/TwoPlayer/Info",
+            element: <TwoPlayerSetup />,
+        },
+        {
+            path: "/TwoPlayer/Categories",
+            element: <TwoPlayerCategories />,
+        },
+        {
+            path: "/TwoPlayer/MovieTitles",
+            element: <TwoPlayerMovieTitles />,
+        },
+        {
+            path: "/TwoPlayer/Phrases",
+            element: <TwoPlayerPhrases />,
+        },
+        {
+            path: "/TwoPlayer/Food",
+            element: <TwoPlayerFood />,
+        },
+        {
+            path: "/TwoPlayer/Brands",
+            element: <TwoPlayerBrands />,
+        },
+    ],
+    { basename: import.meta.env.DEV ? "/" : "/balloon-pop-game/" }
+)
 
 export default router
