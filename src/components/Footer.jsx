@@ -1,58 +1,37 @@
 import Button from "/src/components/Button"
 import { useState } from "react"
+import "/src/App.css"
 
-const Footer = ({
-    handleQuit,
-    handleNextPuzzle,
-    singlePlayer,
-    handleShowLeaderboard,
-}) => {
+const Footer = ({ handleQuit, handleNextPuzzle }) => {
     const [isActiveQuit, setIsActiveQuit] = useState(false)
     const [isActiveNextPuzzle, setIsActiveNextPuzzle] = useState(false)
-    const [isActiveTopTen, setIsActiveTopTen] = useState(false)
+
     return (
         <>
-            <div
-                className={
-                    singlePlayer
-                        ? "singlePlayerFooterButtonsContainer"
-                        : "footerButtonsContainer"
-                }
-            >
-                <Button
-                    text="Back to home page"
-                    onClick={handleQuit}
-                    isActive={isActiveQuit}
-                    onMouseEnter={() => setIsActiveQuit(true)}
-                    onMouseLeave={() => setIsActiveQuit(false)}
-                />
-                <Button
-                    text="Next Puzzle"
-                    onClick={handleNextPuzzle}
-                    isActive={isActiveNextPuzzle}
-                    onMouseEnter={() => setIsActiveNextPuzzle(true)}
-                    onMouseLeave={() => setIsActiveNextPuzzle(false)}
-                />
-                {singlePlayer && (
+            <div className="footerButtonsContainer">
+                <div className="buttonWrapper">
                     <Button
-                        text="Top 10"
-                        onClick={handleShowLeaderboard}
-                        isActive={isActiveTopTen}
-                        onMouseEnter={() => setIsActiveTopTen(true)}
-                        onMouseLeave={() => setIsActiveTopTen(false)}
+                        text="Home"
+                        onClick={handleQuit}
+                        isActive={isActiveQuit}
+                        onMouseEnter={() => setIsActiveQuit(true)}
+                        onMouseLeave={() => setIsActiveQuit(false)}
                     />
-                )}
+                </div>
+
+                <div className="buttonWrapper">
+                    <Button
+                        text="Next Puzzle"
+                        onClick={handleNextPuzzle}
+                        isActive={isActiveNextPuzzle}
+                        onMouseEnter={() => setIsActiveNextPuzzle(true)}
+                        onMouseLeave={() => setIsActiveNextPuzzle(false)}
+                    />
+                </div>
             </div>
-            <div
-                className={
-                    singlePlayer
-                        ? "singlePlayerFooterButtonKeyCommands"
-                        : "footerButtonKeyCommands"
-                }
-            >
+            <div className="footerButtonKeyCommands">
                 <p>Ctrl + B</p>
                 <p>Ctrl + Q</p>
-                {singlePlayer && <p>Ctrl + Y</p>}
             </div>
         </>
     )

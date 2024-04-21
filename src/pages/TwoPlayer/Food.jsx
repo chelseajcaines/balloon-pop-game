@@ -1,14 +1,14 @@
 import "/src/App.css"
 import TwoPlayerGamePlay from "../../components/TwoPlayerGamePlay"
 
-const TwoPlayerMovieTitles = () => {
+const TwoPlayerFood = () => {
     return (
         <>
             <div className="pageContainer">
-                <TwoPlayerGamePlay movieTitles={true} text="Movie Titles" />
+                <TwoPlayerGamePlay food={true} text="Food" />
             </div>
         </>
     )
 }
 
-export default TwoPlayerMovieTitles
+export default TwoPlayerFood

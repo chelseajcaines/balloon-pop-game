@@ -7,21 +7,52 @@ const Avatar = ({
     onClick,
     activeAvatar,
     playerDisabled,
+    singlePlayer,
+    playerOne,
+    playerTwo,
 }) => {
     return (
         <>
-            <div className="avatarWrapper">
+            <div
+                className={
+                    singlePlayer && activeAvatar
+                        ? "activeAvatarWrapper"
+                        : singlePlayer
+                        ? "avatarWrapper"
+                        : playerOne && activeAvatar
+                        ? "activeAvatarWrapperTwoPlayer"
+                        : playerTwo && activeAvatar
+                        ? "activeAvatarWrapperTwoPlayer"
+                        : playerOne || playerTwo
+                        ? "avatarWrapperTwoPlayer"
+                        : ""
+                }
+            >
                 <img
                     src={src}
                     alt={alt}
                     onMouseEnter={onMouseEnter}
                     onClick={onClick}
                     className={
-                        playerDisabled
+                        playerDisabled && singlePlayer
                             ? "avatarDisabled"
-                            : activeAvatar
+                            : playerDisabled && playerOne
+                            ? "avatarDisabledTwoPlayer"
+                            : playerDisabled && playerTwo
+                            ? "avatarDisabledTwoPlayer"
+                            : activeAvatar && singlePlayer
                             ? "activeAvatar"
-                            : "avatar"
+                            : activeAvatar && playerOne
+                            ? "activeAvatarTwoPlayer"
+                            : activeAvatar && playerTwo
+                            ? "activeAvatarTwoPlayer"
+                            : singlePlayer
+                            ? "avatar"
+                            : playerOne
+                            ? "avatarTwoPlayer"
+                            : playerTwo
+                            ? "avatarTwoPlayer"
+                            : ""
                     }
                 />
             </div>

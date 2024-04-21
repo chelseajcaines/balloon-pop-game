@@ -1,12 +1,63 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mouse+Memoirs&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Walter+Turncoat&display=swap");
+
+:root {
+    --background-color: #8562ef; /* Light mode background color */
+    --active-button-color: rgb(16, 204, 204);
+    --button-box-shadow: 0 0 20px rgba(0, 0, 0, 0.39);
+    --hover-button-box-shadow: 0 0 20px rgba(0, 0, 0, 0.651);
+    --settings-button: #8562ef;
+    --modal-background: white;
+    --leaderboard-header: #10ccb3;
+    --leaderboard-rank: #fcc45d;
+    --leaderboard-table: #a184fa;
+    --leaderboard-text: rgb(73, 73, 73);
+    --leaderboard-body: #ffffff3f;
+    --text-border: #4a0062;
+    --title-color: #fca75d;
+    --avatar-wrapper: #49006244;
+    --active-avatar-wrapper: #490062c9;
+    --input-focus: #8159f8;
+    --loading-page: rgb(145, 74, 238);
+    --keyboard-btn: #ff9051;
+    --player-one-border: rgb(233, 107, 34);
+    --modal-text: #4a0062;
+    --even-row: #ffffff7a;
+    --odd-row: #ffffffb2;
+    --header-two-player-text: rgb(16, 204, 204);
+    --header-two-player-border: #4a0062;
+}
+
+.dark-mode {
+    --background-color: #0a0125; /* Dark mode background color */
+    --active-button-color: #fb4abe;
+    --button-box-shadow: 0 0 20px rgba(255, 255, 255, 0.39);
+    --hover-button-box-shadow: 0 0 20px rgba(255, 255, 255, 0.651);
+    --settings-button: #0a0125;
+    --modal-background: #544091;
+    --leaderboard-header: #9e1d71;
+    --leaderboard-rank: #b18430;
+    --leaderboard-table: #0a0125;
+    --leaderboard-text: white;
+    --leaderboard-body: #0a0125;
+    --text-border: rgb(35, 148, 148);
+    --title-color: rgb(73, 226, 226);
+    --avatar-wrapper: #fcc45d;
+    --active-avatar-wrapper: #f7d088;
+    --input-focus: #2f1875;
+    --loading-page: #2f1875;
+    --keyboard-btn: #fb4abe;
+    --player-one-border: #d82e9d;
+    --modal-text: white;
+    --even-row: #ffffff3d;
+    --odd-row: #ffffff73;
+    --header-two-player-text: #fcc45d;
+    --header-two-player-border: #9b6d18;
+}
 
 body {
-    background: linear-gradient(
-        181deg,
-        rgb(162, 133, 250) 15%,
-        rgb(111, 71, 231) 158.5%
-    );
+    background-color: var(--background-color);
     padding: 0;
     height: 100vh;
     font-family: "Poppins", sans-serif;
@@ -20,33 +71,18 @@ body {
     height: 100vh;
 }
 
-h1 {
-    padding: 0;
-    margin-block-start: 0;
-    margin-block-end: 0;
+/* -------------------------------------------------- Home Page Styling -- */
+
+.headerHome {
+    height: 400px;
     display: flex;
     justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
 }
 
 .titleImageHome {
-    height: 300px;
-}
-
-.titleImage {
-    height: 100px;
-}
-
-.balloon {
-    height: 350px;
-}
-
-.imageContainer {
-    background-color: rgba(255, 255, 255, 0.295);
-    height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 270px;
+    height: 400px;
 }
 
 .imagesContainer {
@@ -56,220 +92,195 @@ h1 {
     gap: 12rem;
 }
 
-.header {
-    height: 50px;
+.imageContainer {
+    background-color: rgba(255, 255, 255, 0.295);
+    border-radius: 10px;
+    border: 3px solid rgba(255, 255, 255, 0.712);
+    height: 170px;
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    align-items: center;
+    width: 170px;
+}
+
+.balloonOne {
+    height: 250px;
+    margin-right: 50px;
+    margin-top: 20px;
+}
+
+.balloonTwo {
+    height: 250px;
+}
+
+.ribbonImg {
+    height: 150px;
 }
 
 .buttonsContainer {
     width: 100%;
+    height: 100px;
     display: flex;
     justify-content: center;
-    gap: 10rem;
+    align-items: center;
+    gap: 9rem;
     margin-top: 60px;
 }
 
-.infoMain {
+.innerButtonContainer {
+    height: 100px;
+    width: 230px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 100px;
 }
 
-.title {
+.footerHome {
+    margin-top: 20px;
     display: flex;
     justify-content: center;
+    gap: 5rem;
+    height: 70px;
+    align-items: center;
+}
+
+.imgWrapper {
+    background-color: var(--settings-button);
+    height: 60px;
+    width: 60px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--button-box-shadow);
+    cursor: pointer;
+}
+
+.aboutMeButton {
+    height: 60px;
+    width: 120px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--button-box-shadow);
+    cursor: pointer;
+    outline: none;
     font-family: "Mouse Memoirs", "sans-serif";
-    color: #fca75d;
-    -webkit-text-stroke: 2px #4a0062;
-    font-size: 80px;
+    border: none;
+    font-size: 30px;
+    position: relative;
+    overflow: hidden;
+    background-color: #ffdd61;
+    color: #a15a02;
 }
 
-.avatarGallery {
+.aboutMeButton::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.6),
+        rgba(255, 255, 255, 0.3)
+    );
+    transform: skewX(-30deg);
+    animation: shine 1.5s infinite linear;
+}
+
+.aboutMeButton:hover {
+    font-size: 35px;
+    border-radius: 50px;
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.leftHalf {
-    width: 600px;
-    height: 600px;
-}
-
-.rightHalf {
-    width: 600px;
-    height: 600px;
-}
-
-/* .selectedAvatarContainer {
-    display: flex;
-    justify-content: center;
-    height: 200px;
-} */
-
-.selectedAvatar {
-    border: 5px solid rgb(179, 152, 3);
-    background-color: gold;
-}
-
-.input {
-    display: flex;
-    justify-content: center;
-}
-
-.buttonContainer {
-    display: flex;
-    justify-content: center;
-}
-
-.avatar {
+    box-shadow: var(--hover-button-box-shadow);
     cursor: pointer;
-    height: 100px;
-    width: 100px;
-    background-color: azure;
+    outline: none;
+    font-family: "Mouse Memoirs", "sans-serif";
+    border: none;
+    position: relative;
+    overflow: hidden;
+    background-color: #ffdd61;
+    color: #a15a02;
 }
 
-.activeAvatar {
-    background-color: rgb(38, 141, 141);
+.aboutMeButton:hover::before {
+    animation: shine 1.5s infinite linear;
+}
+
+.imgWrapper:hover {
+    box-shadow: var(--hover-button-box-shadow);
+}
+
+.innerImg {
+    height: 50px;
+    opacity: 0.4;
     cursor: pointer;
-    height: 100px;
-    width: 100px;
+    border-radius: 50%;
 }
 
-.avatarDisabled {
-    cursor: auto;
+.innerImg:hover {
+    opacity: 1;
 }
+
+@keyframes shine {
+    100% {
+        left: 150%;
+    }
+}
+
+/* -------------------------------------------------- Button Component Styling -- */
 
 .button {
     background-color: transparent;
     border: 1px solid white;
-    color: white;
-    height: 100px;
-    width: 300px;
-    font-size: 20px;
+    color: rgb(255, 255, 255);
+    height: 70px;
+    width: 200px;
     border-radius: 50px;
-    box-shadow: 0px 0px 12px -2px rgba(255, 255, 255, 0.5);
-    transition: box-shadow 0.3s ease-in-out;
-    transition: color 0.3s ease-in-out;
+    box-shadow: var(--button-box-shadow);
     cursor: pointer;
     outline: none;
     font-family: "Mouse Memoirs", "sans-serif";
     font-size: 40px;
-}
-
-.buttonDisabled {
-    background-color: transparent;
-    border: 1px solid white;
-    color: white;
-    height: 100px;
-    width: 300px;
-    font-size: 20px;
-    border-radius: 50px;
-    box-shadow: 0px 0px 12px -2px rgba(255, 255, 255, 0.5);
-    transition: box-shadow 0.3s ease-in-out;
-    transition: color 0.3s ease-in-out;
-    cursor: auto;
-    outline: none;
 }
 
 .activeButton {
-    background: rgb(16, 204, 204);
-    transition: ease-in-out 80ms;
+    background: var(--active-button-color);
     border: 2px solid white;
     color: rgb(53, 18, 110);
-    height: 100px;
-    width: 300px;
+    height: 90px;
+    width: 220px;
     font-size: 20px;
     border-radius: 50px;
-    box-shadow: 0px 6px 8px rgba(255, 255, 255, 0.61);
+    box-shadow: var(--hover-button-box-shadow);
     cursor: pointer;
     outline: none;
     font-family: "Mouse Memoirs", "sans-serif";
-    font-size: 40px;
+    font-size: 45px;
 }
 
-.mainSection {
-    display: flex;
-    justify-content: center;
-}
-
-.categoryList {
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.wrongGuess {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.footer {
-    margin-top: 40px;
-}
-
-.footerButtonsContainer {
-    display: flex;
-    justify-content: center;
-    gap: 15rem;
-}
-
-.singlePlayerFooterButtonsContainer {
-    display: flex;
-    justify-content: center;
-    gap: 8rem;
-}
-
-.footerButtonKeyCommands {
-    display: flex;
-    justify-content: center;
-    gap: 31rem;
-    color: white;
-}
-
-.singlePlayerFooterButtonKeyCommands {
-    display: flex;
-    justify-content: center;
-    gap: 22rem;
-    color: white;
-}
-
-.modal {
-    display: block;
-    position: fixed;
-    height: 200px;
+.buttonDisabledTwoPlayer {
+    background-color: transparent;
+    border: 1px solid white;
+    color: rgb(255, 255, 255);
+    height: 70px;
     width: 200px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    font-size: 40px;
+    font-family: "Mouse Memoirs", "sans-serif";
+    border-radius: 50px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.39);
+    cursor: auto;
+    outline: none;
+    opacity: 0.5;
 }
 
-.leaderboardModal {
-    display: block;
-    position: fixed;
-    height: 400px;
-    width: 600px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
+/* -------------------------------------------------- Modal Component Styling -- */
 
 .overlay {
     display: block;
@@ -279,26 +290,989 @@ h1 {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 998;
 }
 
-.stats {
+.loadingPageOverlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 300px;
+    width: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--modal-background);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    justify-content: center;
+    transition: opacity 0.3s, transform 0.3s;
+    animation: modalFadeIn 0.3s ease-in-out, modalRiseUp 0.3s ease-in-out;
+}
+
+.aboutMeModal {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 500px;
+    width: 600px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--modal-background);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    justify-content: center;
+    transition: opacity 0.3s, transform 0.3s;
+    animation: modalFadeIn 0.3s ease-in-out, modalRiseUp 0.3s ease-in-out;
+}
+
+.loadingPageModal {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 800px;
+    width: 800px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--loading-page);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    justify-content: center;
+}
+
+.confettiPopContainer {
+    display: block;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.confettiPop {
+    width: 400px;
+    height: 400px;
+    animation: playImage 1s ease 0.3s forwards;
+    opacity: 0;
+}
+
+.buttonsContainerModal {
+    width: 100%;
+    height: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    margin-top: 20px;
+}
+
+.activeButtonModal {
+    background: var(--active-button-color);
+    border: 2px solid white;
+    color: rgb(53, 18, 110);
+    height: 70px;
+    width: 120px;
+    font-size: 20px;
+    border-radius: 50px;
+    box-shadow: var(--hover-button-box-shadow);
+    cursor: pointer;
+    outline: none;
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 45px;
+    text-align: center;
+}
+
+.winActiveButtonModal {
+    background: var(--active-button-color);
+    border: 2px solid white;
+    color: rgb(53, 18, 110);
+    height: 80px;
+    width: 140px;
+    font-size: 20px;
+    border-radius: 50px;
+    box-shadow: var(--hover-button-box-shadow);
+    cursor: pointer;
+    outline: none;
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 45px;
+    text-align: center;
+}
+
+.buttonWrapperModal {
+    height: 85px;
+    width: 145px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonModal {
+    background-color: #9677f6;
+    border: 1px solid white;
+    color: rgb(255, 255, 255);
+    height: 60px;
+    width: 110px;
+    border-radius: 50px;
+    box-shadow: var(--button-box-shadow);
+    cursor: pointer;
+    outline: none;
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 40px;
+}
+
+.winButtonModal {
+    background-color: #9677f6;
+    border: 1px solid white;
+    color: rgb(255, 255, 255);
+    height: 70px;
+    width: 130px;
+    border-radius: 50px;
+    box-shadow: var(--button-box-shadow);
+    cursor: pointer;
+    outline: none;
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 40px;
+}
+
+.puzzlesPlayedModal {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 400px;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: var(--modal-background);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    justify-content: center;
+    transition: opacity 0.3s, transform 0.3s;
+    animation: modalFadeIn 0.3s ease-in-out, modalRiseUp 0.3s ease-in-out;
+}
+
+.modalText {
+    text-align: center;
+    font-size: 40px;
+    font-family: "Mouse Memoirs", "sans-serif";
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: var(--modal-text);
+}
+
+.modalTextLoading {
+    text-align: center;
+    font-size: 100px;
+    font-family: "Mouse Memoirs", "sans-serif";
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: var(--title-color);
+    -webkit-text-stroke: 2px var(--text-border);
+}
+
+.loading {
+    height: 200px;
+    width: 200px;
+}
+
+.loadingImageContainer {
+    display: flex;
+    justify-content: center;
+    height: 200px;
+}
+
+.leaderboardModal {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 500px;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--modal-background);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    justify-content: center;
+    transition: opacity 0.3s, transform 0.3s;
+    animation: modalFadeIn 0.3s ease-in-out, modalRiseUp 0.3s ease-in-out;
+}
+
+.buttonsContainerLeaderboard {
+    display: flex;
+    justify-content: center;
+    height: 70px;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.aboutMeHeader {
+    display: flex;
+    height: 150px;
+    width: 100%;
+}
+
+.profileContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 80px;
+}
+
+.textContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-right: 80px;
+}
+
+.aboutMeText {
+    width: 100%;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 50px;
+    color: rgb(233, 194, 67);
+}
+
+.aboutMeParagraph {
+    font-size: 20px;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: var(--leaderboard-text);
+}
+
+.linksContainer {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 5rem;
+}
+
+.link {
+    height: 50px;
+    cursor: pointer;
+}
+
+.link:hover {
+    height: 60px;
+    width: 60px;
+}
+
+.profile {
+    height: 150px;
+    width: 150px;
+}
+
+a {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalRiseUp {
+    from {
+        transform: translate(-50%, 100%);
+    }
+    to {
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes playImage {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* -------------------------------------------------- Leaderboard Component Styling -- */
+
+.leaderboardContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.leaderboardBackground {
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+table {
+    background-color: var(--leaderboard-table);
+    width: 100%;
+    border-radius: 4px;
+    padding: 1px;
+}
+
+thead {
+    background-color: var(--leaderboard-header);
+}
+
+th {
+    border-radius: 4px;
+    color: var(--leaderboard-text);
+}
+
+tbody {
+    background-color: var(--leaderboard-body);
+}
+
+td {
+    text-align: center;
+    border-radius: 4px;
+    color: var(--leaderboard-text);
+}
+
+.even-row {
+    background-color: #ffffff7a;
+    /* Light gray color for even rows */
+}
+
+.odd-row {
+    background-color: #ffffffb2;
+    /* White color for odd rows */
+}
+
+.rank {
+    background-color: var(--leaderboard-rank);
+    color: var(--leaderboard-text);
+}
+
+.tableBorder {
+    width: 300px;
+    padding: 4px;
+    border-radius: 6px;
+    background-color: white;
+}
+
+/* -------------------------------------------------- Single Player Info Page, Categories Page Styling -- */
+
+.header {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.titleImage {
+    height: 100px;
+}
+
+/*pageContainer*/
+
+/* -------------------------------------------------- Player Info Component Styling -- */
+
+.disable {
+    opacity: 0.5;
+    cursor: auto;
+}
+
+.infoMain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.leftHalf {
+    width: 600px;
+    height: 600px;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    font-family: "Mouse Memoirs", "sans-serif";
+    color: var(--title-color);
+    -webkit-text-stroke: 2px var(--text-border);
+    font-size: 80px;
+    margin-top: 50px;
+}
+
+.titleTwoPlayer {
+    display: flex;
+    justify-content: center;
+    font-family: "Mouse Memoirs", "sans-serif";
+    color: var(--title-color);
+    -webkit-text-stroke: 2px var(--text-border);
+    font-size: 60px;
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+.avatarGallery {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 110px;
+    width: 600px;
+}
+
+.avatarGalleryTwoPlayer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 110px;
+    width: 410px;
+}
+
+.avatarInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 300px;
+    text-align: center;
+}
+
+.avatarName {
+    font-family: "Mouse Memoirs", "sans-serif";
+    color: rgb(233, 194, 67);
+    font-size: 40px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.avatarTrait {
+    color: white;
+}
+
+.avatarTraitTwoPlayer {
+    color: white;
+    font-size: 14px;
+}
+
+.selectedAvatarContainer {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.selectedAvatarContainerTwoPlayer {
+    display: flex;
+    justify-content: center;
+    height: 115px;
+    margin-top: 15px;
+}
+
+.selectedAvatarWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 160px;
+    width: 160px;
+    margin-top: 20px;
+    border-radius: 50%;
+    background-color: rgb(204, 174, 6);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.541);
+}
+
+.selectedAvatarWrapperTwoPlayer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 110px;
+    width: 110px;
+    border-radius: 50%;
+    background-color: rgb(204, 174, 6);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.541);
+}
+
+.selectedAvatar {
+    height: 140px;
+    width: 140px;
+}
+
+.selectedAvatarTwoPlayer {
+    height: 95px;
+    width: 95px;
+}
+
+.errorMessage {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    color: rgb(247, 5, 5);
+    margin: 0;
+    height: 40px;
+}
+
+.rightHalf {
+    width: 600px;
+    height: 600px;
+}
+
+.inputContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.inputFocus {
+    box-shadow: var(--hover-button-box-shadow);
+    width: 440px;
+    height: 100px;
+    outline: none;
+    border: 5px solid #ffffff;
+    background-color: var(--input-focus);
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 60px;
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.inputFocusTwoPlayer {
+    box-shadow: var(--hover-button-box-shadow);
+    width: 250px;
+    height: 50px;
+    outline: none;
+    border: 5px solid #ffffff;
+    background-color: var(--input-focus);
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 40px;
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.input {
+    width: 440px;
+    height: 100px;
+    outline: none;
+    border: 5px solid #d5dbd9;
+    background-color: var(--background-color);
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 60px;
+    color: #d5dbd9;
+    padding: 8px 20px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.inputTwoPlayer {
+    width: 250px;
+    height: 50px;
+    outline: none;
+    border: 5px solid #d5dbd9;
+    background-color: var(--background-color);
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 40px;
+    color: #d5dbd9;
+    padding: 8px 20px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+}
+
+.buttonContainerTwoPlayer {
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* -------------------------------------------------- Avatar Component Styling -- */
+
+.avatarWrapper {
+    background-color: var(--avatar-wrapper);
+    height: 110px;
+    width: 110px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.activeAvatarWrapper {
+    background-color: var(--active-avatar-wrapper);
+    height: 130px;
+    width: 130px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--button-box-shadow);
+}
+
+.avatarWrapperTwoPlayer {
+    background-color: var(--avatar-wrapper);
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.activeAvatarWrapperTwoPlayer {
+    background-color: var(--active-avatar-wrapper);
+    height: 110px;
+    width: 110px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--button-box-shadow);
+}
+
+.avatarDisabled {
+    cursor: auto;
+    height: 100px;
+    width: 100px;
+    background: none;
+    display: block;
+    margin: 0 auto;
+    opacity: 0.8;
+}
+
+.avatarDisabledTwoPlayer {
+    cursor: auto;
+    height: 80px;
+    width: 80px;
+    background: none;
+    display: block;
+    margin: 0 auto;
+    opacity: 0.8;
+}
+
+.activeAvatar {
+    cursor: pointer;
+    height: 120px;
+    width: 120px;
+}
+
+.activeAvatarTwoPlayer {
+    cursor: pointer;
+    height: 100px;
+    width: 100px;
+}
+
+.avatar {
+    cursor: pointer;
+    height: 100px;
+    width: 100px;
+    background: none;
+    display: block;
+    margin: 0 auto;
+    opacity: 0.8;
+}
+
+.avatarTwoPlayer {
+    cursor: pointer;
+    height: 80px;
+    width: 80px;
+    background: none;
+    display: block;
+    margin: 0 auto;
+    opacity: 0.8;
+}
+
+/* -------------------------------------------------- Puzzle Categories Component Styling -- */
+
+/*title*/
+
+.mainSection {
+    display: flex;
+    justify-content: center;
+}
+
+.categoryList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 250px;
+}
+
+/* -------------------------------------------------- Single Player Movie Titles, Phrases, Food, Brands Page Styling -- */
+
+/*pageContainer*/
+
+/* -------------------------------------------------- Single Player Game Play Component Styling -- */
+
+.gameHeader {
+    width: 100%;
+    height: 370px;
     display: flex;
     justify-content: space-between;
 }
 
-.leaderboard h2 {
-    margin: 0;
+.headerLeft {
+    margin-top: 10px;
+    width: 400px;
+    display: flex;
+    justify-content: center;
 }
 
-.mainSectionGamePlay {
+.headerCenter {
+    width: 450px;
+}
+
+/*title*/
+
+.wrongGuesses {
+    width: 100%;
+    height: 280px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.headerRight {
+    margin-top: 10px;
+    width: 400px;
+    display: flex;
+    justify-content: right;
+}
+
+.footer {
+    margin-top: 40px;
+    height: 160px;
+}
+
+/* -------------------------------------------------- Player Info Display Component Styling -- */
+
+.playerInfo {
+    margin-left: 70px;
+}
+
+.playerInfoTwoPlayer {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
+.playerAvatar {
+    height: 70px;
+}
+
+.playerAvatarTwoPlayer {
+    height: 70px;
+    text-align: center;
+}
+
+.playerAvatarImage {
+    height: 70px;
+}
+
+.playerName {
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 30px;
+    color: white;
+}
+
+.playerNameTwoPlayer {
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 30px;
+    color: white;
+    text-align: center;
+}
+
+.playerNameOneTwo {
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 30px;
+    color: white;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+.singlePlayerName {
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+.playerScore {
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 30px;
+    color: white;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.playerScoreTwoPlayer {
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 30px;
+    color: white;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+.playerCrown {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.crown {
+    height: 30px;
+}
+/* -------------------------------------------------- Wrong Guess Component Styling -- */
+
+.balloonRow {
+    display: flex;
+}
+
+.singleBalloon {
+    height: 120px;
+    width: 135px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pinkBalloon {
+    height: 100px;
+}
+
+.pinkBalloonPop {
+    height: 111px;
+    margin-left: 10px;
+    margin-bottom: 13px;
+}
+
+.orangeBalloon {
+    height: 100px;
+}
+
+.orangeBalloonPop {
+    height: 110px;
+    margin-left: 6.5px;
+    margin-bottom: 18px;
+}
+
+.greenBalloon {
+    height: 100px;
+}
+
+.greenBalloonPop {
+    height: 110px;
+    margin-left: 9px;
+    margin-bottom: 14px;
+}
+
+/* -------------------------------------------------- Puzzle Display Component Styling -- */
+
+.puzzleContainer {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.puzzleLine {
+    display: flex;
+}
+
+.puzzleWord {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.puzzleLetter {
+    width: 15px;
+    height: 44px;
+    display: inline-block;
+    padding: 5px;
+    margin: 3px;
+    font-family: "Walter Turncoat", sans-serif;
+    font-size: 40px;
+}
+
+.puzzleLetterBorder {
+    border-bottom: 2px solid white;
+    width: 30px;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.red {
+    color: red;
+}
+
+.white {
+    color: white;
+}
+
+/* -------------------------------------------------- Keyboard Component Styling -- */
+
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+}
+
 .btn {
-    background-color: #ff9051;
+    background-color: var(--keyboard-btn);
     color: white;
     border-radius: 7px;
     transition: all 0.2s;
@@ -330,6 +1304,7 @@ h1 {
     margin: 2px;
     outline: none;
 }
+
 .btn:active {
     top: 3px;
     transition: all 0.2s;
@@ -376,146 +1351,49 @@ h1 {
     outline: none;
 }
 
-.keyboard {
+/* -------------------------------------------------- Footer Component Styling -- */
+
+.buttonWrapper {
+    height: 100px;
+    width: 230px;
     display: flex;
-    flex-direction: column;
-    margin: 0 auto;
+    justify-content: center;
     align-items: center;
 }
 
-.puzzleContainer {
+.footerButtonKeyCommands {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    gap: 46rem;
+    color: white;
 }
 
-.puzzleLetter {
-    width: 15px;
-    height: 15px;
-    display: inline-block;
-    padding: 5px;
-    margin: 3px;
-}
+/* -------------------------------------------------- Two Player Info Page Styling -- */
 
-.puzzleLetterBorder {
-    border-bottom: 1px solid black;
-}
+/*pageContainer*/
 
-.visible {
-    visibility: visible;
-}
-
-.hidden {
-    visibility: hidden;
-}
-
-.red {
-    color: red;
-}
-
-.black {
-    color: black;
-}
-
-.activeButtonModal {
-    border: 2px solid red;
-    outline: none;
-}
-
-.playerContainers {
+.headerTwoPlayer {
+    height: 60px;
     display: flex;
-    flex-direction: row;
-    gap: 15rem;
-    margin: 0 auto;
-    align-items: center;
     justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: "Mouse Memoirs", "sans-serif";
+    color: var(--header-two-player-text);
+    -webkit-text-stroke: 2px var(--header-two-player-border);
+    font-size: 60px;
+}
+
+.mainWrapper {
+    display: block;
+}
+
+.players {
+    display: flex;
+    justify-content: space-between;
 }
 
 .playerOneContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin: 0 auto;
-    align-items: center;
-    opacity: 0.5;
-}
-
-.playerTwoContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin: 0 auto;
-    align-items: center;
-    opacity: 0.5;
-}
-
-.startButton {
-    margin-top: 50px;
-    outline: none;
-}
-
-.playerOneActive {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin: 0 auto;
-    align-items: center;
-    border: 5px solid green;
-}
-
-.playerTwoActive {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin: 0 auto;
-    align-items: center;
-    border: 5px solid green;
-}
-
-.activeAvatarTP {
-    border: 2px solid blue;
-    cursor: pointer;
-}
-
-.selectedAvatarTP {
-    border: 5px solid gold;
-}
-
-.activeButtonTP {
-    border: 2px solid red;
-    outline: none;
-}
-
-.activeStartButton {
-    border: 2px solid red;
-    outline: none;
-}
-
-.playerHeader {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    align-items: center;
-}
-
-.checkmarkOne {
-    height: 50px;
-    width: 50px;
-}
-
-.checkmarkTwo {
-    height: 50px;
-    width: 50px;
-}
-
-.activePlayerButton {
-    box-shadow: 0 0 10px 5px red;
-    outline: none;
-}
-
-.playerInfo {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -523,30 +1401,59 @@ h1 {
     align-items: center;
 }
 
-.playerInfoTP {
+.playerTwoContainer {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 10rem;
-}
-
-.disable {
-    opacity: 0.5;
-    cursor: auto;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0 auto;
+    align-items: center;
 }
 
 .footerPlayButton {
     display: flex;
     justify-content: center;
     outline: none;
+    margin-top: 0px;
+    height: 90px;
+    align-items: center;
+}
+
+/* -------------------------------------------------- Two Player Game Play Component Styling -- */
+
+/*gameHeader*/
+
+.headerLeftTwoPlayer {
+    margin-top: 10px;
+    width: 400px;
+    display: flex;
+    justify-content: center;
 }
 
 .playerOneTurn {
-    background-color: rgb(255, 144, 81);
-    border: 2px solid rgb(233, 107, 34);
+    background-color: var(--keyboard-btn);
+    border: 2px solid var(--player-one-border);
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
 }
 
 .playerTwoTurn {
     background-color: rgb(16, 204, 179);
     border: 2px solid rgb(2, 168, 146);
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.headerRightTwoPlayer {
+    margin-top: 10px;
+    width: 400px;
+    display: flex;
+    justify-content: center;
 }

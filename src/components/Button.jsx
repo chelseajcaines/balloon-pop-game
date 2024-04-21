@@ -6,8 +6,7 @@ const Button = ({
     onClick,
     onMouseEnter,
     onMouseLeave,
-    playerTwoDisabled,
-    playerOneDisabled,
+    playerDisabled,
 }) => {
     return (
         <button
@@ -15,8 +14,8 @@ const Button = ({
             onClick={onClick}
             onMouseLeave={onMouseLeave}
             className={
-                playerTwoDisabled || playerOneDisabled
-                    ? "buttonDisabled"
+                playerDisabled
+                    ? "buttonDisabledTwoPlayer"
                     : isActive
                     ? "activeButton"
                     : "button"

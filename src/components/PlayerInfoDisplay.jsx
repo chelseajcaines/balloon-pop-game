@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react"
+import crown from "/src/assets/crown.png"
+import "/src/App.css"
 
 const PlayerInfoDisplay = ({
     singlePlayer,
@@ -6,6 +8,8 @@ const PlayerInfoDisplay = ({
     playerTwo,
     score,
     playerName,
+    playerOneScore,
+    playerTwoScore,
 }) => {
     const [selectedAvatar, setSelectedAvatar] = useState("")
     const [selectedAvatarOne, setSelectedAvatarOne] = useState("")
@@ -40,33 +44,76 @@ const PlayerInfoDisplay = ({
 
     return (
         <>
-            <div className="playerInfo">
-                <div className="playerAvatar">
+            <div
+                className={singlePlayer ? "playerInfo" : "playerInfoTwoPlayer"}
+            >
+                {playerOne && (
+                    <div className="playerCrown">
+                        {playerOneScore > playerTwoScore && (
+                            <img src={crown} alt="crown" className="crown" />
+                        )}
+                    </div>
+                )}
+                {playerTwo && (
+                    <div className="playerCrown">
+                        {playerTwoScore > playerOneScore && (
+                            <img src={crown} alt="crown" className="crown" />
+                        )}
+                    </div>
+                )}
+                <div
+                    className={
+                        singlePlayer ? "playerAvatar" : "playerAvatarTwoPlayer"
+                    }
+                >
                     {singlePlayer && (
                         <img
                             src={selectedAvatar.src}
                             alt={selectedAvatar.alt}
+                            className="playerAvatarImage"
                         />
                     )}
                     {playerOne && (
                         <img
                             src={selectedAvatarOne.src}
                             alt={selectedAvatarOne.alt}
+                            className="playerAvatarImage"
                         />
                     )}
                     {playerTwo && (
                         <img
                             src={selectedAvatarTwo.src}
                             alt={selectedAvatarTwo.alt}
+                            className="playerAvatarImage"
                         />
                     )}
                 </div>
-                <div className="playerName">
-                    {singlePlayer && <p>{playerName}</p>}
-                    {playerOne && <p>Player One: {playerNameOne}</p>}
-                    {playerTwo && <p>Player Two: {playerNameTwo}</p>}
+                <div
+                    className={
+                        singlePlayer ? "playerName" : "playerNameTwoPlayer"
+                    }
+                >
+                    {singlePlayer && (
+                        <p className="singlePlayerName">{playerName}</p>
+                    )}
+                    {playerOne && (
+                        <p className="playerNameOneTwo">
+                            Player One: {playerNameOne}
+                        </p>
+                    )}
+                    {playerTwo && (
+                        <p className="playerNameOneTwo">
+                            Player Two: {playerNameTwo}
+                        </p>
+                    )}
                 </div>
-                <div className="playerScore">Current Score: {score}</div>
+                <div
+                    className={
+                        singlePlayer ? "playerScore" : "playerScoreTwoPlayer"
+                    }
+                >
+                    Current Score: {score}
+                </div>
             </div>
         </>
     )

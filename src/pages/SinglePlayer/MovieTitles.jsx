@@ -1,9 +1,15 @@
 import SinglePlayerGamePlay from "../../components/SinglePlayerGamePlay"
+import "/src/App.css"
 
 const SinglePlayerMovieTitles = () => {
     return (
         <>
-            <SinglePlayerGamePlay movieTitles={true} />
+            <div className="pageContainer">
+                <SinglePlayerGamePlay
+                    movieTitles={true}
+                    text={"Movie Titles"}
+                />
+            </div>
         </>
     )
 }

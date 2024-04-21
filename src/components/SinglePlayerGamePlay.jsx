@@ -1,20 +1,49 @@
-import { useLocation, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useState, useEffect, useCallback } from "react"
 import { movieTitlesEndpoint } from "../data/apiEndpoints.js"
+import { phraseList } from "../data/const.js"
+import { foodList } from "../data/const.js"
+import { brandNames } from "../data/const.js"
+import sun from "/src/assets/sun.png"
+import moon from "/src/assets/moon.png"
+import noSound from "/src/assets/noSound.png"
+import sound from "/src/assets/sound.png"
+import FetchStatus from "./FetchStatus.jsx"
+import PuzzleDisplay from "./PuzzleDisplay.jsx"
+import WrongGuess from "./WrongGuess.jsx"
 import Leaderboard from "/src/components/Leaderboard.jsx"
-import GamePlaySection from "/src/components/GamePlaySection.jsx"
-import Footer from "./Footer.jsx"
+import Keyboard from "/src/components/Keyboard.jsx"
+// import Footer from "./Footer.jsx"
 import PlayerInfoDisplay from "/src/components/PlayerInfoDisplay.jsx"
 import Modal from "/src/components/Modal.jsx"
+import Button from "/src/components/Button.jsx"
+import { Howl } from "howler"
 import "/src/App.css"
 
-const SinglePlayerGamePlay = ({ movieTitles }) => {
+const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
     const navigate = useNavigate()
 
-    const location = useLocation()
-    const params = new URLSearchParams(location.search)
-    const playerName = params.get("name")
+    const buttonClickSound = new Howl({
+        src: ["/src/assets/buttonHover.flac"],
+    })
 
+    const correctGuessSound = new Howl({
+        src: ["/src/assets/rightGuess.mp3"],
+    })
+
+    const wrongGuessSound = new Howl({
+        src: ["/src/assets/pop.wav"],
+    })
+
+    const winnerSound = new Howl({
+        src: ["/src/assets/winner.wav"],
+    })
+
+    const loserSound = new Howl({
+        src: ["/src/assets/loser.wav"],
+    })
+
+    const [singlePlayerName, setSinglePlayerName] = useState("")
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
     const [puzzle, setPuzzle] = useState("")
@@ -22,18 +51,95 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
     const [guessedLetters, setGuessedLetters] = useState([])
     const [playerWins, setPlayerWins] = useState(false)
     const [pointsWon, setPointsWon] = useState(0)
+    const [showLoadingModal, setShowLoadingModal] = useState(false)
     const [showWinModal, setShowWinModal] = useState(false)
     const [showLeaveGameModal, setShowLeaveGameModal] = useState(false)
     const [showLoseModal, setShowLoseModal] = useState(false)
-    const [showLeaderboardModal, setShowLeaderboardModal] = useState(false)
     const [showAllPuzzlesPlayedModal, setShowAllPuzzlesPlayedModal] =
         useState(false)
     const [currentScore, setCurrentScore] = useState(0)
-    const [isLeaderboardButtonClicked, setIsLeaderboardButtonClicked] =
-        useState(false)
     const [isNextPuzzleClicked, setIsNextPuzzleClicked] = useState(false)
     const [isHomePageButtonClicked, setIsHomePageButtonClicked] =
         useState(false)
+    const [isDarkMode, setIsDarkMode] = useState(getInitialMode())
+    const [showAboutMeModal, setShowAboutMeModal] = useState(false)
+    const [soundOn, setSoundOn] = useState(true)
+    const [isActiveQuit, setIsActiveQuit] = useState(false)
+    const [isActiveNextPuzzle, setIsActiveNextPuzzle] = useState(false)
+
+    useEffect(() => {
+        // Update the body class when darkMode changes
+        if (isDarkMode) {
+            document.body.classList.add("dark-mode")
+        } else {
+            document.body.classList.remove("dark-mode")
+        }
+    }, [isDarkMode])
+
+    useEffect(() => {
+        localStorage.setItem("dark", JSON.stringify(isDarkMode))
+    }, [isDarkMode])
+
+    function getInitialMode() {
+        const savedMode = JSON.parse(localStorage.getItem("dark"))
+        return (
+            savedMode ||
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+        )
+    }
+
+    useEffect(() => {
+        const savedSoundSetting = localStorage.getItem("SOUND_EFFECT_KEY")
+        if (savedSoundSetting !== null) {
+            setSoundOn(JSON.parse(savedSoundSetting))
+        }
+    }, [])
+
+    const toggleSound = () => {
+        setSoundOn(!soundOn)
+        // Persist the state to localStorage
+        localStorage.setItem("SOUND_EFFECT_KEY", JSON.stringify(!soundOn))
+    }
+
+    const playButtonClickSoundEffect = () => {
+        if (soundOn) {
+            buttonClickSound.play()
+        }
+    }
+
+    const playCorrectGuessSoundEffect = () => {
+        if (soundOn) {
+            correctGuessSound.play()
+        }
+    }
+
+    const playWrongGuessSoundEffect = () => {
+        if (soundOn) {
+            wrongGuessSound.play()
+        }
+    }
+
+    const playWinnerSoundEffect = () => {
+        if (soundOn) {
+            winnerSound.play()
+        }
+    }
+
+    const playLoserSoundEffect = () => {
+        if (soundOn) {
+            loserSound.play()
+        }
+    }
+
+    function toggleDarkMode() {
+        setIsDarkMode((prevMode) => !prevMode)
+        playButtonClickSoundEffect()
+    }
+
+    useEffect(() => {
+        const data = window.localStorage.getItem("SINGLE_PLAYER_NAME_KEY")
+        setSinglePlayerName(JSON.parse(data))
+    }, [])
 
     const updateLeaderboard = (name, score) => {
         const leaderboardData =
@@ -69,57 +175,99 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         }
     }, [isHomePageButtonClicked])
 
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (e.key === "Enter" && isLeaderboardButtonClicked)
-                e.preventDefault()
-        }
-
-        document.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [isLeaderboardButtonClicked])
-
-    const chooseCategorie = () => {
-        if (movieTitles) {
-            return movieTitlesEndpoint
-        }
-    }
-
     const fetchPuzzle = async () => {
         setError(null)
         setGuessedLetters([])
         setPuzzle("")
         setIsLoading(true)
+        setShowLoadingModal(true)
+        const timer = setTimeout(() => {
+            setShowLoadingModal(false)
+        }, 1000)
 
-        try {
-            let newPuzzle = ""
-            do {
-                const response = await fetch(chooseCategorie())
-                if (!response.ok) {
-                    throw new Error("Failed to fetch movie data.")
-                }
-                const data = await response.json()
-                const randomPuzzleIndex = Math.floor(
-                    Math.random() * data.items.length
-                )
-                newPuzzle = data.items[randomPuzzleIndex]?.title || ""
-            } while (usedPuzzles.includes(newPuzzle.toUpperCase())) // Fetch new puzzle if it's already used
+        if (movieTitles) {
+            try {
+                let newPuzzle = ""
+                do {
+                    const response = await fetch(movieTitlesEndpoint)
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch movie data.")
+                    }
+                    const data = await response.json()
+                    const randomPuzzleIndex = Math.floor(
+                        Math.random() * data.items.length
+                    )
+                    newPuzzle = data.items[randomPuzzleIndex]?.title || ""
+                } while (usedPuzzles.includes(newPuzzle.toUpperCase())) // Fetch new puzzle if it's already used
 
-            const uppercasePuzzle = newPuzzle.toUpperCase()
-            setPuzzle(uppercasePuzzle)
-        } catch (error) {
-            setError(error.message)
-        } finally {
-            setIsLoading(false)
+                const uppercasePuzzle = newPuzzle.toUpperCase()
+                setPuzzle(uppercasePuzzle)
+            } catch (error) {
+                setError(error.message)
+            } finally {
+                setIsLoading(false)
+            }
+        } else if (phrases) {
+            try {
+                let newPuzzle = ""
+                do {
+                    // Access your array of puzzles directly instead of fetching from an API
+                    const randomIndex = Math.floor(
+                        Math.random() * phraseList.length
+                    )
+                    newPuzzle = phraseList[randomIndex] || ""
+                } while (usedPuzzles.includes(newPuzzle.toUpperCase())) // Fetch new puzzle if it's already used
+
+                const uppercasePuzzle = newPuzzle.toUpperCase()
+                setPuzzle(uppercasePuzzle)
+            } catch (error) {
+                setError(error.message)
+            } finally {
+                setIsLoading(false)
+            }
+        } else if (food) {
+            try {
+                let newPuzzle = ""
+                do {
+                    // Access your array of puzzles directly instead of fetching from an API
+                    const randomIndex = Math.floor(
+                        Math.random() * foodList.length
+                    )
+                    newPuzzle = foodList[randomIndex] || ""
+                } while (usedPuzzles.includes(newPuzzle.toUpperCase())) // Fetch new puzzle if it's already used
+
+                const uppercasePuzzle = newPuzzle.toUpperCase()
+                setPuzzle(uppercasePuzzle)
+            } catch (error) {
+                setError(error.message)
+            } finally {
+                setIsLoading(false)
+            }
+        } else if (brands) {
+            try {
+                let newPuzzle = ""
+                do {
+                    // Access your array of puzzles directly instead of fetching from an API
+                    const randomIndex = Math.floor(
+                        Math.random() * brandNames.length
+                    )
+                    newPuzzle = brandNames[randomIndex] || ""
+                } while (usedPuzzles.includes(newPuzzle.toUpperCase())) // Fetch new puzzle if it's already used
+
+                const uppercasePuzzle = newPuzzle.toUpperCase()
+                setPuzzle(uppercasePuzzle)
+            } catch (error) {
+                setError(error.message)
+            } finally {
+                setIsLoading(false)
+            }
         }
+        return () => clearTimeout(timer)
     }
 
     useEffect(() => {
         fetchPuzzle()
-    }, [])
+    }, [movieTitles, phrases, food, brands])
 
     const activeLetters = guessedLetters.filter((letter) =>
         puzzle.includes(letter)
@@ -149,7 +297,7 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
     }, [isLoser, isWinner, puzzle])
 
     useEffect(() => {
-        if (usedPuzzles.length === 10 && (isWinner || isLoser)) {
+        if (usedPuzzles.length === 200 && (isWinner || isLoser)) {
             setShowAllPuzzlesPlayedModal(true)
             setShowWinModal(false)
             setShowLoseModal(false)
@@ -158,12 +306,13 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
 
     useEffect(() => {
         if (isWinner) {
+            playWinnerSoundEffect()
             setShowWinModal(true)
             setShowLoseModal(false)
             setShowLeaveGameModal(false)
             setPlayerWins(true)
         }
-    }, [isWinner])
+    }, [isWinner, soundOn])
 
     useEffect(() => {
         if (isWinner && playerWins) {
@@ -187,19 +336,29 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
             const playersLastHighScore = JSON.parse(
                 localStorage.getItem("PLAYERS_HIGHEST_SCORE_KEY")
             )
-            updateLeaderboard(playerName, playersLastHighScore)
+            if (playersLastHighScore != 0) {
+                updateLeaderboard(singlePlayerName, playersLastHighScore)
+            }
         }
-    }, [isLoser, playerName])
+    }, [isLoser, singlePlayerName])
 
     useEffect(() => {
         if (isLoser) {
+            playLoserSoundEffect()
             setPointsWon(0)
             setCurrentScore(0)
-            setShowLoseModal(true)
             setShowWinModal(false)
             setShowLeaveGameModal(false)
+
+            // Set showLoseModal to true after 2 seconds
+            const timer = setTimeout(() => {
+                setShowLoseModal(true)
+            }, 3000)
+
+            // Clean up the timer to avoid memory leaks
+            return () => clearTimeout(timer)
         }
-    }, [isLoser])
+    }, [isLoser, soundOn])
 
     const addGuessedLetter = useCallback(
         (letter) => {
@@ -209,8 +368,15 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
                     letter,
                 ])
             }
+            if (!puzzle.includes(letter)) {
+                setTimeout(() => {
+                    playWrongGuessSoundEffect()
+                }, 500)
+            } else {
+                playCorrectGuessSoundEffect()
+            }
         },
-        [guessedLetters, isWinner, isLoser]
+        [guessedLetters, isWinner, isLoser, puzzle, soundOn]
     )
 
     useEffect(() => {
@@ -227,9 +393,10 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         return () => {
             window.removeEventListener("keypress", handleKeyDown)
         }
-    }, [isWinner, isLoser, addGuessedLetter])
+    }, [isWinner, isLoser, addGuessedLetter, soundOn])
 
     const handleWinThenContinue = () => {
+        playButtonClickSoundEffect()
         setGuessedLetters([])
         setPuzzle("")
         setIsLoading(true)
@@ -239,6 +406,7 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
     }
 
     const handleQuit = () => {
+        playButtonClickSoundEffect()
         setIsHomePageButtonClicked(true)
         setShowLeaveGameModal(true)
         setShowWinModal(false)
@@ -247,6 +415,7 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
     }
 
     const handleLoseThenContinue = () => {
+        playButtonClickSoundEffect()
         setGuessedLetters([])
         setPuzzle("")
         setIsLoading(true)
@@ -260,20 +429,28 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         setShowWinModal(false)
         setShowLeaveGameModal(false)
         setShowLoseModal(false)
-        setShowLeaderboardModal(false)
         setShowAllPuzzlesPlayedModal(false)
     }
 
     const handlePuzzlesPlayedThenQuit = () => {
+        playButtonClickSoundEffect()
         setShowAllPuzzlesPlayedModal(true)
         setShowLeaveGameModal(false)
     }
 
     const handleSaveAndLeaveGame = () => {
+        playButtonClickSoundEffect()
         navigate("/")
+        const playersLastHighScore = JSON.parse(
+            localStorage.getItem("PLAYERS_HIGHEST_SCORE_KEY")
+        )
+        if (playersLastHighScore != 0) {
+            updateLeaderboard(singlePlayerName, playersLastHighScore)
+        }
     }
 
     const handleNextPuzzle = () => {
+        playButtonClickSoundEffect()
         setGuessedLetters([])
         setPuzzle("")
         setIsLoading(true)
@@ -282,12 +459,8 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         setIsNextPuzzleClicked(true)
     }
 
-    const handleShowLeaderboard = () => {
-        setShowLeaderboardModal(true)
-        setIsLeaderboardButtonClicked(true)
-    }
-
     const handleStartFresh = () => {
+        playButtonClickSoundEffect()
         setUsedPuzzles([])
         setGuessedLetters([])
         setPuzzle("")
@@ -297,11 +470,22 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         setCurrentScore(0)
     }
 
+    const handleCancelAndPlaySound = () => {
+        playButtonClickSoundEffect()
+        handleCancelAllModals()
+    }
+
+    const handleClickAboutMe = () => {
+        playButtonClickSoundEffect()
+        setShowAboutMeModal(true)
+    }
+
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.ctrlKey && e.key === "b") {
                 setShowLeaveGameModal(true)
                 setIsHomePageButtonClicked(true)
+                playButtonClickSoundEffect()
             }
         }
 
@@ -310,13 +494,14 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [])
+    }, [soundOn])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.ctrlKey && e.key === "q") {
                 handleNextPuzzle()
                 setIsNextPuzzleClicked(true)
+                playButtonClickSoundEffect()
             }
         }
 
@@ -325,113 +510,159 @@ const SinglePlayerGamePlay = ({ movieTitles }) => {
         return () => {
             window.removeEventListener("keydown", handleKeyDown)
         }
-    }, [])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (e.ctrlKey && e.key === "y") {
-                setShowLeaderboardModal(true)
-                setIsLeaderboardButtonClicked(true)
-            }
-        }
-
-        window.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [])
+    }, [soundOn])
 
     return (
         <>
-            <div className="pageContainer">
-                <div className="header">
-                    <h1>Single Player - Game play</h1>
+            <div className="gameHeader">
+                <div className="headerLeft">
+                    <PlayerInfoDisplay
+                        singlePlayer={true}
+                        playerName={singlePlayerName}
+                        score={currentScore}
+                    />
                 </div>
-                <div className="stats">
-                    <div className="playerInfo">
-                        <PlayerInfoDisplay
-                            singlePlayer={true}
-                            playerName={playerName}
-                            score={currentScore}
-                        />
+                <div className="headerCenter">
+                    <p
+                        className="title"
+                        style={{
+                            marginTop: "10px",
+                            marginBottom: "10px",
+                            fontSize: "60px",
+                        }}
+                    >
+                        {text}
+                    </p>
+                    <div className="wrongGuesses">
+                        <WrongGuess numberOfGuesses={incorrectLetters.length} />
                     </div>
                 </div>
-                <div className="mainSectionGamePlay">
-                    <GamePlaySection
-                        puzzle={puzzle}
-                        isLoading={isLoading}
-                        error={error}
-                        guessedLetters={guessedLetters}
-                        numberOfGuesses={incorrectLetters.length}
-                        disabled={isWinner || isLoser}
-                        reveal={isLoser}
-                        activeLetters={activeLetters}
-                        inactiveLetters={incorrectLetters}
-                        handleGuessedLetter={addGuessedLetter}
-                    />
+                <div className="headerRight">
+                    <Leaderboard />
                 </div>
-
-                <div className="footer">
-                    <Footer
-                        singlePlayer={true}
-                        handleQuit={handleQuit}
-                        handleNextPuzzle={handleNextPuzzle}
-                        setShowLeaveGameModal={() =>
-                            setShowLeaveGameModal(true)
-                        }
-                        handleShowLeaderboard={handleShowLeaderboard}
-                    />
-                </div>
-
-                {isWinner && showWinModal && (
-                    <Modal
-                        winModal={true}
-                        handleCancelAllModals={handleCancelAllModals}
-                        handleWinThenContinue={handleWinThenContinue}
-                        handleQuit={handleQuit}
-                        pointsWon={pointsWon}
-                        currentScore={currentScore}
-                    />
-                )}
-
-                {isLoser && showLoseModal && (
-                    <Modal
-                        loseModal={true}
-                        handleCancelAllModals={handleCancelAllModals}
-                        handleLoseThenContinue={handleLoseThenContinue}
-                        handleQuit={handleQuit}
-                    />
-                )}
-
-                {showLeaveGameModal && (
-                    <Modal
-                        leaveGameModal={true}
-                        handleCancelAllModals={handleCancelAllModals}
-                        handleSaveAndLeaveGame={handleSaveAndLeaveGame}
-                        handleQuit={handleQuit}
-                    />
-                )}
-                {showLeaderboardModal && (
-                    <Modal
-                        leaderboardModal={true}
-                        handleCancelAllModals={handleCancelAllModals}
-                        leaderboard={<Leaderboard />}
-                    />
-                )}
-                {showAllPuzzlesPlayedModal && (
-                    <Modal
-                        allPuzzlesPlayed={true}
-                        handleQuit={handleQuit}
-                        handleStartFresh={handleStartFresh}
-                        currentScore={currentScore}
-                        singlePlayer={true}
-                        handlePuzzlesPlayedThenQuit={
-                            handlePuzzlesPlayedThenQuit
-                        }
-                    />
-                )}
             </div>
+
+            <PuzzleDisplay
+                puzzle={puzzle}
+                guessedLetters={guessedLetters}
+                reveal={isLoser}
+            />
+
+            <FetchStatus isLoading={isLoading} error={error} />
+
+            <Keyboard
+                disabled={isWinner || isLoser}
+                activeLetters={activeLetters}
+                inactiveLetters={incorrectLetters}
+                handleGuessedLetter={addGuessedLetter}
+            />
+
+            {/* <div className="footer">
+                <Footer
+                    singlePlayer={true}
+                    handleQuit={handleQuit}
+                    handleNextPuzzle={handleNextPuzzle}
+                    setShowLeaveGameModal={() => setShowLeaveGameModal(true)}
+                />
+            </div> */}
+
+            <div className="footerHome" style={{ marginTop: "50px" }}>
+                <div className="buttonWrapper">
+                    <Button
+                        text="Home"
+                        onClick={handleQuit}
+                        isActive={isActiveQuit}
+                        onMouseEnter={() => setIsActiveQuit(true)}
+                        onMouseLeave={() => setIsActiveQuit(false)}
+                    />
+                </div>
+                <div className="imgWrapper">
+                    <img
+                        src={soundOn ? sound : noSound}
+                        alt="sound ON/OFF"
+                        className="innerImg"
+                        onClick={toggleSound}
+                    />
+                </div>
+                <button className="aboutMeButton" onClick={handleClickAboutMe}>
+                    CLICK ME!
+                </button>
+
+                <div className="imgWrapper">
+                    <img
+                        src={isDarkMode ? sun : moon}
+                        alt="dark mode"
+                        className="innerImg"
+                        onClick={toggleDarkMode}
+                    />
+                </div>
+                <div className="buttonWrapper">
+                    <Button
+                        text="Next Puzzle"
+                        onClick={handleNextPuzzle}
+                        isActive={isActiveNextPuzzle}
+                        onMouseEnter={() => setIsActiveNextPuzzle(true)}
+                        onMouseLeave={() => setIsActiveNextPuzzle(false)}
+                    />
+                </div>
+            </div>
+            <div className="footerButtonKeyCommands">
+                <p>Ctrl + B</p>
+                <p>Ctrl + Q</p>
+            </div>
+
+            {isWinner && showWinModal && (
+                <Modal
+                    winModal={true}
+                    handleCancelAllModals={handleCancelAllModals}
+                    handleWinThenContinue={handleWinThenContinue}
+                    handleQuit={handleQuit}
+                    pointsWon={pointsWon}
+                    currentScore={currentScore}
+                />
+            )}
+
+            {isLoser && showLoseModal && (
+                <Modal
+                    loseModal={true}
+                    handleCancelAllModals={handleCancelAllModals}
+                    handleLoseThenContinue={handleLoseThenContinue}
+                    handleQuit={handleQuit}
+                />
+            )}
+
+            {showLeaveGameModal && (
+                <Modal
+                    leaveGameModal={true}
+                    handleCancelAndPlaySound={handleCancelAndPlaySound}
+                    handleCancelAllModals={handleCancelAllModals}
+                    handleSaveAndLeaveGame={handleSaveAndLeaveGame}
+                    handleQuit={handleQuit}
+                />
+            )}
+            {showAllPuzzlesPlayedModal && (
+                <Modal
+                    allPuzzlesPlayed={true}
+                    handleQuit={handleQuit}
+                    handleStartFresh={handleStartFresh}
+                    currentScore={currentScore}
+                    singlePlayer={true}
+                    handlePuzzlesPlayedThenQuit={handlePuzzlesPlayedThenQuit}
+                    handleCancelAllModals={handleCancelAllModals}
+                />
+            )}
+
+            {showLoadingModal && <Modal loadingPage={true} />}
+
+            {showAboutMeModal && (
+                <div>
+                    <Modal
+                        aboutMe={true}
+                        handleCancelAllModals={() => setShowAboutMeModal(false)}
+                        isDarkMode={isDarkMode}
+                    />
+                </div>
+            )}
         </>
     )
 }

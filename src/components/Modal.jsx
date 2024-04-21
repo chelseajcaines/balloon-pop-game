@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react"
 import "/src/App.css"
+import pop from "/src/assets/pop.gif"
+import loading from "/src/assets/loading.gif"
+import profile from "/src/assets/profile.png"
+import linkedin from "/src/assets/linkedin.png"
+import github from "/src/assets/github.png"
+import githubdark from "/src/assets/githubdark.png"
 
 const Modal = ({
     winModal,
@@ -23,6 +29,10 @@ const Modal = ({
     singlePlayer,
     twoPlayer,
     handlePuzzlesPlayedThenQuit,
+    loadingPage,
+    aboutMe,
+    handleCancelAndPlaySound,
+    isDarkMode,
 }) => {
     const [isActive, setIsActive] = useState(0)
 
@@ -61,7 +71,7 @@ const Modal = ({
         {
             id: 1,
             text: "No",
-            click: handleCancelAllModals,
+            click: handleCancelAndPlaySound,
         },
     ]
 
@@ -315,20 +325,6 @@ const Modal = ({
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (leaderboardModal && e.key === "Enter") {
-                handleCancelAllModals()
-            }
-        }
-
-        document.addEventListener("keydown", handleKeyDown)
-
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown)
-        }
-    }, [leaderboardModal])
-
-    useEffect(() => {
-        const handleKeyDown = (e) => {
             if (allPuzzlesPlayed) {
                 if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
                     const currentIndex = allPuzzlesPlayedModalButtons.findIndex(
@@ -392,29 +388,39 @@ const Modal = ({
                         className={"overlay"}
                     ></div>
                     <div className={"modal"}>
-                        <p>Congrats! You won {pointsWon} points!</p>
-                        <p>Your current score is {currentScore}</p>
-                        <p>Next puzzle?</p>
+                        <p className="modalText">
+                            Congrats! You won {pointsWon}{" "}
+                            {pointsWon === 1 ? "point!" : "points!"}
+                        </p>
+                        <p className="modalText">
+                            Your current score is {currentScore}
+                        </p>
+                        <p className="modalText">Next puzzle?</p>
 
-                        <div className="buttonsContainer">
+                        <div className="buttonsContainerModal">
                             {winModalButtons.map((button) => (
-                                <button
-                                    key={button.id}
-                                    onMouseEnter={() =>
-                                        handleMouseEnter(button.id)
-                                    }
-                                    onMouseLeave={handleMouseLeave}
-                                    onClick={button.click}
-                                    className={
-                                        button.id === isActive
-                                            ? "activeButtonModal"
-                                            : ""
-                                    }
-                                >
-                                    {button.text}
-                                </button>
+                                <div className="buttonWrapperModal">
+                                    <button
+                                        key={button.id}
+                                        onMouseEnter={() =>
+                                            handleMouseEnter(button.id)
+                                        }
+                                        onMouseLeave={handleMouseLeave}
+                                        onClick={button.click}
+                                        className={
+                                            button.id === isActive
+                                                ? "winActiveButtonModal"
+                                                : "winButtonModal"
+                                        }
+                                    >
+                                        {button.text}
+                                    </button>
+                                </div>
                             ))}
                         </div>
+                    </div>
+                    <div className="confettiPopContainer">
+                        <img src={pop} className="confettiPop" />
                     </div>
                 </div>
             )}
@@ -425,25 +431,27 @@ const Modal = ({
                         className={"overlay"}
                     ></div>
                     <div className={"modal"}>
-                        <p>Nice Try! Play Again?</p>
+                        <p className="modalText">Nice Try! Play Again?</p>
 
-                        <div className="buttonsContainer">
+                        <div className="buttonsContainerModal">
                             {loseModalButtons.map((button) => (
-                                <button
-                                    key={button.id}
-                                    onMouseEnter={() =>
-                                        handleMouseEnter(button.id)
-                                    }
-                                    onMouseLeave={handleMouseLeave}
-                                    onClick={button.click}
-                                    className={
-                                        button.id === isActive
-                                            ? "activeButtonModal"
-                                            : ""
-                                    }
-                                >
-                                    {button.text}
-                                </button>
+                                <div className="buttonWrapperModal">
+                                    <button
+                                        key={button.id}
+                                        onMouseEnter={() =>
+                                            handleMouseEnter(button.id)
+                                        }
+                                        onMouseLeave={handleMouseLeave}
+                                        onClick={button.click}
+                                        className={
+                                            button.id === isActive
+                                                ? "activeButtonModal"
+                                                : "buttonModal"
+                                        }
+                                    >
+                                        {button.text}
+                                    </button>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -456,29 +464,33 @@ const Modal = ({
                         className={"overlay"}
                     ></div>
                     <div className={"modal"}>
-                        <p>Leave game and return to home page?</p>
+                        <p className="modalText">
+                            Leave game and return to home page?
+                        </p>
 
-                        <div className="buttonsContainer">
+                        <div className="buttonsContainerModal">
                             {leaveGameModalButtons.map((button) => (
-                                <button
-                                    key={button.id}
-                                    onMouseEnter={() =>
-                                        handleMouseEnter(button.id)
-                                    }
-                                    onMouseLeave={handleMouseLeave}
-                                    onClick={
-                                        allPuzzlesPlayed
-                                            ? handlePuzzlesPlayedThenQuit
-                                            : button.click
-                                    }
-                                    className={
-                                        button.id === isActive
-                                            ? "activeButtonModal"
-                                            : ""
-                                    }
-                                >
-                                    {button.text}
-                                </button>
+                                <div className="buttonWrapperModal">
+                                    <button
+                                        key={button.id}
+                                        onMouseEnter={() =>
+                                            handleMouseEnter(button.id)
+                                        }
+                                        onMouseLeave={handleMouseLeave}
+                                        onClick={
+                                            allPuzzlesPlayed
+                                                ? handlePuzzlesPlayedThenQuit
+                                                : button.click
+                                        }
+                                        className={
+                                            button.id === isActive
+                                                ? "activeButtonModal"
+                                                : "buttonModal"
+                                        }
+                                    >
+                                        {button.text}
+                                    </button>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -491,28 +503,35 @@ const Modal = ({
                         className={"overlay"}
                     ></div>
                     <div className={"modal"}>
-                        <p>Congrats, {playerNameOne}! You won the game!</p>
-                        <p>Next puzzle?</p>
+                        <p className="modalText">
+                            Congrats, {playerNameOne}! You won the game!
+                        </p>
+                        <p className="modalText">Next puzzle?</p>
 
-                        <div className="buttonsContainer">
+                        <div className="buttonsContainerModal">
                             {winModalButtons.map((button) => (
-                                <button
-                                    key={button.id}
-                                    onMouseEnter={() =>
-                                        handleMouseEnter(button.id)
-                                    }
-                                    onMouseLeave={handleMouseLeave}
-                                    onClick={button.click}
-                                    className={
-                                        button.id === isActive
-                                            ? "activeButtonModal"
-                                            : ""
-                                    }
-                                >
-                                    {button.text}
-                                </button>
+                                <div className="buttonWrapperModal">
+                                    <button
+                                        key={button.id}
+                                        onMouseEnter={() =>
+                                            handleMouseEnter(button.id)
+                                        }
+                                        onMouseLeave={handleMouseLeave}
+                                        onClick={button.click}
+                                        className={
+                                            button.id === isActive
+                                                ? "winActiveButtonModal"
+                                                : "winButtonModal"
+                                        }
+                                    >
+                                        {button.text}
+                                    </button>
+                                </div>
                             ))}
                         </div>
+                    </div>
+                    <div className="confettiPopContainer">
+                        <img src={pop} className="confettiPop" />
                     </div>
                 </div>
             )}
@@ -523,28 +542,35 @@ const Modal = ({
                         className={"overlay"}
                     ></div>
                     <div className={"modal"}>
-                        <p>Congrats, {playerNameTwo}! You won the game!</p>
-                        <p>Next puzzle?</p>
+                        <p className="modalText">
+                            Congrats, {playerNameTwo}! You won the game!
+                        </p>
+                        <p className="modalText">Next puzzle?</p>
 
-                        <div className="buttonsContainer">
+                        <div className="buttonsContainerModal">
                             {winModalButtons.map((button) => (
-                                <button
-                                    key={button.id}
-                                    onMouseEnter={() =>
-                                        handleMouseEnter(button.id)
-                                    }
-                                    onMouseLeave={handleMouseLeave}
-                                    onClick={button.click}
-                                    className={
-                                        button.id === isActive
-                                            ? "activeButtonModal"
-                                            : ""
-                                    }
-                                >
-                                    {button.text}
-                                </button>
+                                <div className="buttonWrapperModal">
+                                    <button
+                                        key={button.id}
+                                        onMouseEnter={() =>
+                                            handleMouseEnter(button.id)
+                                        }
+                                        onMouseLeave={handleMouseLeave}
+                                        onClick={button.click}
+                                        className={
+                                            button.id === isActive
+                                                ? "winActiveButtonModal"
+                                                : "winButtonModal"
+                                        }
+                                    >
+                                        {button.text}
+                                    </button>
+                                </div>
                             ))}
                         </div>
+                    </div>
+                    <div className="confettiPopContainer">
+                        <img src={pop} className="confettiPop" />
                     </div>
                 </div>
             )}
@@ -556,49 +582,139 @@ const Modal = ({
                     ></div>
                     <div className={"leaderboardModal"}>
                         <div>{leaderboard}</div>
-                        <button
-                            className="activeButtonModal"
-                            onClick={handleCancelAllModals}
-                        >
-                            Back to game
-                        </button>
+                        <div className="buttonsContainerLeaderboard">
+                            <button
+                                className="activeButtonModal"
+                                onClick={handleCancelAllModals}
+                            >
+                                OK
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
             {allPuzzlesPlayed && (
                 <div>
-                    <div className={"overlay"}></div>
-                    <div className={"modal"}>
+                    <div
+                        className={"overlay"}
+                        onClick={handleCancelAllModals}
+                    ></div>
+                    <div className={"puzzlesPlayedModal"}>
                         {singlePlayer && (
-                            <div>
+                            <p className="modalText">
                                 Amazing! You've completed all puzzles with a
-                                total score of ${currentScore} points. Thank you
+                                total score of {currentScore} points. Thank you
                                 for playing Balloon Pop! Would you like to play
                                 again?
-                            </div>
+                            </p>
                         )}
                         {twoPlayer && (
-                            <div>
+                            <p className="modalText">
                                 Amazing! You've completed all puzzles. Thank you
                                 for playing Balloon Pop! Would you like to play
                                 again?
-                            </div>
+                            </p>
                         )}
-                        {allPuzzlesPlayedModalButtons.map((button) => (
-                            <button
-                                key={button.id}
-                                onMouseEnter={() => handleMouseEnter(button.id)}
-                                onMouseLeave={handleMouseLeave}
-                                onClick={button.click}
-                                className={
-                                    button.id === isActive
-                                        ? "activeButtonModal"
-                                        : ""
-                                }
+                        <div className="buttonsContainerModal">
+                            {allPuzzlesPlayedModalButtons.map((button) => (
+                                <div className="buttonWrapperModal">
+                                    <button
+                                        key={button.id}
+                                        onMouseEnter={() =>
+                                            handleMouseEnter(button.id)
+                                        }
+                                        onMouseLeave={handleMouseLeave}
+                                        onClick={button.click}
+                                        className={
+                                            button.id === isActive
+                                                ? "activeButtonModal"
+                                                : "buttonModal"
+                                        }
+                                    >
+                                        {button.text}
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="confettiPopContainer">
+                        <img src={pop} className="confettiPop" />
+                    </div>
+                </div>
+            )}
+            {loadingPage && (
+                <div>
+                    <div className="loadingPageOverlay"></div>
+                    <div className="loadingPageModal">
+                        <p className="modalTextLoading">LOADING</p>
+                        <div className="loadingImageContainer">
+                            <img src={loading} className="loading" />
+                        </div>
+                    </div>
+                </div>
+            )}
+            {aboutMe && (
+                <div>
+                    <div
+                        onClick={handleCancelAllModals}
+                        className={"overlay"}
+                    ></div>
+                    <div className={"aboutMeModal"}>
+                        <div className="aboutMeHeader">
+                            <div className="profileContainer">
+                                <img
+                                    src={profile}
+                                    alt="profile"
+                                    className="profile"
+                                />
+                            </div>
+
+                            <div className="textContainer">
+                                <p className="aboutMeText">Hi There,</p>
+                                <p className="aboutMeText">I'm Chelsea!</p>
+                            </div>
+                        </div>
+
+                        <p className="aboutMeParagraph">
+                            Thanks for checking out Balloon Pop! Formally a
+                            Pharmacy Technician, currently living in
+                            Newfoundland and Labrador, I've recently made a
+                            career change to Software Developer. Everything I've
+                            learned to develop this game, I've learned from the
+                            coaches and fellow students at GetCoding (Big thanks
+                            to them!). If you would like to work on a project
+                            together, feel free to connect with me on LinkedIn.
+                            Have fun playing!
+                        </p>
+                        <div className="linksContainer">
+                            <a
+                                href="https://github.com/chelseajcaines/balloon-pop-game"
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
-                                {button.text}
-                            </button>
-                        ))}
+                                <img
+                                    src={isDarkMode ? githubdark : github}
+                                    alt="github"
+                                    className="link"
+                                />
+                            </a>
+                            <a
+                                href="https://www.linkedin.com/in/chelsea-caines/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <img
+                                    src={linkedin}
+                                    alt="linkedin"
+                                    className="link"
+                                />
+                            </a>
+                        </div>
+
+                        <div className="buttonsContainerModal"></div>
+                    </div>
+                    <div className="confettiPopContainer">
+                        <img src={pop} className="confettiPop" />
                     </div>
                 </div>
             )}

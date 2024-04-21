@@ -1,17 +1,10 @@
-import { wrongAnswersArray } from "/src/data/const.js"
 import { alphabetArray } from "/src/data/const.js"
 import "/src/App.css"
 import { useEffect } from "react"
 
-const GamePlaySection = ({
+const Keyboard = ({
     twoPlayer,
-    puzzle,
-    guessedLetters,
-    numberOfGuesses,
-    isLoading,
-    error,
     disabled = false,
-    reveal = false,
     activeLetters,
     inactiveLetters,
     handleGuessedLetter,
@@ -24,56 +17,15 @@ const GamePlaySection = ({
     ]
 
     useEffect(() => {}, [playerTwoTurn])
-
     return (
         <>
-            <div className="wrongGuess">
-                {wrongAnswersArray.slice(0, numberOfGuesses).join(", ")}
-            </div>
-
-            <div className="puzzleContainer">
-                {puzzle.split("").map((letter, index) => (
-                    <div
-                        key={index}
-                        className={`${"puzzleLetter"} ${
-                            letter === ":" || letter === "'" || letter === " "
-                                ? ""
-                                : ["puzzleLetterBorder"]
-                        }`}
-                    >
-                        <div
-                            className={`${[
-                                guessedLetters.includes(letter) ||
-                                reveal ||
-                                letter === ":" ||
-                                letter === "'" ||
-                                letter === " "
-                                    ? "visible"
-                                    : "hidden",
-                            ]} ${
-                                !guessedLetters.includes(letter) && reveal
-                                    ? "red"
-                                    : "black"
-                            }`}
-                        >
-                            {letter}
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <div>
-                {isLoading ? (
-                    <p>Loading...</p>
-                ) : (
-                    <>{error && <p>Error: {error}</p>}</>
-                )}
-            </div>
             <div className="keyboard">
                 {rows.map((row, index) => (
                     <div key={index} className="row">
                         {row.map((letter) => {
                             const isActive = activeLetters.includes(letter)
                             const isInactive = inactiveLetters.includes(letter)
+
                             return (
                                 <button
                                     key={letter}
@@ -106,4 +58,4 @@ const GamePlaySection = ({
     )
 }
 
-export default GamePlaySection
+export default Keyboard
