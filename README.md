@@ -29,6 +29,8 @@ Some other fun features to the game include:
 
 ## - Run through video coming soon! -
 
+<br/>
+
 Check out Balloon Pop by clicking this link! https://chelseajcaines.github.io/MyFunds/
 
 <hr/>
