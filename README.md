@@ -1,3 +1,7 @@
+#### Check out Balloon Pop by clicking this link! https://chelseajcaines.github.io/balloon-pop-game/
+
+<hr/>
+
 ## Balloon Pop
 
 ### Description
@@ -31,8 +35,6 @@ Some other fun features to the game include:
 
 <br/>
 
-Check out Balloon Pop by clicking this link! https://chelseajcaines.github.io/MyFunds/
-
 <hr/>
 
 ### Motivation
@@ -48,14 +50,3 @@ I love games; boardgames, video games, card games.. you name it. I am also inter
 <hr/>
 
 ### How to use
-
-Click the link https://chelseajcaines.github.io/MyFunds/ (same as the link in the Description section)
-
-OR
-
-Run locally:
-
--   Ensure you have a code editor like VSCode installed with the LiveServer extension
--   Clone this repository
--   Open folder VSCode
--   Click 'Go Live' located in the bottom right hand corner
