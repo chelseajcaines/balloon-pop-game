@@ -42,7 +42,7 @@ I love games; boardgames, video games, card games.. you name it. I am also inter
 ### Built with
 
 <br/>
-<span><img src="https://github.com/chelseajcaines/chelseajcaines/assets/132682524/9a357239-57a5-4c60-a905-74491cce38bf" alt="HTML" height="40" width="40" style="max-width: 100%;"/></span><span><img src="https://github.com/chelseajcaines/chelseajcaines/assets/132682524/9d5090cd-847b-4d85-b73a-300ba08009fc" alt="CSS" height="40" width="40" style="max-width: 100%;"/></span><span><img src="https://github.com/chelseajcaines/chelseajcaines/assets/132682524/95ad9f77-5172-405c-ae1f-6d380fbcdbf9" alt="JavaScript" height="40" width="40" style="max-width: 100%;"/></span>
+<span><img src="https://github.com/chelseajcaines/chelseajcaines/assets/132682524/9a357239-57a5-4c60-a905-74491cce38bf" alt="HTML" height="40" width="40" style="max-width: 100%;"/></span><span><img src="https://github.com/chelseajcaines/chelseajcaines/assets/132682524/9d5090cd-847b-4d85-b73a-300ba08009fc" alt="CSS" height="40" width="40" style="max-width: 100%;"/></span><span><img src="https://github.com/chelseajcaines/chelseajcaines/assets/132682524/95ad9f77-5172-405c-ae1f-6d380fbcdbf9" alt="JavaScript" height="40" width="40" style="max-width: 100%;"/></span><span><img src="/src/assets/science.png" alt="react" height="40" width="40" style="max-width: 100%;"/></span>
 <hr/>
 
 ### How to use
