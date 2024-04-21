@@ -14,6 +14,7 @@ import TwoPlayerFood from "./pages/TwoPlayer/Food"
 import TwoPlayerBrands from "./pages/TwoPlayer/Brands"
 
 const router = createBrowserRouter([
+    { basename: import.meta.env.DEV ? "/" : "/balloon-pop-game/" },
     {
         path: "/",
         element: <Home />,
