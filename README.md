@@ -59,9 +59,3 @@ Run locally:
 -   Clone this repository
 -   Open folder VSCode
 -   Click 'Go Live' located in the bottom right hand corner
-
-<hr/>
-
-**Please Note:** This app is still in development. Thank you for reading and hope you enjoy MyFunds!
-
-<hr>
