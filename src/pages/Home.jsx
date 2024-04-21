@@ -17,7 +17,7 @@ import "/src/App.css"
 
 const Home = () => {
     const buttonClickSound = new Howl({
-        src: ["/src/assets/buttonHover.flac"],
+        src: ["/public/assets/buttonHover.flac"],
     })
 
     const navigate = useNavigate()

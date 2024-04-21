@@ -1,7 +1,7 @@
 export const avatars = [
     {
         id: 0,
-        src: "/src/assets/cat.png",
+        src: "/public/assets/cat.png",
         alt: "Cat",
         name: "Purrbert Fuzzypaws",
         trait: "Believes it's a famous stand-up comedian and spends its evenings performing impromptu comedy routines for bewildered houseplants.",
