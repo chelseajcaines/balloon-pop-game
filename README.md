@@ -39,5 +39,11 @@ I love games; boardgames, video games, card games.. you name it. I am also inter
 From the home page, the player is able to choose Single Player mode, Two Player mode or display the leaderboard with the current top ten scorers of the game played within the same browser.
 
 <img src="https://github.com/chelseajcaines/balloon-pop-game/blob/main/src/assets/imgOne.PNG?raw=true"/>
+<br/>
+
+Once Single Player is selected, the player then chooses an avatar and enters a name.
+
+<img src="https://github.com/chelseajcaines/balloon-pop-game/blob/main/src/assets/imgOne.PNG?raw=true"/>
+<br/>
 
 
