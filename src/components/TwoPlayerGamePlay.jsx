@@ -450,11 +450,25 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
         if (!playerTwoTurn && isWinner) {
             playWinnerSoundEffect()
             setPlayerOneScore((prevScore) => prevScore + 1)
-            setShowPlayerOneModal(true)
+
+            // Set showLoseModal to true after 2 seconds
+            const timer = setTimeout(() => {
+                setShowPlayerOneModal(true)
+            }, 2000)
+
+            // Clean up the timer to avoid memory leaks
+            return () => clearTimeout(timer)
         } else if (playerTwoTurn && isWinner) {
             playWinnerSoundEffect()
             setPlayerTwoScore((prevScore) => prevScore + 1)
-            setShowPlayerTwoModal(true)
+
+            // Set showLoseModal to true after 2 seconds
+            const timer = setTimeout(() => {
+                setShowPlayerTwoModal(true)
+            }, 2000)
+
+            // Clean up the timer to avoid memory leaks
+            return () => clearTimeout(timer)
         }
     }, [playerTwoTurn, isWinner, soundOn])
 
@@ -531,11 +545,6 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                 twoPlayer={true}
                 playerTwoTurn={playerTwoTurn}
             />
-
-            {/* <Footer
-                handleQuit={handleQuit}
-                handleNextPuzzle={handleNextPuzzle}
-            /> */}
 
             <div className="footerHome" style={{ marginTop: "50px" }}>
                 <div className="buttonWrapper">

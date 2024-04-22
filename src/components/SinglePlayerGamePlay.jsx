@@ -307,10 +307,17 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
     useEffect(() => {
         if (isWinner) {
             playWinnerSoundEffect()
-            setShowWinModal(true)
+
             setShowLoseModal(false)
             setShowLeaveGameModal(false)
             setPlayerWins(true)
+            // Set showLoseModal to true after 2 seconds
+            const timer = setTimeout(() => {
+                setShowWinModal(true)
+            }, 2000)
+
+            // Clean up the timer to avoid memory leaks
+            return () => clearTimeout(timer)
         }
     }, [isWinner, soundOn])
 
@@ -556,15 +563,6 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                 inactiveLetters={incorrectLetters}
                 handleGuessedLetter={addGuessedLetter}
             />
-
-            {/* <div className="footer">
-                <Footer
-                    singlePlayer={true}
-                    handleQuit={handleQuit}
-                    handleNextPuzzle={handleNextPuzzle}
-                    setShowLeaveGameModal={() => setShowLeaveGameModal(true)}
-                />
-            </div> */}
 
             <div className="footerHome" style={{ marginTop: "50px" }}>
                 <div className="buttonWrapper">
