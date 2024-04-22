@@ -21,6 +21,7 @@ const PlayerInfo = ({
     setPlayerOneReady,
     setPlayerTwoReady,
     text,
+    twoPlayer,
 }) => {
     const [activeAvatar, setActiveAvatar] = useState(0)
     const [selectedAvatar, setSelectedAvatar] = useState(null)
@@ -800,6 +801,7 @@ const PlayerInfo = ({
                             : undefined
                     }
                     isActive={selectedAvatar && inputValue}
+                    twoPlayer={twoPlayer}
                 />
             </div>
             {singlePlayer && (

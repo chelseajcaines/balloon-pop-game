@@ -7,6 +7,7 @@ const Button = ({
     onMouseEnter,
     onMouseLeave,
     playerDisabled,
+    twoPlayer,
 }) => {
     return (
         <button
@@ -17,7 +18,11 @@ const Button = ({
                 playerDisabled
                     ? "buttonDisabledTwoPlayer"
                     : isActive
-                    ? "activeButton"
+                    ? twoPlayer
+                        ? "activeButtonTwoPlayer"
+                        : "activeButton"
+                    : twoPlayer
+                    ? "buttonTwoPlayer"
                     : "button"
             }
         >
