@@ -314,7 +314,7 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
             // Set showLoseModal to true after 2 seconds
             const timer = setTimeout(() => {
                 setShowWinModal(true)
-            }, 2000)
+            }, 1000)
 
             // Clean up the timer to avoid memory leaks
             return () => clearTimeout(timer)

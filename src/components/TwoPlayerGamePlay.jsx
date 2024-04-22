@@ -454,7 +454,7 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
             // Set showLoseModal to true after 2 seconds
             const timer = setTimeout(() => {
                 setShowPlayerOneModal(true)
-            }, 2000)
+            }, 1000)
 
             // Clean up the timer to avoid memory leaks
             return () => clearTimeout(timer)
@@ -465,7 +465,7 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
             // Set showLoseModal to true after 2 seconds
             const timer = setTimeout(() => {
                 setShowPlayerTwoModal(true)
-            }, 2000)
+            }, 1000)
 
             // Clean up the timer to avoid memory leaks
             return () => clearTimeout(timer)

@@ -12,12 +12,13 @@ import title from "/src/assets/title.png"
 import Button from "/src/components/Button"
 import Modal from "../components/Modal"
 import Leaderboard from "/src/components/Leaderboard.jsx"
+import buttonClick from "/src/assets/buttonHover.flac"
 import { Howl } from "howler"
 import "/src/App.css"
 
 const Home = () => {
     const buttonClickSound = new Howl({
-        src: ["/public/buttonHover.flac"],
+        src: buttonClick,
     })
 
     const navigate = useNavigate()
