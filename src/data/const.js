@@ -1,30 +1,45 @@
 import cat from "/src/assets/cat.png"
+import dog from "/src/assets/dog.png"
+import fox from "/src/assets/fox.png"
+import duck from "/src/assets/duck.png"
+import pinkBalloon from "/src/assets/pinkBalloon.png"
+import orangeBalloon from "/src/assets/orangeBalloon.png"
+import greenBalloon from "/src/assets/greenBalloon.png"
+import pinkBalloonTwo from "/src/assets/pinkBalloonTwo.png"
+import orangeBalloonTwo from "/src/assets/orangeBalloonTwo.png"
+import greenBalloonTwo from "/src/assets/greenBalloonTwo.png"
+import pinkBalloonPop from "/src/assets/pinkBalloonPop.gif"
+import orangeBalloonPop from "/src/assets/orangeBalloonPop.gif"
+import greenBalloonPop from "/src/assets/greenBalloonPop.gif"
+import pinkBalloonPopTwo from "/src/assets/pinkBalloonPopTwo.gif"
+import orangeBalloonPopTwo from "/src/assets/orangeBalloonPopTwo.gif"
+import greenBalloonPopTwo from "/src/assets/greenBalloonPopTwo.gif"
 
 export const avatars = [
     {
         id: 0,
         src: cat,
         alt: "Cat",
-        name: "Purrbert Fuzzypaws",
+        name: "Meowy McFuzzypaws",
         trait: "Believes it's a famous stand-up comedian and spends its evenings performing impromptu comedy routines for bewildered houseplants.",
     },
     {
         id: 1,
-        src: "/src/assets/dog.png",
+        src: dog,
         alt: "Dog",
         name: "Sniffles McSnugglebutt",
         trait: "Thinks it's a secret agent on a mission to save the world from evil squirrels plotting to take over the planet.",
     },
     {
         id: 2,
-        src: "/src/assets/fox.png",
+        src: fox,
         alt: "Fox",
         name: "Slyboots McFluffernose",
         trait: "Convinced it's a master magician and spends its evenings performing elaborate magic tricks for bewildered forest critters, pulling carrots out of hats and making pine cones disappear.",
     },
     {
         id: 3,
-        src: "/src/assets/duck.png",
+        src: duck,
         alt: "Duck",
         name: "Ducky McDoodlequack",
         trait: "Firmly believes it's a famous movie director and spends its days filming epic duck-sized versions of Hollywood blockbusters in the local pond, with other ducks as its cast and crew.",
@@ -63,37 +78,37 @@ export const alphabetArray = [
 export const balloons = [
     {
         id: 0,
-        src: "/src/assets/pinkBalloon.png",
+        src: pinkBalloon,
         alt: "pink balloon",
         classname: "pinkBalloon",
     },
     {
         id: 1,
-        src: "/src/assets/orangeBalloon.png",
+        src: orangeBalloon,
         alt: "orange balloon",
         classname: "orangeBalloon",
     },
     {
         id: 2,
-        src: "/src/assets/greenBalloon.png",
+        src: greenBalloon,
         alt: "green balloon",
         classname: "greenBalloon",
     },
     {
         id: 3,
-        src: "/src/assets/orangeBalloonTwo.png",
+        src: orangeBalloonTwo,
         alt: "orange balloon",
         classname: "orangeBalloon",
     },
     {
         id: 4,
-        src: "/src/assets/greenBalloonTwo.png",
+        src: greenBalloonTwo,
         alt: "green balloon",
         classname: "greenBalloon",
     },
     {
         id: 5,
-        src: "/src/assets/pinkBalloonTwo.png",
+        src: pinkBalloonTwo,
         alt: "pink balloon",
         classname: "pinkBalloon",
     },
@@ -102,37 +117,37 @@ export const balloons = [
 export const wrongAnswersArray = [
     {
         id: 0,
-        src: "/src/assets/pinkBalloonPop.gif",
+        src: pinkBalloonPop,
         alt: "pinkBalloonPop",
         classname: "pinkBalloonPop",
     },
     {
         id: 1,
-        src: "/src/assets/orangeBalloonPop.gif",
+        src: orangeBalloonPop,
         alt: "orangeBalloonPop",
         classname: "orangeBalloonPop",
     },
     {
         id: 2,
-        src: "/src/assets/greenBalloonPop.gif",
+        src: greenBalloonPop,
         alt: "greenBalloonPop",
         classname: "greenBalloonPop",
     },
     {
         id: 3,
-        src: "/src/assets/orangeBalloonPopTwo.gif",
+        src: orangeBalloonPopTwo,
         alt: "orangeBalloonPop",
         classname: "orangeBalloonPop",
     },
     {
         id: 4,
-        src: "/src/assets/greenBalloonPopTwo.gif",
+        src: greenBalloonPopTwo,
         alt: "greenBalloonPop",
         classname: "greenBalloonPop",
     },
     {
         id: 5,
-        src: "/src/assets/pinkBalloonPopTwo.gif",
+        src: pinkBalloonPopTwo,
         alt: "pinkBalloonPop",
         classname: "pinkBalloonPop",
     },
