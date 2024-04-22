@@ -144,6 +144,8 @@ body {
     gap: 7%;
     height: 70px;
     align-items: center;
+    position: sticky;
+    bottom: 0;
 }
 
 .imgWrapper {
