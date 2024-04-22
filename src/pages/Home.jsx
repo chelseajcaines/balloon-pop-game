@@ -52,7 +52,6 @@ const Home = () => {
 
     const toggleSound = () => {
         setSoundOn(!soundOn)
-        // Persist the state to localStorage
         localStorage.setItem("SOUND_EFFECT_KEY", JSON.stringify(!soundOn))
     }
 
@@ -158,7 +157,6 @@ const Home = () => {
     }
 
     useEffect(() => {
-        // Update the body class when darkMode changes
         if (isDarkMode) {
             document.body.classList.add("dark-mode")
         } else {

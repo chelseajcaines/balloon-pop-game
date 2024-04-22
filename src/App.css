@@ -3,7 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Walter+Turncoat&display=swap");
 
 :root {
-    --background-color: #8562ef; /* Light mode background color */
+    --background-color: #8562ef;
     --active-button-color: rgb(16, 204, 204);
     --button-box-shadow: 0 0 20px rgba(0, 0, 0, 0.39);
     --hover-button-box-shadow: 0 0 20px rgba(0, 0, 0, 0.651);
@@ -30,7 +30,7 @@
 }
 
 .dark-mode {
-    --background-color: #0a0125; /* Dark mode background color */
+    --background-color: #0a0125;
     --active-button-color: #fb4abe;
     --button-box-shadow: 0 0 20px rgba(255, 255, 255, 0.39);
     --hover-button-box-shadow: 0 0 20px rgba(255, 255, 255, 0.651);

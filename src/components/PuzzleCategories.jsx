@@ -18,7 +18,6 @@ const PuzzleCategories = ({ singlePlayer, twoPlayer }) => {
     const [soundOn, setSoundOn] = useState(true)
 
     useEffect(() => {
-        // Update the body class when darkMode changes
         if (isDarkMode) {
             document.body.classList.add("dark-mode")
         } else {
@@ -51,7 +50,6 @@ const PuzzleCategories = ({ singlePlayer, twoPlayer }) => {
 
     const toggleSound = () => {
         setSoundOn(!soundOn)
-        // Persist the state to localStorage
         localStorage.setItem("SOUND_EFFECT_KEY", JSON.stringify(!soundOn))
     }
 

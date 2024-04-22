@@ -72,7 +72,6 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
     const [isActiveNextPuzzle, setIsActiveNextPuzzle] = useState(false)
 
     useEffect(() => {
-        // Update the body class when darkMode changes
         if (isDarkMode) {
             document.body.classList.add("dark-mode")
         } else {
@@ -101,7 +100,6 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
 
     const toggleSound = () => {
         setSoundOn(!soundOn)
-        // Persist the state to localStorage
         localStorage.setItem("SOUND_EFFECT_KEY", JSON.stringify(!soundOn))
     }
 
@@ -202,7 +200,7 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                         Math.random() * data.items.length
                     )
                     newPuzzle = data.items[randomPuzzleIndex]?.title || ""
-                } while (usedPuzzles.includes(newPuzzle.toUpperCase())) // Fetch new puzzle if it's already used
+                } while (usedPuzzles.includes(newPuzzle.toUpperCase()))
 
                 const uppercasePuzzle = newPuzzle.toUpperCase()
                 setPuzzle(uppercasePuzzle)
@@ -215,12 +213,11 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
             try {
                 let newPuzzle = ""
                 do {
-                    // Access your array of puzzles directly instead of fetching from an API
                     const randomIndex = Math.floor(
                         Math.random() * phraseList.length
                     )
                     newPuzzle = phraseList[randomIndex] || ""
-                } while (usedPuzzles.includes(newPuzzle.toUpperCase())) // Fetch new puzzle if it's already used
+                } while (usedPuzzles.includes(newPuzzle.toUpperCase()))
 
                 const uppercasePuzzle = newPuzzle.toUpperCase()
                 setPuzzle(uppercasePuzzle)
@@ -233,12 +230,11 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
             try {
                 let newPuzzle = ""
                 do {
-                    // Access your array of puzzles directly instead of fetching from an API
                     const randomIndex = Math.floor(
                         Math.random() * foodList.length
                     )
                     newPuzzle = foodList[randomIndex] || ""
-                } while (usedPuzzles.includes(newPuzzle.toUpperCase())) // Fetch new puzzle if it's already used
+                } while (usedPuzzles.includes(newPuzzle.toUpperCase()))
 
                 const uppercasePuzzle = newPuzzle.toUpperCase()
                 setPuzzle(uppercasePuzzle)
@@ -251,12 +247,11 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
             try {
                 let newPuzzle = ""
                 do {
-                    // Access your array of puzzles directly instead of fetching from an API
                     const randomIndex = Math.floor(
                         Math.random() * brandNames.length
                     )
                     newPuzzle = brandNames[randomIndex] || ""
-                } while (usedPuzzles.includes(newPuzzle.toUpperCase())) // Fetch new puzzle if it's already used
+                } while (usedPuzzles.includes(newPuzzle.toUpperCase()))
 
                 const uppercasePuzzle = newPuzzle.toUpperCase()
                 setPuzzle(uppercasePuzzle)
@@ -297,7 +292,6 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
         if (isWinner || isLoser) {
             setUsedPuzzles((prevPuzzles) => [...prevPuzzles, puzzle])
         }
-        console.log(usedPuzzles)
     }, [isLoser, isWinner, puzzle])
 
     useEffect(() => {
@@ -315,12 +309,10 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
             setShowLoseModal(false)
             setShowLeaveGameModal(false)
             setPlayerWins(true)
-            // Set showLoseModal to true after 2 seconds
             const timer = setTimeout(() => {
                 setShowWinModal(true)
             }, 1000)
 
-            // Clean up the timer to avoid memory leaks
             return () => clearTimeout(timer)
         }
     }, [isWinner, soundOn])
@@ -361,12 +353,10 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
             setShowWinModal(false)
             setShowLeaveGameModal(false)
 
-            // Set showLoseModal to true after 2 seconds
             const timer = setTimeout(() => {
                 setShowLoseModal(true)
             }, 3000)
 
-            // Clean up the timer to avoid memory leaks
             return () => clearTimeout(timer)
         }
     }, [isLoser, soundOn])

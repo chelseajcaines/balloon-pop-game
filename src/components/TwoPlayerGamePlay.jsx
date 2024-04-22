@@ -52,7 +52,6 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
     const [isActiveNextPuzzle, setIsActiveNextPuzzle] = useState(false)
 
     useEffect(() => {
-        // Update the body class when darkMode changes
         if (isDarkMode) {
             document.body.classList.add("dark-mode")
         } else {
@@ -101,7 +100,6 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
 
     const toggleSound = () => {
         setSoundOn(!soundOn)
-        // Persist the state to localStorage
         localStorage.setItem("SOUND_EFFECT_KEY", JSON.stringify(!soundOn))
     }
 
@@ -177,7 +175,7 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                         Math.random() * data.items.length
                     )
                     newPuzzle = data.items[randomPuzzleIndex]?.title || ""
-                } while (usedPuzzles.includes(newPuzzle.toUpperCase())) // Fetch new puzzle if it's already used
+                } while (usedPuzzles.includes(newPuzzle.toUpperCase()))
 
                 const uppercasePuzzle = newPuzzle.toUpperCase()
                 setPuzzle(uppercasePuzzle)
@@ -190,12 +188,11 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
             try {
                 let newPuzzle = ""
                 do {
-                    // Access your array of puzzles directly instead of fetching from an API
                     const randomIndex = Math.floor(
                         Math.random() * phraseList.length
                     )
                     newPuzzle = phraseList[randomIndex] || ""
-                } while (usedPuzzles.includes(newPuzzle.toUpperCase())) // Fetch new puzzle if it's already used
+                } while (usedPuzzles.includes(newPuzzle.toUpperCase()))
 
                 const uppercasePuzzle = newPuzzle.toUpperCase()
                 setPuzzle(uppercasePuzzle)
@@ -208,12 +205,11 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
             try {
                 let newPuzzle = ""
                 do {
-                    // Access your array of puzzles directly instead of fetching from an API
                     const randomIndex = Math.floor(
                         Math.random() * foodList.length
                     )
                     newPuzzle = foodList[randomIndex] || ""
-                } while (usedPuzzles.includes(newPuzzle.toUpperCase())) // Fetch new puzzle if it's already used
+                } while (usedPuzzles.includes(newPuzzle.toUpperCase()))
 
                 const uppercasePuzzle = newPuzzle.toUpperCase()
                 setPuzzle(uppercasePuzzle)
@@ -226,12 +222,11 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
             try {
                 let newPuzzle = ""
                 do {
-                    // Access your array of puzzles directly instead of fetching from an API
                     const randomIndex = Math.floor(
                         Math.random() * brandNames.length
                     )
                     newPuzzle = brandNames[randomIndex] || ""
-                } while (usedPuzzles.includes(newPuzzle.toUpperCase())) // Fetch new puzzle if it's already used
+                } while (usedPuzzles.includes(newPuzzle.toUpperCase()))
 
                 const uppercasePuzzle = newPuzzle.toUpperCase()
                 setPuzzle(uppercasePuzzle)
@@ -300,7 +295,6 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
         if (isWinner || isLoser) {
             setUsedPuzzles((prevPuzzles) => [...prevPuzzles, puzzle])
         }
-        console.log(usedPuzzles)
     }, [isLoser, isWinner, puzzle])
 
     useEffect(() => {
@@ -317,7 +311,6 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
         if (!activeLetters.includes(currentLetter)) {
             setPlayerTwoTurn(!playerTwoTurn)
         }
-        console.log(activeLettersNew.includes(currentLetter))
     }, [guessedLetters, currentLetter])
 
     useEffect(() => {
@@ -455,23 +448,19 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
             playWinnerSoundEffect()
             setPlayerOneScore((prevScore) => prevScore + 1)
 
-            // Set showLoseModal to true after 2 seconds
             const timer = setTimeout(() => {
                 setShowPlayerOneModal(true)
             }, 1000)
 
-            // Clean up the timer to avoid memory leaks
             return () => clearTimeout(timer)
         } else if (playerTwoTurn && isWinner) {
             playWinnerSoundEffect()
             setPlayerTwoScore((prevScore) => prevScore + 1)
 
-            // Set showLoseModal to true after 2 seconds
             const timer = setTimeout(() => {
                 setShowPlayerTwoModal(true)
             }, 1000)
 
-            // Clean up the timer to avoid memory leaks
             return () => clearTimeout(timer)
         }
     }, [playerTwoTurn, isWinner, soundOn])
