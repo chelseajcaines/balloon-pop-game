@@ -664,9 +664,7 @@ const PlayerInfo = ({
                         className={
                             singlePlayer
                                 ? "selectedAvatarContainer"
-                                : playerOne
-                                ? "selectedAvatarContainerTwoPlayer"
-                                : playerTwo
+                                : playerOne || playerTwo
                                 ? "selectedAvatarContainerTwoPlayer"
                                 : ""
                         }
@@ -725,9 +723,9 @@ const PlayerInfo = ({
                             </div>
                         )}
                     </div>
-
-                    <p className="errorMessage">{avatarError}</p>
                 </div>
+
+                <p className="errorMessage">{avatarError}</p>
 
                 <div className={singlePlayer ? "rightHalf" : ""}>
                     <p
@@ -744,7 +742,13 @@ const PlayerInfo = ({
                         Enter name
                     </p>
 
-                    <div className="inputContainer">
+                    <div
+                        className={
+                            singlePlayer
+                                ? "inputContainer"
+                                : "inputContainerTwoPlayer"
+                        }
+                    >
                         <input
                             type="text"
                             onChange={

@@ -70,32 +70,37 @@ body {
     height: 100vh;
 }
 
+.whiteSpace {
+    padding-top: 20px;
+}
+
 /* -------------------------------------------------- Home Page Styling -- */
 
 .headerHome {
-    height: 400px;
+    max-height: 40%;
     display: flex;
     justify-content: center;
-    margin-top: 30px;
-    margin-bottom: 40px;
+    padding-top: 30px;
+    padding-bottom: 40px;
 }
 
 .titleImageHome {
-    height: 400px;
+    height: 100%;
 }
 
 .imagesContainer {
     display: flex;
     width: 100%;
     justify-content: center;
-    gap: 12rem;
+    gap: 14%;
+    height: 170px;
 }
 
 .imageContainer {
     background-color: rgba(255, 255, 255, 0.295);
     border-radius: 10px;
     border: 3px solid rgba(255, 255, 255, 0.712);
-    height: 170px;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,17 +108,15 @@ body {
 }
 
 .balloonOne {
-    height: 250px;
-    margin-right: 50px;
-    margin-top: 20px;
+    height: 90%;
 }
 
 .balloonTwo {
-    height: 250px;
+    height: 90%;
 }
 
 .ribbonImg {
-    height: 150px;
+    height: 90%;
 }
 
 .buttonsContainer {
@@ -122,7 +125,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 9rem;
+    gap: 9.5%;
     margin-top: 60px;
 }
 
@@ -138,7 +141,7 @@ body {
     margin-top: 20px;
     display: flex;
     justify-content: center;
-    gap: 5rem;
+    gap: 7%;
     height: 70px;
     align-items: center;
 }
@@ -697,14 +700,14 @@ td {
 /* -------------------------------------------------- Single Player Info Page, Categories Page Styling -- */
 
 .header {
-    height: 100px;
+    height: 11%;
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    padding-top: 10px;
 }
 
 .titleImage {
-    height: 100px;
+    height: 100%;
 }
 
 /*pageContainer*/
@@ -720,21 +723,26 @@ td {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 500px;
 }
 
 .leftHalf {
-    width: 600px;
-    height: 600px;
+    height: 100%;
+    width: 50%;
 }
 
 .title {
     display: flex;
     justify-content: center;
+    align-items: center;
     font-family: "Mouse Memoirs", "sans-serif";
     color: var(--title-color);
     -webkit-text-stroke: 2px var(--text-border);
     font-size: 80px;
-    margin-top: 50px;
+    margin-top: 0px;
+    margin-bottom: 50px;
+    width: 100%;
+    height: 15.5%;
 }
 
 .titleTwoPlayer {
@@ -752,9 +760,10 @@ td {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    height: 110px;
-    width: 600px;
+    gap: 1%;
+    height: 130px;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
 .avatarGalleryTwoPlayer {
@@ -800,7 +809,8 @@ td {
 .selectedAvatarContainerTwoPlayer {
     display: flex;
     justify-content: center;
-    height: 115px;
+    align-items: center;
+    height: 130px;
     margin-top: 15px;
 }
 
@@ -843,23 +853,34 @@ td {
     font-size: 20px;
     color: rgb(247, 5, 5);
     margin: 0;
-    height: 40px;
+    height: 20px;
 }
 
 .rightHalf {
-    width: 600px;
-    height: 600px;
+    width: 50%;
+    height: 100%;
 }
 
 .inputContainer {
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 130px;
+}
+
+.inputContainerTwoPlayer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 76px;
 }
 
 .inputFocus {
     box-shadow: var(--hover-button-box-shadow);
-    width: 440px;
-    height: 100px;
+    width: 70%;
+    height: 80%;
     outline: none;
     border: 5px solid #ffffff;
     background-color: var(--input-focus);
@@ -874,7 +895,7 @@ td {
 .inputFocusTwoPlayer {
     box-shadow: var(--hover-button-box-shadow);
     width: 250px;
-    height: 50px;
+    height: 80%;
     outline: none;
     border: 5px solid #ffffff;
     background-color: var(--input-focus);
@@ -887,7 +908,7 @@ td {
 }
 
 .input {
-    width: 440px;
+    width: 70%;
     height: 100px;
     outline: none;
     border: 5px solid #d5dbd9;
@@ -902,7 +923,7 @@ td {
 
 .inputTwoPlayer {
     width: 250px;
-    height: 50px;
+    height: 80%;
     outline: none;
     border: 5px solid #d5dbd9;
     background-color: var(--background-color);
@@ -1051,13 +1072,13 @@ td {
 
 .gameHeader {
     width: 100%;
-    height: 370px;
+    height: 360px;
     display: flex;
     justify-content: space-between;
+    padding-top: 10px;
 }
 
 .headerLeft {
-    margin-top: 10px;
     width: 400px;
     display: flex;
     justify-content: center;
@@ -1077,10 +1098,10 @@ td {
 }
 
 .headerRight {
-    margin-top: 10px;
     width: 400px;
     display: flex;
     justify-content: right;
+    padding-right: 10px;
 }
 
 .footer {
@@ -1217,8 +1238,8 @@ td {
     flex-wrap: wrap;
     display: flex;
     justify-content: center;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .puzzleLine {
@@ -1375,8 +1396,9 @@ td {
     height: 60px;
     display: flex;
     justify-content: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 10px;
     font-family: "Mouse Memoirs", "sans-serif";
     color: var(--header-two-player-text);
     -webkit-text-stroke: 2px var(--header-two-player-border);

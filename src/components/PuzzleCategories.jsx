@@ -114,7 +114,7 @@ const PuzzleCategories = ({ singlePlayer, twoPlayer }) => {
 
     return (
         <>
-            <p className="title" style={{ marginBottom: "50px" }}>
+            <p className="title" style={{ marginBottom: "35px" }}>
                 Choose Puzzle Category
             </p>
             <div className="mainSection">

@@ -527,7 +527,6 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                     <p
                         className="title"
                         style={{
-                            marginTop: "10px",
                             marginBottom: "10px",
                             fontSize: "60px",
                         }}
@@ -558,7 +557,7 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                 handleGuessedLetter={addGuessedLetter}
             />
 
-            <div className="footerHome" style={{ marginTop: "50px" }}>
+            <div className="footerHome" style={{ marginTop: "30px" }}>
                 <div className="buttonWrapper">
                     <Button
                         text="Home"

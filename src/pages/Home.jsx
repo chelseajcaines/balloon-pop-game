@@ -167,6 +167,7 @@ const Home = () => {
     return (
         <>
             <div className="pageContainer">
+                <div className="whiteSpace"></div>
                 <div className="headerHome">
                     <img
                         src={title}
