@@ -7,6 +7,7 @@ import noSound from "/src/assets/noSound.png"
 import sound from "/src/assets/sound.png"
 import sun from "/src/assets/sun.png"
 import moon from "/src/assets/moon.png"
+import buttonClick from "/src/assets/buttonHover.flac"
 import { Howl } from "howler"
 import "/src/App.css"
 
@@ -26,7 +27,7 @@ const PuzzleCategories = ({ singlePlayer, twoPlayer }) => {
     }, [isDarkMode])
 
     const buttonClickSound = new Howl({
-        src: ["/src/assets/buttonHover.flac"],
+        src: buttonClick,
     })
 
     useEffect(() => {

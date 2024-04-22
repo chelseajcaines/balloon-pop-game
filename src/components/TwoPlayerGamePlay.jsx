@@ -14,9 +14,13 @@ import Keyboard from "./Keyboard"
 import WrongGuess from "./WrongGuess"
 import PuzzleDisplay from "./PuzzleDisplay"
 import FetchStatus from "./FetchStatus"
-// import Footer from "./Footer"
 import Modal from "/src/components/Modal"
 import Button from "/src/components/Button.jsx"
+import buttonClick from "/src/assets/buttonHover.flac"
+import correctGuess from "/src/assets/rightGuess.mp3"
+import wrongGuess from "/src/assets/pop.wav"
+import winnerChime from "/src/assets/winner.wav"
+import loserChime from "/src/assets/loser.wav"
 import { Howl } from "howler"
 
 const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
@@ -69,23 +73,23 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
     }
 
     const buttonClickSound = new Howl({
-        src: ["/src/assets/buttonHover.flac"],
+        src: buttonClick,
     })
 
     const correctGuessSound = new Howl({
-        src: ["/src/assets/rightGuess.mp3"],
+        src: correctGuess,
     })
 
     const wrongGuessSound = new Howl({
-        src: ["/src/assets/pop.wav"],
+        src: wrongGuess,
     })
 
     const winnerSound = new Howl({
-        src: ["/src/assets/winner.wav"],
+        src: winnerChime,
     })
 
     const loserSound = new Howl({
-        src: ["/src/assets/loser.wav"],
+        src: loserChime,
     })
 
     useEffect(() => {

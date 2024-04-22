@@ -13,10 +13,14 @@ import PuzzleDisplay from "./PuzzleDisplay.jsx"
 import WrongGuess from "./WrongGuess.jsx"
 import Leaderboard from "/src/components/Leaderboard.jsx"
 import Keyboard from "/src/components/Keyboard.jsx"
-// import Footer from "./Footer.jsx"
 import PlayerInfoDisplay from "/src/components/PlayerInfoDisplay.jsx"
 import Modal from "/src/components/Modal.jsx"
 import Button from "/src/components/Button.jsx"
+import buttonClick from "/src/assets/buttonHover.flac"
+import correctGuess from "/src/assets/rightGuess.mp3"
+import wrongGuess from "/src/assets/pop.wav"
+import winnerChime from "/src/assets/winner.wav"
+import loserChime from "/src/assets/loser.wav"
 import { Howl } from "howler"
 import "/src/App.css"
 
@@ -24,23 +28,23 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
     const navigate = useNavigate()
 
     const buttonClickSound = new Howl({
-        src: ["/src/assets/buttonHover.flac"],
+        src: buttonClick,
     })
 
     const correctGuessSound = new Howl({
-        src: ["/src/assets/rightGuess.mp3"],
+        src: correctGuess,
     })
 
     const wrongGuessSound = new Howl({
-        src: ["/src/assets/pop.wav"],
+        src: wrongGuess,
     })
 
     const winnerSound = new Howl({
-        src: ["/src/assets/winner.wav"],
+        src: winnerChime,
     })
 
     const loserSound = new Howl({
-        src: ["/src/assets/loser.wav"],
+        src: loserChime,
     })
 
     const [singlePlayerName, setSinglePlayerName] = useState("")

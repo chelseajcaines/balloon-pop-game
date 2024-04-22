@@ -6,6 +6,7 @@ import noSound from "/src/assets/noSound.png"
 import sound from "/src/assets/sound.png"
 import sun from "/src/assets/sun.png"
 import moon from "/src/assets/moon.png"
+import buttonClick from "/src/assets/buttonHover.flac"
 import { useState, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { avatars } from "/src/data/const.js"
@@ -53,7 +54,7 @@ const PlayerInfo = ({
     }
 
     const buttonClickSound = new Howl({
-        src: ["/src/assets/buttonHover.flac"],
+        src: buttonClick,
     })
 
     useEffect(() => {
