@@ -118,7 +118,6 @@ const TwoPlayerSetup = () => {
                                 playerDisabled={playerOneDisabled}
                                 onClick={handleNextPlayer}
                                 setPlayerOneReady={handleNextPlayer}
-                                twoPlayer={true}
                             />
                         </div>
                         <div className="playerTwoContainer">
@@ -128,7 +127,6 @@ const TwoPlayerSetup = () => {
                                 playerDisabled={playerTwoDisbaled}
                                 onClick={handleBothPlayers}
                                 setPlayerTwoReady={handleBothPlayers}
-                                twoPlayer={true}
                             />
                         </div>
                     </div>

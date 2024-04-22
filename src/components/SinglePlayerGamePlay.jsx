@@ -557,49 +557,54 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                 handleGuessedLetter={addGuessedLetter}
             />
 
-            <div className="footerHome" style={{ marginTop: "30px" }}>
-                <div className="buttonWrapper">
-                    <Button
-                        text="Home"
-                        onClick={handleQuit}
-                        isActive={isActiveQuit}
-                        onMouseEnter={() => setIsActiveQuit(true)}
-                        onMouseLeave={() => setIsActiveQuit(false)}
-                    />
-                </div>
-                <div className="imgWrapper">
-                    <img
-                        src={soundOn ? sound : noSound}
-                        alt="sound ON/OFF"
-                        className="innerImg"
-                        onClick={toggleSound}
-                    />
-                </div>
-                <button className="aboutMeButton" onClick={handleClickAboutMe}>
-                    CLICK ME!
-                </button>
+            <div className="footerColumn">
+                <div className="footerHome" style={{ marginTop: "30px" }}>
+                    <div className="buttonWrapper">
+                        <Button
+                            text="Home"
+                            onClick={handleQuit}
+                            isActive={isActiveQuit}
+                            onMouseEnter={() => setIsActiveQuit(true)}
+                            onMouseLeave={() => setIsActiveQuit(false)}
+                        />
+                    </div>
+                    <div className="imgWrapper">
+                        <img
+                            src={soundOn ? sound : noSound}
+                            alt="sound ON/OFF"
+                            className="innerImg"
+                            onClick={toggleSound}
+                        />
+                    </div>
+                    <button
+                        className="aboutMeButton"
+                        onClick={handleClickAboutMe}
+                    >
+                        CLICK ME!
+                    </button>
 
-                <div className="imgWrapper">
-                    <img
-                        src={isDarkMode ? sun : moon}
-                        alt="dark mode"
-                        className="innerImg"
-                        onClick={toggleDarkMode}
-                    />
+                    <div className="imgWrapper">
+                        <img
+                            src={isDarkMode ? sun : moon}
+                            alt="dark mode"
+                            className="innerImg"
+                            onClick={toggleDarkMode}
+                        />
+                    </div>
+                    <div className="buttonWrapper">
+                        <Button
+                            text="Next Puzzle"
+                            onClick={handleNextPuzzle}
+                            isActive={isActiveNextPuzzle}
+                            onMouseEnter={() => setIsActiveNextPuzzle(true)}
+                            onMouseLeave={() => setIsActiveNextPuzzle(false)}
+                        />
+                    </div>
                 </div>
-                <div className="buttonWrapper">
-                    <Button
-                        text="Next Puzzle"
-                        onClick={handleNextPuzzle}
-                        isActive={isActiveNextPuzzle}
-                        onMouseEnter={() => setIsActiveNextPuzzle(true)}
-                        onMouseLeave={() => setIsActiveNextPuzzle(false)}
-                    />
+                <div className="footerButtonKeyCommands">
+                    <p>Ctrl + B</p>
+                    <p>Ctrl + Q</p>
                 </div>
-            </div>
-            <div className="footerButtonKeyCommands">
-                <p>Ctrl + B</p>
-                <p>Ctrl + Q</p>
             </div>
 
             {isWinner && showWinModal && (
