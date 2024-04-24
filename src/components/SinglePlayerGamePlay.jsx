@@ -70,6 +70,26 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
     const [soundOn, setSoundOn] = useState(true)
     const [isActiveQuit, setIsActiveQuit] = useState(false)
     const [isActiveNextPuzzle, setIsActiveNextPuzzle] = useState(false)
+    const [showLeaderBoardModal, setShowLeaderBoardModal] = useState(false)
+    const [isActiveLeaderboard, setIsActiveLeaderboard] = useState(false)
+    const [isMaxWidth1134, setIsMaxWidth1134] = useState(false)
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMaxWidth1134(window.innerWidth <= 1134) // Adjust threshold as needed
+        }
+
+        // Set initial size
+        handleResize()
+
+        // Add event listener to handle window resize
+        window.addEventListener("resize", handleResize)
+
+        // Cleanup function to remove event listener
+        return () => {
+            window.removeEventListener("resize", handleResize)
+        }
+    }, [])
 
     useEffect(() => {
         if (isDarkMode) {
@@ -305,7 +325,6 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
     useEffect(() => {
         if (isWinner) {
             playWinnerSoundEffect()
-
             setShowLoseModal(false)
             setShowLeaveGameModal(false)
             setPlayerWins(true)
@@ -431,6 +450,7 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
         setShowLeaveGameModal(false)
         setShowLoseModal(false)
         setShowAllPuzzlesPlayedModal(false)
+        setShowLeaderBoardModal(false)
     }
 
     const handlePuzzlesPlayedThenQuit = () => {
@@ -481,6 +501,11 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
         setShowAboutMeModal(true)
     }
 
+    const handleShowLeaderboardAndPlaySound = () => {
+        playButtonClickSoundEffect()
+        setShowLeaderBoardModal(true)
+    }
+
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.ctrlKey && e.key === "b") {
@@ -513,6 +538,36 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
         }
     }, [soundOn])
 
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (isMaxWidth1134 && e.ctrlKey && e.key === "y") {
+                setShowLeaderBoardModal(true)
+                playButtonClickSoundEffect()
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [soundOn, isMaxWidth1134])
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (showLeaderBoardModal && e.key === "Enter") {
+                setShowLeaderBoardModal(false)
+                playButtonClickSoundEffect()
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown)
+        }
+    }, [soundOn, showLeaderBoardModal])
+
     return (
         <>
             <div className="gameHeader">
@@ -524,21 +579,46 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                     />
                 </div>
                 <div className="headerCenter">
-                    <p
-                        className="title"
-                        style={{
-                            marginBottom: "10px",
-                            fontSize: "60px",
-                        }}
-                    >
-                        {text}
-                    </p>
+                    <p className="titleSinglePlayer">{text}</p>
                     <div className="wrongGuesses">
-                        <WrongGuess numberOfGuesses={incorrectLetters.length} />
+                        <WrongGuess
+                            numberOfGuesses={incorrectLetters.length}
+                            singlePlayer={true}
+                        />
                     </div>
                 </div>
                 <div className="headerRight">
-                    <Leaderboard />
+                    {isMaxWidth1134 ? (
+                        <div>
+                            <div
+                                style={{
+                                    height: "90px",
+                                    width: "220px",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Button
+                                    text="Leaderboard"
+                                    onClick={handleShowLeaderboardAndPlaySound}
+                                    isActive={isActiveLeaderboard}
+                                    onMouseEnter={() =>
+                                        setIsActiveLeaderboard(true)
+                                    }
+                                    onMouseLeave={() =>
+                                        setIsActiveLeaderboard(false)
+                                    }
+                                />
+                            </div>
+
+                            <p style={{ color: "white", textAlign: "center" }}>
+                                Ctrl + Y
+                            </p>
+                        </div>
+                    ) : (
+                        <Leaderboard />
+                    )}
                 </div>
             </div>
 
@@ -557,8 +637,17 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                 handleGuessedLetter={addGuessedLetter}
             />
 
-            <div className="footerColumn">
-                <div className="footerHome" style={{ marginTop: "30px" }}>
+            <div className="footerHome">
+                <div
+                    style={{
+                        height: "90px",
+                        width: "220px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                    }}
+                >
                     <div className="buttonWrapper">
                         <Button
                             text="Home"
@@ -568,29 +657,47 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                             onMouseLeave={() => setIsActiveQuit(false)}
                         />
                     </div>
-                    <div className="imgWrapper">
-                        <img
-                            src={soundOn ? sound : noSound}
-                            alt="sound ON/OFF"
-                            className="innerImg"
-                            onClick={toggleSound}
-                        />
-                    </div>
-                    <button
-                        className="aboutMeButton"
-                        onClick={handleClickAboutMe}
+                    <p
+                        style={{
+                            color: "white",
+                            textAlign: "center",
+                            marginTop: "0px",
+                            marginBottom: "0px",
+                        }}
                     >
-                        CLICK ME!
-                    </button>
+                        Ctrl + B
+                    </p>
+                </div>
+                <div className="imgWrapper">
+                    <img
+                        src={soundOn ? sound : noSound}
+                        alt="sound ON/OFF"
+                        className="innerImg"
+                        onClick={toggleSound}
+                    />
+                </div>
+                <button className="aboutMeButton" onClick={handleClickAboutMe}>
+                    CLICK ME!
+                </button>
 
-                    <div className="imgWrapper">
-                        <img
-                            src={isDarkMode ? sun : moon}
-                            alt="dark mode"
-                            className="innerImg"
-                            onClick={toggleDarkMode}
-                        />
-                    </div>
+                <div className="imgWrapper">
+                    <img
+                        src={isDarkMode ? sun : moon}
+                        alt="dark mode"
+                        className="innerImg"
+                        onClick={toggleDarkMode}
+                    />
+                </div>
+                <div
+                    style={{
+                        height: "90px",
+                        width: "220px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                    }}
+                >
                     <div className="buttonWrapper">
                         <Button
                             text="Next Puzzle"
@@ -600,10 +707,16 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                             onMouseLeave={() => setIsActiveNextPuzzle(false)}
                         />
                     </div>
-                </div>
-                <div className="footerButtonKeyCommands">
-                    <p>Ctrl + B</p>
-                    <p>Ctrl + Q</p>
+                    <p
+                        style={{
+                            color: "white",
+                            textAlign: "center",
+                            marginTop: "0px",
+                            marginBottom: "0px",
+                        }}
+                    >
+                        Ctrl + Q
+                    </p>
                 </div>
             </div>
 
@@ -656,6 +769,16 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                         aboutMe={true}
                         handleCancelAllModals={() => setShowAboutMeModal(false)}
                         isDarkMode={isDarkMode}
+                    />
+                </div>
+            )}
+
+            {showLeaderBoardModal && (
+                <div>
+                    <Modal
+                        leaderboardModal={true}
+                        handleCancelAllModals={handleCancelAndPlaySound}
+                        leaderboard={<Leaderboard />}
                     />
                 </div>
             )}

@@ -50,6 +50,42 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
     const [soundOn, setSoundOn] = useState(true)
     const [isActiveQuit, setIsActiveQuit] = useState(false)
     const [isActiveNextPuzzle, setIsActiveNextPuzzle] = useState(false)
+    const [isMaxWidth1134, setIsMaxWidth1134] = useState(false)
+    const [isMaxWidth1052, setIsMaxWidth1052] = useState(false)
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMaxWidth1134(window.innerWidth <= 1134) // Adjust threshold as needed
+        }
+
+        // Set initial size
+        handleResize()
+
+        // Add event listener to handle window resize
+        window.addEventListener("resize", handleResize)
+
+        // Cleanup function to remove event listener
+        return () => {
+            window.removeEventListener("resize", handleResize)
+        }
+    }, [])
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMaxWidth1052(window.innerWidth <= 1052) // Adjust threshold as needed
+        }
+
+        // Set initial size
+        handleResize()
+
+        // Add event listener to handle window resize
+        window.addEventListener("resize", handleResize)
+
+        // Cleanup function to remove event listener
+        return () => {
+            window.removeEventListener("resize", handleResize)
+        }
+    }, [])
 
     useEffect(() => {
         if (isDarkMode) {
@@ -501,17 +537,8 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                 </div>
 
                 <div className="headerCenter">
-                    <p
-                        className="title"
-                        style={{
-                            marginTop: "10px",
-                            marginBottom: "10px",
-                            fontSize: "60px",
-                        }}
-                    >
-                        {text}
-                    </p>
-                    <div className="wrongGuesses">
+                    <p className="titleTwoPlayer">{text}</p>
+                    <div className={"wrongGuessesTwoPlayer"}>
                         <WrongGuess numberOfGuesses={incorrectLetters.length} />
                     </div>
                 </div>
@@ -539,8 +566,17 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                 playerTwoTurn={playerTwoTurn}
             />
 
-            <div className="footerColumn">
-                <div className="footerHome" style={{ marginTop: "50px" }}>
+            <div className="footerHome">
+                <div
+                    style={{
+                        height: "90px",
+                        width: "220px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                    }}
+                >
                     <div className="buttonWrapper">
                         <Button
                             text="Home"
@@ -550,29 +586,47 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                             onMouseLeave={() => setIsActiveQuit(false)}
                         />
                     </div>
-                    <div className="imgWrapper">
-                        <img
-                            src={soundOn ? sound : noSound}
-                            alt="sound ON/OFF"
-                            className="innerImg"
-                            onClick={toggleSound}
-                        />
-                    </div>
-                    <button
-                        className="aboutMeButton"
-                        onClick={handleClickAboutMe}
+                    <p
+                        style={{
+                            color: "white",
+                            textAlign: "center",
+                            marginTop: "0px",
+                            marginBottom: "0px",
+                        }}
                     >
-                        CLICK ME!
-                    </button>
+                        Ctrl + B
+                    </p>
+                </div>
+                <div className="imgWrapper">
+                    <img
+                        src={soundOn ? sound : noSound}
+                        alt="sound ON/OFF"
+                        className="innerImg"
+                        onClick={toggleSound}
+                    />
+                </div>
+                <button className="aboutMeButton" onClick={handleClickAboutMe}>
+                    CLICK ME!
+                </button>
 
-                    <div className="imgWrapper">
-                        <img
-                            src={isDarkMode ? sun : moon}
-                            alt="dark mode"
-                            className="innerImg"
-                            onClick={toggleDarkMode}
-                        />
-                    </div>
+                <div className="imgWrapper">
+                    <img
+                        src={isDarkMode ? sun : moon}
+                        alt="dark mode"
+                        className="innerImg"
+                        onClick={toggleDarkMode}
+                    />
+                </div>
+                <div
+                    style={{
+                        height: "90px",
+                        width: "220px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                    }}
+                >
                     <div className="buttonWrapper">
                         <Button
                             text="Next Puzzle"
@@ -582,10 +636,16 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                             onMouseLeave={() => setIsActiveNextPuzzle(false)}
                         />
                     </div>
-                </div>
-                <div className="footerButtonKeyCommands">
-                    <p>Ctrl + B</p>
-                    <p>Ctrl + Q</p>
+                    <p
+                        style={{
+                            color: "white",
+                            textAlign: "center",
+                            marginTop: "0px",
+                            marginBottom: "0px",
+                        }}
+                    >
+                        Ctrl + Q
+                    </p>
                 </div>
             </div>
 

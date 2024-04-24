@@ -77,11 +77,10 @@ body {
 /* -------------------------------------------------- Home Page Styling -- */
 
 .headerHome {
-    max-height: 40%;
+    height: 40%;
     display: flex;
     justify-content: center;
-    padding-top: 30px;
-    padding-bottom: 40px;
+    padding-top: 10px;
 }
 
 .titleImageHome {
@@ -142,6 +141,15 @@ body {
     display: flex;
     justify-content: center;
     gap: 7%;
+    height: 90px;
+    align-items: center;
+}
+
+.footerHomeTwoPlayerInfo {
+    margin-top: 0px;
+    display: flex;
+    justify-content: center;
+    gap: 7%;
     height: 70px;
     align-items: center;
 }
@@ -149,8 +157,6 @@ body {
 .footerColumn {
     display: flex;
     flex-direction: column;
-    position: sticky;
-    bottom: 0;
 }
 
 .imgWrapper {
@@ -292,8 +298,8 @@ body {
     background: var(--active-button-color);
     border: 2px solid white;
     color: rgb(53, 18, 110);
-    height: 70px;
-    width: 190px;
+    height: 60px;
+    width: 170px;
     font-size: 20px;
     border-radius: 50px;
     box-shadow: var(--hover-button-box-shadow);
@@ -307,8 +313,8 @@ body {
     background-color: transparent;
     border: 1px solid white;
     color: rgb(255, 255, 255);
-    height: 70px;
-    width: 200px;
+    height: 50px;
+    width: 160px;
     font-size: 35px;
     font-family: "Mouse Memoirs", "sans-serif";
     border-radius: 50px;
@@ -384,8 +390,8 @@ body {
     display: flex;
     flex-direction: column;
     position: fixed;
-    height: 800px;
-    width: 800px;
+    height: 400px;
+    width: 400px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -759,7 +765,7 @@ td {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 500px;
+    height: 480px;
 }
 
 .leftHalf {
@@ -776,7 +782,21 @@ td {
     -webkit-text-stroke: 2px var(--text-border);
     font-size: 80px;
     margin-top: 0px;
-    margin-bottom: 50px;
+    margin-bottom: 0px;
+    width: 100%;
+    height: 15.5%;
+}
+
+.titleSinglePlayer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Mouse Memoirs", "sans-serif";
+    color: var(--title-color);
+    -webkit-text-stroke: 2px var(--text-border);
+    font-size: 60px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     width: 100%;
     height: 15.5%;
 }
@@ -787,7 +807,7 @@ td {
     font-family: "Mouse Memoirs", "sans-serif";
     color: var(--title-color);
     -webkit-text-stroke: 2px var(--text-border);
-    font-size: 60px;
+    font-size: 45px;
     margin-top: 0px;
     margin-bottom: 15px;
 }
@@ -981,7 +1001,7 @@ td {
 .buttonContainerTwoPlayer {
     display: flex;
     flex-direction: column;
-    height: 70px;
+    height: 60px;
     justify-content: center;
     align-items: center;
 }
@@ -1133,11 +1153,18 @@ td {
     flex-wrap: wrap;
 }
 
+.wrongGuessesTwoPlayer {
+    width: 100%;
+    height: 280px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .headerRight {
     width: 400px;
     display: flex;
     justify-content: right;
-    padding-right: 10px;
+    padding-right: 30px;
 }
 
 .footer {
@@ -1238,6 +1265,14 @@ td {
     align-items: center;
 }
 
+.singleBalloonSinglePlayer {
+    height: 120px;
+    width: 135px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .pinkBalloon {
     height: 100px;
 }
@@ -1274,7 +1309,7 @@ td {
     flex-wrap: wrap;
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 0px;
     margin-bottom: 20px;
 }
 
@@ -1335,8 +1370,8 @@ td {
     font-weight: bold;
     font-size: 31px;
     text-align: center;
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 60px;
     cursor: pointer;
     position: relative;
     border: 3px solid #f8f7f5;
@@ -1352,8 +1387,8 @@ td {
     font-weight: bold;
     font-size: 31px;
     text-align: center;
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 60px;
     cursor: pointer;
     position: relative;
     border: 3px solid #f8f7f5;
@@ -1429,7 +1464,7 @@ td {
 /*pageContainer*/
 
 .headerTwoPlayer {
-    height: 60px;
+    height: 40px;
     display: flex;
     justify-content: center;
     margin-top: 0px;
@@ -1438,7 +1473,7 @@ td {
     font-family: "Mouse Memoirs", "sans-serif";
     color: var(--header-two-player-text);
     -webkit-text-stroke: 2px var(--header-two-player-border);
-    font-size: 60px;
+    font-size: 50px;
 }
 
 .mainWrapper {
@@ -1513,4 +1548,292 @@ td {
     width: 400px;
     display: flex;
     justify-content: center;
+}
+
+@media only screen and (max-width: 1154px) {
+    .singleBalloonSinglePlayer {
+        height: 110px;
+        width: 125px;
+    }
+}
+
+@media only screen and (max-width: 1134px) {
+    .headerLeft {
+        display: flex;
+        width: 170px;
+        padding-left: 20px;
+        padding-top: 20px;
+    }
+
+    .headerRight {
+        display: flex;
+        width: 220px;
+    }
+
+    .playerInfo {
+        margin-left: 0px;
+    }
+
+    .wrongGuesses {
+        padding-left: 80px;
+    }
+
+    .wrongGuessesTwoPlayer {
+        padding-left: 10px;
+    }
+
+    .titleSinglePlayer {
+        padding-left: 35px;
+    }
+
+    .singleBalloonSinglePlayer {
+        height: 120px;
+        width: 135px;
+    }
+
+    .headerCenter {
+        width: 500px;
+    }
+
+    .puzzleContainer {
+        margin-top: 0px;
+    }
+
+    .headerHome {
+        height: 30%;
+    }
+}
+
+@media only screen and (max-width: 1052px) {
+    .singleBalloon {
+        height: 110px;
+        width: 125px;
+    }
+
+    .wrongGuessesTwoPlayer {
+        padding-left: 20px;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .title {
+        font-size: 60px;
+        margin-bottom: 10px;
+    }
+
+    .infoMain {
+        height: 430px;
+    }
+
+    .avatarWrapper {
+        height: 90px;
+        width: 90px;
+    }
+
+    .avatar {
+        height: 80px;
+        width: 80px;
+    }
+
+    .activeAvatarWrapper {
+        height: 110px;
+        width: 110px;
+    }
+
+    .activeAvatar {
+        height: 100px;
+        width: 100px;
+    }
+
+    .selectedAvatarWrapper {
+        height: 130px;
+        width: 130px;
+    }
+
+    .selectedAvatar {
+        height: 110px;
+        width: 110px;
+    }
+
+    .avatarName {
+        font-size: 35px;
+    }
+
+    .avatarTrait {
+        font-size: 15px;
+    }
+
+    .selectedAvatarContainer {
+        gap: 0px;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .wrongGuessesTwoPlayer {
+        padding-left: 0px;
+    }
+}
+
+@media only screen and (max-width: 974px) {
+    .singleBalloon {
+        height: 90px;
+        width: 105px;
+    }
+
+    .wrongGuessesTwoPlayer {
+        padding-left: 20px;
+    }
+}
+
+@media only screen and (max-width: 928px) {
+    .imageContainer {
+        width: 140px;
+    }
+
+    .imagesContainer {
+        height: 140px;
+    }
+
+    .innerButtonContainer {
+        height: 60px;
+        width: 160px;
+    }
+
+    .activeButton {
+        height: 60px;
+        width: 160px;
+        font-size: 35px;
+    }
+
+    .button {
+        height: 50px;
+        width: 150px;
+        font-size: 30px;
+    }
+
+    .buttonsContainer {
+        gap: 13.5%;
+    }
+
+    .inputContainer {
+        height: 70px;
+        margin-top: 40px;
+    }
+
+    .input {
+        width: 50%;
+        height: 50px;
+        font-size: 30px;
+    }
+
+    .inputFocus {
+        width: 50%;
+        height: 50px;
+        font-size: 30px;
+    }
+
+    .infoMain {
+        height: 200px;
+    }
+
+    .selectedAvatarContainer {
+        height: 180px;
+    }
+}
+
+@media only screen and (max-width: 880px) {
+    .titleSinglePlayer {
+        font-size: 40px;
+    }
+
+    .singleBalloonSinglePlayer {
+        height: 80px;
+        width: 95px;
+    }
+
+    .wrongGuesses {
+        width: 80%;
+        padding-left: 125px;
+        padding-top: 20px;
+    }
+
+    .innerImg {
+        height: 30px;
+    }
+
+    .imgWrapper {
+        height: 40px;
+        width: 40px;
+    }
+
+    .aboutMeButton {
+        height: 40px;
+        width: 80px;
+        font-size: 20px;
+    }
+
+    .aboutMeButton:hover {
+        font-size: 25px;
+    }
+
+    .gameHeader {
+        height: 300px;
+    }
+
+    .avatarTwoPlayer {
+        height: 60px;
+        width: 60px;
+    }
+
+    .avatarDisabledTwoPlayer {
+        height: 60px;
+        width: 60px;
+    }
+
+    .avatarWrapperTwoPlayer {
+        height: 70px;
+        width: 70px;
+    }
+
+    .activeAvatarTwoPlayer {
+        height: 80px;
+        width: 80px;
+    }
+
+    .activeAvatarWrapperTwoPlayer {
+        height: 90px;
+        width: 90px;
+    }
+
+    .avatarGalleryTwoPlayer {
+        height: 90px;
+    }
+
+    .avatarTraitTwoPlayer {
+        font-size: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .selectedAvatarTwoPlayer {
+        height: 80px;
+        width: 80px;
+    }
+
+    .selectedAvatarWrapperTwoPlayer {
+        height: 90px;
+        width: 90px;
+    }
+
+    .inputTwoPlayer {
+        width: 200px;
+        height: 60%;
+        font-size: 30px;
+    }
+
+    .inputFocusTwoPlayer {
+        width: 200px;
+        height: 60%;
+        font-size: 30px;
+    }
 }

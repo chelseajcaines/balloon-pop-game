@@ -21,6 +21,7 @@ const PlayerInfo = ({
     setPlayerOneReady,
     setPlayerTwoReady,
     text,
+    twoPlayer,
 }) => {
     const [activeAvatar, setActiveAvatar] = useState(0)
     const [selectedAvatar, setSelectedAvatar] = useState(null)
@@ -31,6 +32,42 @@ const PlayerInfo = ({
     const [isDarkMode, setIsDarkMode] = useState(getInitialMode())
     const [showAboutMeModal, setShowAboutMeModal] = useState(false)
     const [soundOn, setSoundOn] = useState(true)
+    const [isMaxWidth928, setIsMaxWidth928] = useState(false)
+    const [isWidthGreaterThan928, setIsWidthGreaterThan928] = useState(false)
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMaxWidth928(window.innerWidth <= 928) // Adjust threshold as needed
+        }
+
+        // Set initial size
+        handleResize()
+
+        // Add event listener to handle window resize
+        window.addEventListener("resize", handleResize)
+
+        // Cleanup function to remove event listener
+        return () => {
+            window.removeEventListener("resize", handleResize)
+        }
+    }, [])
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsWidthGreaterThan928(window.innerWidth > 928) // Adjust threshold as needed
+        }
+
+        // Set initial size
+        handleResize()
+
+        // Add event listener to handle window resize
+        window.addEventListener("resize", handleResize)
+
+        // Cleanup function to remove event listener
+        return () => {
+            window.removeEventListener("resize", handleResize)
+        }
+    }, [])
 
     useEffect(() => {
         if (isDarkMode) {
@@ -615,49 +652,294 @@ const PlayerInfo = ({
 
     return (
         <>
-            <div
-                className={
-                    playerDisabled ? "disable" : singlePlayer ? "infoMain" : ""
-                }
-            >
-                <div className={singlePlayer ? "leftHalf" : ""}>
-                    <p className={singlePlayer ? "title" : "titleTwoPlayer"}>
-                        Choose avatar
-                    </p>
-
+            {isWidthGreaterThan928 ||
+                (isMaxWidth928 && !singlePlayer && (
                     <div
                         className={
-                            singlePlayer
-                                ? "avatarGallery"
-                                : "avatarGalleryTwoPlayer"
+                            playerDisabled
+                                ? "disable"
+                                : singlePlayer
+                                ? "infoMain"
+                                : ""
                         }
                     >
-                        {avatars.map((avatar) => (
-                            <Avatar
-                                key={avatar.id}
-                                src={avatar.src}
-                                alt={avatar.alt}
-                                playerDisabled={playerDisabled}
-                                onMouseEnter={
-                                    playerDisabled
-                                        ? undefined
-                                        : () => handleMouseEnter(avatar.id)
+                        <div className={singlePlayer ? "leftHalf" : ""}>
+                            <p
+                                className={
+                                    singlePlayer ? "title" : "titleTwoPlayer"
                                 }
-                                onClick={
-                                    playerDisabled
-                                        ? undefined
-                                        : () => handleAvatarClick(avatar)
+                            >
+                                Choose avatar
+                            </p>
+
+                            <div
+                                className={
+                                    singlePlayer
+                                        ? "avatarGallery"
+                                        : "avatarGalleryTwoPlayer"
                                 }
-                                activeAvatar={
-                                    playerDisabled
-                                        ? undefined
-                                        : activeAvatar === avatar.id
+                            >
+                                {avatars.map((avatar) => (
+                                    <Avatar
+                                        key={avatar.id}
+                                        src={avatar.src}
+                                        alt={avatar.alt}
+                                        playerDisabled={playerDisabled}
+                                        onMouseEnter={
+                                            playerDisabled
+                                                ? undefined
+                                                : () =>
+                                                      handleMouseEnter(
+                                                          avatar.id
+                                                      )
+                                        }
+                                        onClick={
+                                            playerDisabled
+                                                ? undefined
+                                                : () =>
+                                                      handleAvatarClick(avatar)
+                                        }
+                                        activeAvatar={
+                                            playerDisabled
+                                                ? undefined
+                                                : activeAvatar === avatar.id
+                                        }
+                                        singlePlayer={singlePlayer}
+                                        playerOne={playerOne}
+                                        playerTwo={playerTwo}
+                                    />
+                                ))}
+                            </div>
+
+                            <div
+                                className={
+                                    singlePlayer
+                                        ? "selectedAvatarContainer"
+                                        : playerOne || playerTwo
+                                        ? "selectedAvatarContainerTwoPlayer"
+                                        : ""
                                 }
-                                singlePlayer={singlePlayer}
-                                playerOne={playerOne}
-                                playerTwo={playerTwo}
-                            />
-                        ))}
+                            >
+                                {selectedAvatar && (
+                                    <div
+                                        className={
+                                            singlePlayer
+                                                ? "selectedAvatarContainer"
+                                                : playerOne
+                                                ? "selectedAvatarContainerTwoPlayer"
+                                                : playerTwo
+                                                ? "selectedAvatarContainerTwoPlayer"
+                                                : ""
+                                        }
+                                    >
+                                        <div
+                                            className={
+                                                singlePlayer
+                                                    ? "selectedAvatarWrapper"
+                                                    : playerOne
+                                                    ? "selectedAvatarWrapperTwoPlayer"
+                                                    : playerTwo
+                                                    ? "selectedAvatarWrapperTwoPlayer"
+                                                    : ""
+                                            }
+                                        >
+                                            <img
+                                                className={
+                                                    singlePlayer
+                                                        ? "selectedAvatar"
+                                                        : playerOne
+                                                        ? "selectedAvatarTwoPlayer"
+                                                        : playerTwo
+                                                        ? "selectedAvatarTwoPlayer"
+                                                        : ""
+                                                }
+                                                src={selectedAvatar.src}
+                                                alt={selectedAvatar.alt}
+                                            />
+                                        </div>
+                                        <div className="avatarInfo">
+                                            <p className="avatarName">
+                                                {selectedAvatar.name}
+                                            </p>
+                                            <p
+                                                className={
+                                                    singlePlayer
+                                                        ? "avatarTrait"
+                                                        : "avatarTraitTwoPlayer"
+                                                }
+                                            >
+                                                {selectedAvatar.trait}
+                                            </p>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                            <p className="errorMessage">{avatarError}</p>
+                        </div>
+
+                        <div className={singlePlayer ? "rightHalf" : ""}>
+                            <p
+                                className={
+                                    singlePlayer
+                                        ? "title"
+                                        : playerOne
+                                        ? "titleTwoPlayer"
+                                        : playerTwo
+                                        ? "titleTwoPlayer"
+                                        : ""
+                                }
+                            >
+                                Enter name
+                            </p>
+
+                            <div
+                                className={
+                                    singlePlayer
+                                        ? "inputContainer"
+                                        : "inputContainerTwoPlayer"
+                                }
+                            >
+                                <input
+                                    type="text"
+                                    onChange={
+                                        playerDisabled
+                                            ? undefined
+                                            : handleInputChange
+                                    }
+                                    ref={inputRef}
+                                    readOnly={playerDisabled}
+                                    className={
+                                        inputFocus && singlePlayer
+                                            ? "inputFocus"
+                                            : inputFocus && playerOne
+                                            ? "inputFocusTwoPlayer"
+                                            : inputFocus && playerTwo
+                                            ? "inputFocusTwoPlayer"
+                                            : singlePlayer
+                                            ? "input"
+                                            : playerOne
+                                            ? "inputTwoPlayer"
+                                            : playerTwo
+                                            ? "inputTwoPlayer"
+                                            : ""
+                                    }
+                                />
+                            </div>
+
+                            <p className="errorMessage">{inputError}</p>
+                        </div>
+                    </div>
+                ))}
+            {isMaxWidth928 && singlePlayer && (
+                <div>
+                    <div
+                        className={
+                            playerDisabled
+                                ? "disable"
+                                : singlePlayer
+                                ? "infoMain"
+                                : ""
+                        }
+                    >
+                        <div className={singlePlayer ? "leftHalf" : ""}>
+                            <p
+                                className={
+                                    singlePlayer ? "title" : "titleTwoPlayer"
+                                }
+                            >
+                                Choose avatar
+                            </p>
+
+                            <div
+                                className={
+                                    singlePlayer
+                                        ? "avatarGallery"
+                                        : "avatarGalleryTwoPlayer"
+                                }
+                            >
+                                {avatars.map((avatar) => (
+                                    <Avatar
+                                        key={avatar.id}
+                                        src={avatar.src}
+                                        alt={avatar.alt}
+                                        playerDisabled={playerDisabled}
+                                        onMouseEnter={
+                                            playerDisabled
+                                                ? undefined
+                                                : () =>
+                                                      handleMouseEnter(
+                                                          avatar.id
+                                                      )
+                                        }
+                                        onClick={
+                                            playerDisabled
+                                                ? undefined
+                                                : () =>
+                                                      handleAvatarClick(avatar)
+                                        }
+                                        activeAvatar={
+                                            playerDisabled
+                                                ? undefined
+                                                : activeAvatar === avatar.id
+                                        }
+                                        singlePlayer={singlePlayer}
+                                        playerOne={playerOne}
+                                        playerTwo={playerTwo}
+                                    />
+                                ))}
+                            </div>
+                            <p className="errorMessage">{avatarError}</p>
+                        </div>
+                        <div className={singlePlayer ? "rightHalf" : ""}>
+                            <p
+                                className={
+                                    singlePlayer
+                                        ? "title"
+                                        : playerOne
+                                        ? "titleTwoPlayer"
+                                        : playerTwo
+                                        ? "titleTwoPlayer"
+                                        : ""
+                                }
+                            >
+                                Enter name
+                            </p>
+
+                            <div
+                                className={
+                                    singlePlayer
+                                        ? "inputContainer"
+                                        : "inputContainerTwoPlayer"
+                                }
+                            >
+                                <input
+                                    type="text"
+                                    onChange={
+                                        playerDisabled
+                                            ? undefined
+                                            : handleInputChange
+                                    }
+                                    ref={inputRef}
+                                    readOnly={playerDisabled}
+                                    className={
+                                        inputFocus && singlePlayer
+                                            ? "inputFocus"
+                                            : inputFocus && playerOne
+                                            ? "inputFocusTwoPlayer"
+                                            : inputFocus && playerTwo
+                                            ? "inputFocusTwoPlayer"
+                                            : singlePlayer
+                                            ? "input"
+                                            : playerOne
+                                            ? "inputTwoPlayer"
+                                            : playerTwo
+                                            ? "inputTwoPlayer"
+                                            : ""
+                                    }
+                                />
+                            </div>
+                            <p className="errorMessage">{inputError}</p>
+                        </div>
                     </div>
 
                     <div
@@ -724,59 +1006,7 @@ const PlayerInfo = ({
                         )}
                     </div>
                 </div>
-
-                <p className="errorMessage">{avatarError}</p>
-
-                <div className={singlePlayer ? "rightHalf" : ""}>
-                    <p
-                        className={
-                            singlePlayer
-                                ? "title"
-                                : playerOne
-                                ? "titleTwoPlayer"
-                                : playerTwo
-                                ? "titleTwoPlayer"
-                                : ""
-                        }
-                    >
-                        Enter name
-                    </p>
-
-                    <div
-                        className={
-                            singlePlayer
-                                ? "inputContainer"
-                                : "inputContainerTwoPlayer"
-                        }
-                    >
-                        <input
-                            type="text"
-                            onChange={
-                                playerDisabled ? undefined : handleInputChange
-                            }
-                            ref={inputRef}
-                            readOnly={playerDisabled}
-                            className={
-                                inputFocus && singlePlayer
-                                    ? "inputFocus"
-                                    : inputFocus && playerOne
-                                    ? "inputFocusTwoPlayer"
-                                    : inputFocus && playerTwo
-                                    ? "inputFocusTwoPlayer"
-                                    : singlePlayer
-                                    ? "input"
-                                    : playerOne
-                                    ? "inputTwoPlayer"
-                                    : playerTwo
-                                    ? "inputTwoPlayer"
-                                    : ""
-                            }
-                        />
-                    </div>
-
-                    <p className="errorMessage">{inputError}</p>
-                </div>
-            </div>
+            )}
             <div
                 className={
                     singlePlayer
@@ -800,10 +1030,11 @@ const PlayerInfo = ({
                             : undefined
                     }
                     isActive={selectedAvatar && inputValue}
+                    twoPlayer={twoPlayer}
                 />
             </div>
             {singlePlayer && (
-                <div className="footerHome" style={{ marginTop: "50px" }}>
+                <div className="footerHome">
                     <div className="imgWrapper">
                         <img
                             src={soundOn ? sound : noSound}

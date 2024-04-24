@@ -114,9 +114,7 @@ const PuzzleCategories = ({ singlePlayer, twoPlayer }) => {
 
     return (
         <>
-            <p className="title" style={{ marginBottom: "35px" }}>
-                Choose Puzzle Category
-            </p>
+            <p className="title">Choose Puzzle Category</p>
             <div className="mainSection">
                 <div className="categoryList">
                     {categoryButtons.map((button) => (
@@ -140,7 +138,7 @@ const PuzzleCategories = ({ singlePlayer, twoPlayer }) => {
                     ))}
                 </div>
             </div>
-            <div className="footerHome" style={{ marginTop: "60px" }}>
+            <div className="footerHome">
                 <div className="imgWrapper">
                     <img
                         src={soundOn ? sound : noSound}

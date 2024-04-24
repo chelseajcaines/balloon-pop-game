@@ -118,6 +118,7 @@ const TwoPlayerSetup = () => {
                                 playerDisabled={playerOneDisabled}
                                 onClick={handleNextPlayer}
                                 setPlayerOneReady={handleNextPlayer}
+                                twoPlayer={true}
                             />
                         </div>
                         <div className="playerTwoContainer">
@@ -127,6 +128,7 @@ const TwoPlayerSetup = () => {
                                 playerDisabled={playerTwoDisbaled}
                                 onClick={handleBothPlayers}
                                 setPlayerTwoReady={handleBothPlayers}
+                                twoPlayer={true}
                             />
                         </div>
                     </div>
@@ -145,7 +147,7 @@ const TwoPlayerSetup = () => {
                             twoPlayer={true}
                         />
                     </div>
-                    <div className="footerHome">
+                    <div className="footerHomeTwoPlayerInfo">
                         <div className="imgWrapper">
                             <img
                                 src={soundOn ? sound : noSound}

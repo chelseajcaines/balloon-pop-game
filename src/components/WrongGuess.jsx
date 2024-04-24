@@ -2,11 +2,18 @@ import { wrongAnswersArray } from "/src/data/const.js"
 import { balloons } from "../data/const"
 import "/src/App.css"
 
-const WrongGuess = ({ numberOfGuesses }) => {
+const WrongGuess = ({ numberOfGuesses, singlePlayer }) => {
     return (
         <>
             {balloons.map((balloon, index) => (
-                <div className="singleBalloon" key={index}>
+                <div
+                    className={
+                        singlePlayer
+                            ? "singleBalloonSinglePlayer"
+                            : "singleBalloon"
+                    }
+                    key={index}
+                >
                     {wrongAnswersArray[index] && numberOfGuesses > index ? (
                         <img
                             src={wrongAnswersArray[index].src}
