@@ -193,7 +193,7 @@ export const homeButtons = [
     },
     {
         id: 2,
-        text: "Leader Board",
+        text: "Leaderboard",
     },
 ]
 

@@ -112,7 +112,7 @@ const PlayerInfoDisplay = ({
                         singlePlayer ? "playerScore" : "playerScoreTwoPlayer"
                     }
                 >
-                    Current Score: {score}
+                    Points: {score}
                 </div>
             </div>
         </>

@@ -567,16 +567,7 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
             />
 
             <div className="footerHome">
-                <div
-                    style={{
-                        height: "90px",
-                        width: "220px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        flexDirection: "column",
-                    }}
-                >
+                <div className="outerButtonWrapper">
                     <div className="buttonWrapper">
                         <Button
                             text="Home"
@@ -617,16 +608,7 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                         onClick={toggleDarkMode}
                     />
                 </div>
-                <div
-                    style={{
-                        height: "90px",
-                        width: "220px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        flexDirection: "column",
-                    }}
-                >
+                <div className="outerButtonWrapper">
                     <div className="buttonWrapper">
                         <Button
                             text="Next Puzzle"

@@ -1217,11 +1217,13 @@ td {
     margin-top: 0px;
     margin-bottom: 0px;
     text-align: center;
+    flex-wrap: wrap;
 }
 
 .singlePlayerName {
     margin-top: 5px;
     margin-bottom: 0px;
+    flex-wrap: wrap;
 }
 
 .playerScore {
@@ -1478,6 +1480,7 @@ td {
 
 .mainWrapper {
     display: block;
+    margin: 0 auto;
 }
 
 .players {
@@ -1548,6 +1551,15 @@ td {
     width: 400px;
     display: flex;
     justify-content: center;
+}
+
+.outerButtonWrapper {
+    height: 90px;
+    width: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 @media only screen and (max-width: 1154px) {
@@ -1837,3 +1849,357 @@ td {
         font-size: 30px;
     }
 }
+
+@media only screen and (max-width: 842px) {
+    .title {
+        font-size: 40px;
+        height: 50px;
+    }
+
+    .avatar {
+        height: 60px;
+        width: 60px;
+    }
+
+    .avatarWrapper {
+        height: 70px;
+        width: 70px;
+    }
+
+    .activeAvatar {
+        height: 80px;
+        width: 80px;
+    }
+
+    .activeAvatarWrapper {
+        height: 90px;
+        width: 90px;
+    }
+
+    .selectedAvatar {
+        height: 90px;
+        width: 90px;
+    }
+
+    .selectedAvatarWrapper {
+        height: 100px;
+        width: 100px;
+    }
+
+    .selectedAvatarContainer {
+        height: 140px;
+    }
+
+    .avatarGallery {
+        height: 100px;
+    }
+
+    .input {
+        width: 50%;
+        height: 30px;
+    }
+
+    .inputFocus {
+        width: 50%;
+        height: 30px;
+    }
+
+    .inputContainer {
+        margin-top: 25px;
+    }
+
+    .infoMain {
+        height: 150px;
+    }
+
+    .buttonContainer {
+        margin-top: 20px;
+    }
+
+    .pinkBalloon {
+        height: 60px;
+    }
+
+    .pinkBalloonPop {
+        height: 71px;
+    }
+
+    .orangeBalloon {
+        height: 60px;
+    }
+
+    .orangeBalloonPop {
+        height: 70px;
+    }
+
+    .greenBalloon {
+        height: 60px;
+    }
+
+    .greenBalloonPop {
+        height: 70px;
+    }
+
+    .singleBalloonSinglePlayer {
+        height: 60px;
+        width: 75px;
+    }
+
+    .wrongGuesses {
+        width: 60%;
+        padding-left: 145px;
+        height: 160px;
+    }
+
+    .titleSinglePlayer {
+        padding-left: 45px;
+    }
+
+    .gameHeader {
+        height: 220px;
+    }
+
+    .playerAvatarImage {
+        height: 50px;
+    }
+
+    .playerAvatar {
+        height: 50px;
+    }
+
+    .playerName {
+        font-size: 25px;
+    }
+
+    .playerScore {
+        font-size: 25px;
+    }
+
+    .btn {
+        height: 40px;
+        width: 40px;
+        font-size: 20px;
+    }
+
+    .btnP2 {
+        height: 40px;
+        width: 40px;
+        font-size: 20px;
+    }
+
+    .puzzleLetter {
+        width: 15px;
+        height: 28px;
+        font-size: 25px;
+    }
+
+    .puzzleWord {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .wrongGuessesTwoPlayer {
+        height: 160px;
+        width: 80%;
+        padding-left: 50px;
+    }
+
+    .singleBalloon {
+        height: 60px;
+        width: 75px;
+    }
+
+    .playerAvatarTwoPlayer {
+        height: 50px;
+    }
+
+    .playerNameOneTwo {
+        font-size: 25px;
+    }
+
+    .playerScoreTwoPlayer {
+        font-size: 25px;
+    }
+
+    .playerOneTurn {
+        height: 120px;
+    }
+
+    .playerTwoTurn {
+        height: 120px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .headerTwoPlayer {
+        padding-left: 20px;
+    }
+
+    .wrongGuesses {
+        padding-left: 125px;
+    }
+
+    .wrongGuessesTwoPlayer {
+        padding-left: 40px;
+    }
+
+    .imgWrapper {
+        height: 40px;
+        width: 100px;
+    }
+
+    .aboutMeButton {
+        font-size: 15px;
+        width: 130px;
+    }
+
+    .aboutMeButton:hover {
+        font-size: 17px;
+    }
+
+    .footerHome {
+        gap: 3%;
+    }
+}
+
+@media only screen and (max-width: 772px) {
+    .wrongGuesses {
+        width: 80%;
+        padding-left: 105px;
+    }
+
+    .headerTwoPlayer {
+        padding-left: 40px;
+    }
+}
+
+@media only screen and (max-width: 731px) {
+    .wrongGuessesTwoPlayer {
+        width: 90%;
+        padding-left: 20px;
+    }
+
+    .headerTwoPlayer {
+        padding-left: 80px;
+    }
+
+    .footerPlayButton {
+        padding-left: 60px;
+    }
+
+    .footerHomeTwoPlayerInfo {
+        padding-left: 60px;
+    }
+}
+
+@media only screen and (max-width: 649px) {
+    .imagesContainer {
+        gap: 7%;
+    }
+
+    .buttonsContainer {
+        gap: 5%;
+        margin-top: 20px;
+    }
+
+    .avatarGallery {
+        width: 100%;
+    }
+
+    .headerRight {
+        padding-right: 0px;
+        width: 180px;
+    }
+
+    .wrongGuesses {
+        padding-left: 75px;
+    }
+
+    .titleSinglePlayer {
+        padding-left: 25px;
+    }
+
+    .headerTwoPlayer {
+        padding-left: 180px;
+    }
+
+    .footerPlayButton {
+        padding-left: 160px;
+    }
+
+    .footerHomeTwoPlayerInfo {
+        padding-left: 160px;
+    }
+
+    .wrongGuessesTwoPlayer {
+        width: 100%;
+        padding-left: 0px;
+    }
+
+    .outerButtonWrapper {
+        height: 90px;
+        width: 180px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .button {
+        height: 50px;
+        width: 100px;
+        font-size: 21px;
+    }
+
+    .activeButton {
+        height: 50px;
+        width: 100px;
+        font-size: 21px;
+    }
+}
+
+@media only screen and (max-width: 618px) {
+    .avatar {
+        height: 40px;
+        width: 40px;
+    }
+
+    .avatarWrapper {
+        height: 50px;
+        width: 50px;
+    }
+
+    .activeAvatar {
+        height: 50px;
+        width: 50px;
+    }
+
+    .activeAvatarWrapper {
+        height: 60px;
+        width: 60px;
+    }
+
+    .selectedAvatar {
+        height: 60px;
+        width: 60px;
+    }
+
+    .selectedAvatarWrapper {
+        height: 70px;
+        width: 70px;
+        margin-top: 35px;
+    }
+
+    .avatarName {
+        font-size: 25px;
+    }
+
+    .avatarTrait {
+        font-size: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+/* @media only screen and (max-width: 600px) {
+} */

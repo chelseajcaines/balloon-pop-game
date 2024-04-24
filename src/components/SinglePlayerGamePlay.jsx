@@ -612,7 +612,13 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                                 />
                             </div>
 
-                            <p style={{ color: "white", textAlign: "center" }}>
+                            <p
+                                style={{
+                                    color: "white",
+                                    textAlign: "center",
+                                    marginTop: "0px",
+                                }}
+                            >
                                 Ctrl + Y
                             </p>
                         </div>
@@ -638,16 +644,7 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
             />
 
             <div className="footerHome">
-                <div
-                    style={{
-                        height: "90px",
-                        width: "220px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        flexDirection: "column",
-                    }}
-                >
+                <div className="outerButtonWrapper">
                     <div className="buttonWrapper">
                         <Button
                             text="Home"
@@ -688,16 +685,7 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                         onClick={toggleDarkMode}
                     />
                 </div>
-                <div
-                    style={{
-                        height: "90px",
-                        width: "220px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        flexDirection: "column",
-                    }}
-                >
+                <div className="outerButtonWrapper">
                     <div className="buttonWrapper">
                         <Button
                             text="Next Puzzle"
