@@ -577,16 +577,7 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                             onMouseLeave={() => setIsActiveQuit(false)}
                         />
                     </div>
-                    <p
-                        style={{
-                            color: "white",
-                            textAlign: "center",
-                            marginTop: "0px",
-                            marginBottom: "0px",
-                        }}
-                    >
-                        Ctrl + B
-                    </p>
+                    <p className="buttonCommand">Ctrl + B</p>
                 </div>
                 <div className="imgWrapper">
                     <img
@@ -618,16 +609,7 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                             onMouseLeave={() => setIsActiveNextPuzzle(false)}
                         />
                     </div>
-                    <p
-                        style={{
-                            color: "white",
-                            textAlign: "center",
-                            marginTop: "0px",
-                            marginBottom: "0px",
-                        }}
-                    >
-                        Ctrl + Q
-                    </p>
+                    <p className="buttonCommand">Ctrl + Q</p>
                 </div>
             </div>
 

@@ -590,15 +590,7 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                 <div className="headerRight">
                     {isMaxWidth1134 ? (
                         <div>
-                            <div
-                                style={{
-                                    height: "90px",
-                                    width: "220px",
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                }}
-                            >
+                            <div className="outerButtonWrapper">
                                 <Button
                                     text="Leaderboard"
                                     onClick={handleShowLeaderboardAndPlaySound}
@@ -612,15 +604,7 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                                 />
                             </div>
 
-                            <p
-                                style={{
-                                    color: "white",
-                                    textAlign: "center",
-                                    marginTop: "0px",
-                                }}
-                            >
-                                Ctrl + Y
-                            </p>
+                            <p className="buttonCommand">Ctrl + Y</p>
                         </div>
                     ) : (
                         <Leaderboard />
@@ -654,16 +638,7 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                             onMouseLeave={() => setIsActiveQuit(false)}
                         />
                     </div>
-                    <p
-                        style={{
-                            color: "white",
-                            textAlign: "center",
-                            marginTop: "0px",
-                            marginBottom: "0px",
-                        }}
-                    >
-                        Ctrl + B
-                    </p>
+                    <p className="buttonCommand">Ctrl + B</p>
                 </div>
                 <div className="imgWrapper">
                     <img
@@ -695,16 +670,7 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                             onMouseLeave={() => setIsActiveNextPuzzle(false)}
                         />
                     </div>
-                    <p
-                        style={{
-                            color: "white",
-                            textAlign: "center",
-                            marginTop: "0px",
-                            marginBottom: "0px",
-                        }}
-                    >
-                        Ctrl + Q
-                    </p>
+                    <p className="buttonCommand">Ctrl + Q</p>
                 </div>
             </div>
 
