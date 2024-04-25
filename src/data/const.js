@@ -35,14 +35,14 @@ export const avatars = [
         src: fox,
         alt: "Fox",
         name: "Slyboots McFluffernose",
-        trait: "Convinced it's a master magician and spends its evenings performing elaborate magic tricks for bewildered forest critters, pulling carrots out of hats and making pine cones disappear.",
+        trait: "Convinced it's a magician and spends its evenings performing magic tricks for forest critters by pulling carrots out of hats.",
     },
     {
         id: 3,
         src: duck,
         alt: "Duck",
         name: "Ducky McDoodlequack",
-        trait: "Firmly believes it's a famous movie director and spends its days filming epic duck-sized versions of Hollywood blockbusters in the local pond, with other ducks as its cast and crew.",
+        trait: "Firmly believes it's Clint Eastwood and spends its days filming epic duck-sized westerns, with other ducks as its cast and crew.",
     },
 ]
 

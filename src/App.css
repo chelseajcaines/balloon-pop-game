@@ -1481,6 +1481,7 @@ td {
 .mainWrapper {
     display: block;
     margin: 0 auto;
+    width: 100%;
 }
 
 .players {
@@ -1723,7 +1724,25 @@ td {
         font-size: 35px;
     }
 
+    .activeButtonTwoPlayer {
+        height: 60px;
+        width: 160px;
+        font-size: 35px;
+    }
+
     .button {
+        height: 50px;
+        width: 150px;
+        font-size: 30px;
+    }
+
+    .buttonDisabledTwoPlayer {
+        height: 50px;
+        width: 150px;
+        font-size: 30px;
+    }
+
+    .buttonTwoPlayer {
         height: 50px;
         width: 150px;
         font-size: 30px;
@@ -1796,6 +1815,10 @@ td {
 
     .gameHeader {
         height: 300px;
+    }
+
+    .avatarGalleryTwoPlayer {
+        width: 330px;
     }
 
     .avatarTwoPlayer {
@@ -2038,7 +2061,8 @@ td {
 
 @media only screen and (max-width: 800px) {
     .headerTwoPlayer {
-        padding-left: 20px;
+        padding-left: 0px;
+        font-size: 40px;
     }
 
     .wrongGuesses {
@@ -2075,7 +2099,7 @@ td {
     }
 
     .headerTwoPlayer {
-        padding-left: 40px;
+        padding-left: 0px;
     }
 }
 
@@ -2086,19 +2110,50 @@ td {
     }
 
     .headerTwoPlayer {
-        padding-left: 80px;
+        padding-left: 0px;
     }
 
     .footerPlayButton {
-        padding-left: 60px;
+        padding-left: 0px;
     }
 
     .footerHomeTwoPlayerInfo {
-        padding-left: 60px;
+        padding-left: 0px;
     }
 }
 
 @media only screen and (max-width: 649px) {
+    .avatarGalleryTwoPlayer {
+        width: 300px;
+        gap: 2px;
+        height: 60px;
+    }
+
+    .avatarTwoPlayer {
+        height: 50px;
+        width: 50px;
+    }
+
+    .avatarWrapperTwoPlayer {
+        height: 60px;
+        width: 60px;
+    }
+
+    .activeAvatarTwoPlayer {
+        height: 60px;
+        width: 60px;
+    }
+
+    .activeAvatarWrapperTwoPlayer {
+        height: 70px;
+        width: 70px;
+    }
+
+    .avatarDisabledTwoPlayer {
+        height: 50px;
+        width: 50px;
+    }
+
     .imagesContainer {
         gap: 7%;
     }
@@ -2126,15 +2181,15 @@ td {
     }
 
     .headerTwoPlayer {
-        padding-left: 180px;
+        padding-left: 0px;
     }
 
     .footerPlayButton {
-        padding-left: 160px;
+        padding-left: 0px;
     }
 
     .footerHomeTwoPlayerInfo {
-        padding-left: 160px;
+        padding-left: 0px;
     }
 
     .wrongGuessesTwoPlayer {
@@ -2157,10 +2212,47 @@ td {
         font-size: 21px;
     }
 
+    .buttonDisabledTwoPlayer {
+        height: 50px;
+        width: 100px;
+        font-size: 21px;
+    }
+
+    .buttonTwoPlayer {
+        height: 50px;
+        width: 100px;
+        font-size: 21px;
+    }
+
     .activeButton {
         height: 50px;
         width: 100px;
         font-size: 21px;
+    }
+
+    .activeButtonTwoPlayer {
+        height: 50px;
+        width: 100px;
+        font-size: 21px;
+    }
+
+    .selectedAvatarTwoPlayer {
+        height: 60px;
+        width: 60px;
+    }
+
+    .selectedAvatarWrapperTwoPlayer {
+        height: 70px;
+        width: 70px;
+    }
+
+    .avatarName {
+        margin-top: 0px;
+        font-size: 25px;
+    }
+
+    .avatarInfo {
+        width: 180px;
     }
 }
 
@@ -2225,15 +2317,15 @@ td {
     }
 
     .headerTwoPlayer {
-        padding-left: 220px;
+        padding-left: 0px;
     }
 
     .footerPlayButton {
-        padding-left: 220px;
+        padding-left: 0px;
     }
 
     .footerHomeTwoPlayerInfo {
-        padding-left: 220px;
+        padding-left: 0px;
     }
 
     .playerNameOneTwo {
@@ -2248,6 +2340,10 @@ td {
 @media only screen and (max-width: 584px) {
     .headerRightTwoPlayer {
         width: 300px;
+    }
+
+    .avatarGalleryTwoPlayer {
+        width: 250px;
     }
 
     .headerLeftTwoPlayer {
@@ -2315,19 +2411,46 @@ td {
     }
 
     .headerTwoPlayer {
-        padding-left: 280px;
+        padding-left: 0px;
     }
 
     .footerPlayButton {
-        padding-left: 280px;
+        padding-left: 0px;
     }
 
     .footerHomeTwoPlayerInfo {
-        padding-left: 280px;
+        padding-left: 0px;
     }
 
     .wrongGuessesTwoPlayer {
         padding-left: 10px;
+    }
+
+    .titleTwoPlayer {
+        font-size: 30px;
+        -webkit-text-stroke: 1px var(--text-border);
+    }
+
+    .inputTwoPlayer {
+        width: 150px;
+        height: 50%;
+        font-size: 30px;
+        border: 3px solid #ffffff;
+    }
+
+    .inputFocusTwoPlayer {
+        width: 150px;
+        height: 50%;
+        font-size: 30px;
+        border: 3px solid #ffffff;
+    }
+
+    .playerOneContainer {
+        gap: 0rem;
+    }
+
+    .playerTwoContainer {
+        gap: 0rem;
     }
 }
 
@@ -2342,7 +2465,25 @@ td {
         font-size: 12px;
     }
 
+    .buttonDisabledTwoPlayer {
+        height: 30px;
+        width: 70px;
+        font-size: 12px;
+    }
+
+    .buttonTwoPlayer {
+        height: 30px;
+        width: 70px;
+        font-size: 12px;
+    }
+
     .activeButton {
+        height: 30px;
+        width: 70px;
+        font-size: 12px;
+    }
+
+    .activeButtonTwoPlayer {
         height: 30px;
         width: 70px;
         font-size: 12px;
@@ -2391,5 +2532,236 @@ td {
 
     .gameHeader {
         height: 180px;
+    }
+
+    .btn {
+        height: 30px;
+        width: 30px;
+        font-size: 15px;
+        border: 2px solid #f8f7f5;
+    }
+
+    .btnP2 {
+        height: 30px;
+        width: 30px;
+        font-size: 15px;
+        border: 2px solid #f8f7f5;
+    }
+
+    .innerImg {
+        height: 20px;
+    }
+
+    .imgWrapper {
+        height: 30px;
+    }
+
+    .aboutMeButton {
+        height: 30px;
+    }
+
+    .selectedAvatarContainer {
+        height: 110px;
+        align-items: center;
+    }
+
+    .buttonContainer {
+        height: 60px;
+    }
+
+    .playerAvatar {
+        height: 40px;
+    }
+
+    .playerAvatarImage {
+        height: 40px;
+    }
+
+    .playerName {
+        font-size: 20px;
+    }
+
+    .playerScore {
+        font-size: 20px;
+    }
+
+    .wrongGuesses {
+        padding-left: 70px;
+        width: 70%;
+        height: 120px;
+    }
+
+    .singleBalloonSinglePlayer {
+        height: 60px;
+        width: 45px;
+    }
+
+    .titleSinglePlayer {
+        padding-left: 12px;
+        font-size: 30px;
+        -webkit-text-stroke: 1px var(--text-border);
+    }
+
+    .gameHeader {
+        height: 150px;
+    }
+
+    .title {
+        font-size: 30px;
+        height: 30px;
+        -webkit-text-stroke: 1px var(--text-border);
+        margin-bottom: 0px;
+    }
+
+    .inputContainer {
+        margin-top: 9px;
+        height: 50px;
+    }
+
+    .input {
+        height: 20px;
+        font-size: 20px;
+        border: 3px solid #d5dbd9;
+    }
+
+    .inputFocus {
+        height: 20px;
+        font-size: 20px;
+        border: 3px solid #d5dbd9;
+    }
+
+    .avatarWrapper {
+        height: 45px;
+        width: 45px;
+    }
+
+    .avatar {
+        height: 37px;
+        width: 37px;
+    }
+
+    .activeAvatar {
+        height: 43px;
+        width: 43px;
+    }
+
+    .activeAvatarWrapper {
+        height: 51px;
+        width: 51px;
+    }
+
+    .infoMain {
+        height: 100px;
+    }
+
+    .avatarGallery {
+        height: 70px;
+    }
+
+    .categoryList {
+        gap: 0.3rem;
+    }
+
+    .mainSection {
+        margin-top: 10px;
+    }
+
+    .headerTwoPlayer {
+        font-size: 35px;
+        -webkit-text-stroke: 1px var(--header-two-player-border);
+        padding-left: 0px;
+    }
+
+    .titleTwoPlayer {
+        -webkit-text-stroke: 1px var(--text-border);
+        margin-bottom: 0px;
+    }
+
+    .avatarTwoPlayer {
+        height: 37px;
+        width: 37px;
+    }
+
+    .avatarWrapperTwoPlayer {
+        height: 47px;
+        width: 47px;
+    }
+
+    .activeAvatarTwoPlayer {
+        height: 42px;
+        width: 42px;
+    }
+
+    .activeAvatarWrapperTwoPlayer {
+        height: 52px;
+        width: 52px;
+    }
+
+    .avatarDisabledTwoPlayer {
+        height: 37px;
+        width: 37px;
+    }
+
+    .avatarGalleryTwoPlayer {
+        width: 200px;
+    }
+
+    .selectedAvatarTwoPlayer {
+        height: 40px;
+        width: 40px;
+    }
+
+    .selectedAvatarWrapperTwoPlayer {
+        height: 50px;
+        width: 50px;
+    }
+
+    .avatarInfo {
+        width: 160px;
+    }
+
+    .avatarName {
+        font-size: 15px;
+    }
+
+    .avatarTraitTwoPlayer {
+        font-size: 8px;
+    }
+
+    .selectedAvatarContainerTwoPlayer {
+        height: 80px;
+    }
+
+    .inputTwoPlayer {
+        width: 130px;
+        height: 40%;
+        font-size: 20px;
+    }
+
+    .inputFocusTwoPlayer {
+        width: 130px;
+        height: 40%;
+        font-size: 20px;
+    }
+
+    .errorMessage {
+        height: 10px;
+        font-size: 10px;
+    }
+
+    .inputContainerTwoPlayer {
+        height: 50px;
+    }
+
+    .buttonContainerTwoPlayer {
+        height: 30px;
+    }
+
+    .footerPlayButton {
+        height: 30px;
+    }
+
+    .footerHomeTwoPlayerInfo {
+        height: 50px;
     }
 }
