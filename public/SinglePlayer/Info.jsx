@@ -1,4 +1,4 @@
-import PlayerInfo from "../../components/PlayerInfo"
+import PlayerInfo from "/PlayerInfo.jsx"
 import title from "/src/assets/title.png"
 import "/src/App.css"
 
