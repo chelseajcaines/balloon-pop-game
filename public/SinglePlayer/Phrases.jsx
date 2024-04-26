@@ -1,4 +1,4 @@
-import SinglePlayerGamePlay from "../../components/SinglePlayerGamePlay"
+import SinglePlayerGamePlay from "../SinglePlayerGamePlay"
 import "/src/App.css"
 
 const SinglePlayerPhrases = () => {
