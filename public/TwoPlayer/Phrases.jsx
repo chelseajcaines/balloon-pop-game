@@ -1,5 +1,5 @@
 import "/src/App.css"
-import TwoPlayerGamePlay from "../../components/TwoPlayerGamePlay"
+import TwoPlayerGamePlay from "../TwoPlayerGamePlay"
 
 const TwoPlayerPhrases = () => {
     return (
