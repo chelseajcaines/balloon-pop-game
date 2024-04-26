@@ -322,15 +322,6 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
         }
     }, [usedPuzzles, isWinner, isLoser])
 
-    // useEffect(() => {
-    //     const activeLettersNew = guessedLetters.filter((letter) =>
-    //         puzzle.includes(letter)
-    //     )
-    //     if (!activeLetters.includes(currentLetter)) {
-    //         setPlayerTwoTurn(!playerTwoTurn)
-    //     }
-    // }, [guessedLetters, currentLetter])
-
     useEffect(() => {
         const handleKeyDown = (e) => {
             const keyPressed = e.key.toUpperCase()
@@ -390,7 +381,6 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
         setPuzzle("")
         setIsLoading(true)
         handleCancelAllModals()
-        setPointsWon(0)
         setCurrentScore(0)
         fetchPuzzle()
         handleCancelAllModals()
@@ -402,7 +392,6 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
         setGuessedLetters([])
         setPuzzle("")
         setIsLoading(true)
-        setPointsWon(0)
         fetchPuzzle()
         handleCancelAllModals()
     }
