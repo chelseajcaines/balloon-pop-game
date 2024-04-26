@@ -3400,7 +3400,7 @@ td {
     .aboutMeButtonGamePlay {
         height: 30px;
         width: 60px;
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .footerHomeSinglePlayer {
@@ -3408,7 +3408,7 @@ td {
     }
 
     .puzzleLetterBorder {
-        width: 2px;
+        width: 1px;
         font-size: 15px;
     }
 
@@ -3440,6 +3440,14 @@ td {
 
     .headerCenter {
         width: 200px;
+    }
+
+    .loadingPageModal {
+        left: 45%;
+    }
+
+    .modal {
+        left: 45%;
     }
 }
 

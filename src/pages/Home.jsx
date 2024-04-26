@@ -198,6 +198,8 @@ const Home = () => {
                             src={balloon}
                             alt="balloon"
                             className="balloonOne"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => navigate("/SinglePlayer/Info")}
                         />
                     </div>
                     <div className="imageContainer">
@@ -205,10 +207,18 @@ const Home = () => {
                             src={twoBalloons}
                             alt="twoBalloons"
                             className="balloonTwo"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => navigate("/TwoPlayer/Info")}
                         />
                     </div>
                     <div className="imageContainer">
-                        <img src={ribbon} alt="ribbon" className="ribbonImg" />
+                        <img
+                            src={ribbon}
+                            alt="ribbon"
+                            className="ribbonImg"
+                            style={{ cursor: "pointer" }}
+                            onClick={handleDisplayLeaderBoard}
+                        />
                     </div>
                 </div>
                 <div className="buttonsContainer">

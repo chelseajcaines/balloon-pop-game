@@ -50,6 +50,24 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
     const [soundOn, setSoundOn] = useState(true)
     const [isActiveQuit, setIsActiveQuit] = useState(false)
     const [isActiveNextPuzzle, setIsActiveNextPuzzle] = useState(false)
+    const [isMaxWidth800, setIsMaxWidth800] = useState(false)
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMaxWidth800(window.innerWidth <= 800) // Adjust threshold as needed
+        }
+
+        // Set initial size
+        handleResize()
+
+        // Add event listener to handle window resize
+        window.addEventListener("resize", handleResize)
+
+        // Cleanup function to remove event listener
+        return () => {
+            window.removeEventListener("resize", handleResize)
+        }
+    }, [])
 
     useEffect(() => {
         if (isDarkMode) {
@@ -545,7 +563,9 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                             onMouseLeave={() => setIsActiveQuit(false)}
                         />
                     </div>
-                    <p className="buttonCommand">Ctrl + B</p>
+                    {!isMaxWidth800 && (
+                        <p className="buttonCommand">Ctrl + B</p>
+                    )}
                 </div>
                 <div className="imgWrapperGamePlay">
                     <img
@@ -580,7 +600,9 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                             onMouseLeave={() => setIsActiveNextPuzzle(false)}
                         />
                     </div>
-                    <p className="buttonCommand">Ctrl + Q</p>
+                    {!isMaxWidth800 && (
+                        <p className="buttonCommand">Ctrl + Q</p>
+                    )}
                 </div>
             </div>
 

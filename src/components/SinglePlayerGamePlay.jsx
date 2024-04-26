@@ -73,6 +73,24 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
     const [showLeaderBoardModal, setShowLeaderBoardModal] = useState(false)
     const [isActiveLeaderboard, setIsActiveLeaderboard] = useState(false)
     const [isMaxWidth1134, setIsMaxWidth1134] = useState(false)
+    const [isMaxWidth800, setIsMaxWidth800] = useState(false)
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMaxWidth800(window.innerWidth <= 800) // Adjust threshold as needed
+        }
+
+        // Set initial size
+        handleResize()
+
+        // Add event listener to handle window resize
+        window.addEventListener("resize", handleResize)
+
+        // Cleanup function to remove event listener
+        return () => {
+            window.removeEventListener("resize", handleResize)
+        }
+    }, [])
 
     useEffect(() => {
         const handleResize = () => {
@@ -604,7 +622,9 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                                 />
                             </div>
 
-                            <p className="buttonCommand">Ctrl + Y</p>
+                            {!isMaxWidth800 && (
+                                <p className="buttonCommand">Ctrl + Y</p>
+                            )}
                         </div>
                     ) : (
                         <Leaderboard />
@@ -638,7 +658,9 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                             onMouseLeave={() => setIsActiveQuit(false)}
                         />
                     </div>
-                    <p className="buttonCommand">Ctrl + B</p>
+                    {!isMaxWidth800 && (
+                        <p className="buttonCommand">Ctrl + B</p>
+                    )}
                 </div>
                 <div className="imgWrapperGamePlay">
                     <img
@@ -673,7 +695,9 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                             onMouseLeave={() => setIsActiveNextPuzzle(false)}
                         />
                     </div>
-                    <p className="buttonCommand">Ctrl + Q</p>
+                    {!isMaxWidth800 && (
+                        <p className="buttonCommand">Ctrl + Q</p>
+                    )}
                 </div>
             </div>
 
