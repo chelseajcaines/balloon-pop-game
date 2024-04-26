@@ -50,42 +50,6 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
     const [soundOn, setSoundOn] = useState(true)
     const [isActiveQuit, setIsActiveQuit] = useState(false)
     const [isActiveNextPuzzle, setIsActiveNextPuzzle] = useState(false)
-    const [isMaxWidth1134, setIsMaxWidth1134] = useState(false)
-    const [isMaxWidth1052, setIsMaxWidth1052] = useState(false)
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMaxWidth1134(window.innerWidth <= 1134) // Adjust threshold as needed
-        }
-
-        // Set initial size
-        handleResize()
-
-        // Add event listener to handle window resize
-        window.addEventListener("resize", handleResize)
-
-        // Cleanup function to remove event listener
-        return () => {
-            window.removeEventListener("resize", handleResize)
-        }
-    }, [])
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMaxWidth1052(window.innerWidth <= 1052) // Adjust threshold as needed
-        }
-
-        // Set initial size
-        handleResize()
-
-        // Add event listener to handle window resize
-        window.addEventListener("resize", handleResize)
-
-        // Cleanup function to remove event listener
-        return () => {
-            window.removeEventListener("resize", handleResize)
-        }
-    }, [])
 
     useEffect(() => {
         if (isDarkMode) {
@@ -566,7 +530,7 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                 playerTwoTurn={playerTwoTurn}
             />
 
-            <div className="footerHome">
+            <div className="footerHomeTwoPlayer">
                 <div className="outerButtonWrapper">
                     <div className="buttonWrapper">
                         <Button
@@ -579,23 +543,26 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                     </div>
                     <p className="buttonCommand">Ctrl + B</p>
                 </div>
-                <div className="imgWrapper">
+                <div className="imgWrapperGamePlay">
                     <img
                         src={soundOn ? sound : noSound}
                         alt="sound ON/OFF"
-                        className="innerImg"
+                        className="innerImgGamePlay"
                         onClick={toggleSound}
                     />
                 </div>
-                <button className="aboutMeButton" onClick={handleClickAboutMe}>
+                <button
+                    className="aboutMeButtonGamePlay"
+                    onClick={handleClickAboutMe}
+                >
                     CLICK ME!
                 </button>
 
-                <div className="imgWrapper">
+                <div className="imgWrapperGamePlay">
                     <img
                         src={isDarkMode ? sun : moon}
                         alt="dark mode"
-                        className="innerImg"
+                        className="innerImgGamePlay"
                         onClick={toggleDarkMode}
                     />
                 </div>

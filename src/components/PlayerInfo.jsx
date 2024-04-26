@@ -33,7 +33,24 @@ const PlayerInfo = ({
     const [showAboutMeModal, setShowAboutMeModal] = useState(false)
     const [soundOn, setSoundOn] = useState(true)
     const [isMaxWidth928, setIsMaxWidth928] = useState(false)
-    // const [isWidthGreaterThan928, setIsWidthGreaterThan928] = useState(false)
+    const [isMaxWidth649, setIsMaxWidth649] = useState(false)
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMaxWidth649(window.innerWidth <= 649) // Adjust threshold as needed
+        }
+
+        // Set initial size
+        handleResize()
+
+        // Add event listener to handle window resize
+        window.addEventListener("resize", handleResize)
+
+        // Cleanup function to remove event listener
+        return () => {
+            window.removeEventListener("resize", handleResize)
+        }
+    }, [])
 
     useEffect(() => {
         const handleResize = () => {
@@ -51,23 +68,6 @@ const PlayerInfo = ({
             window.removeEventListener("resize", handleResize)
         }
     }, [])
-
-    // useEffect(() => {
-    //     const handleResize = () => {
-    //         setIsWidthGreaterThan928(window.innerWidth >= 929) // Adjust threshold as needed
-    //     }
-
-    //     // Set initial size
-    //     handleResize()
-
-    //     // Add event listener to handle window resize
-    //     window.addEventListener("resize", handleResize)
-
-    //     // Cleanup function to remove event listener
-    //     return () => {
-    //         window.removeEventListener("resize", handleResize)
-    //     }
-    // }, [])
 
     useEffect(() => {
         if (isDarkMode) {
@@ -752,7 +752,13 @@ const PlayerInfo = ({
                                             alt={selectedAvatar.alt}
                                         />
                                     </div>
-                                    <div className="avatarInfo">
+                                    <div
+                                        className={
+                                            !singlePlayer
+                                                ? "avatarInfoTwoPlayer"
+                                                : "avatarInfo"
+                                        }
+                                    >
                                         <p className="avatarName">
                                             {selectedAvatar.name}
                                         </p>
@@ -925,7 +931,13 @@ const PlayerInfo = ({
                                             alt={selectedAvatar.alt}
                                         />
                                     </div>
-                                    <div className="avatarInfo">
+                                    <div
+                                        className={
+                                            !singlePlayer
+                                                ? "avatarInfoTwoPlayer"
+                                                : "avatarInfo"
+                                        }
+                                    >
                                         <p className="avatarName">
                                             {selectedAvatar.name}
                                         </p>
@@ -1098,7 +1110,13 @@ const PlayerInfo = ({
                                             alt={selectedAvatar.alt}
                                         />
                                     </div>
-                                    <div className="avatarInfo">
+                                    <div
+                                        className={
+                                            !singlePlayer
+                                                ? "avatarInfoTwoPlayer"
+                                                : "avatarInfo"
+                                        }
+                                    >
                                         <p className="avatarName">
                                             {selectedAvatar.name}
                                         </p>
@@ -1329,7 +1347,13 @@ const PlayerInfo = ({
                                         alt={selectedAvatar.alt}
                                     />
                                 </div>
-                                <div className="avatarInfo">
+                                <div
+                                    className={
+                                        !singlePlayer
+                                            ? "avatarInfoTwoPlayer"
+                                            : "avatarInfo"
+                                    }
+                                >
                                     <p className="avatarName">
                                         {selectedAvatar.name}
                                     </p>
@@ -1375,27 +1399,47 @@ const PlayerInfo = ({
                 />
             </div>
             {singlePlayer && (
-                <div className="footerHome">
-                    <div className="imgWrapper">
+                <div
+                    className={
+                        !isMaxWidth649 ? "footerHome" : "footerHomeTwoPlayer"
+                    }
+                >
+                    <div
+                        className={
+                            !isMaxWidth649 ? "imgWrapper" : "imgWrapperGamePlay"
+                        }
+                    >
                         <img
                             src={soundOn ? sound : noSound}
                             alt="sound ON/OFF"
-                            className="innerImg"
+                            className={
+                                !isMaxWidth649 ? "innerImg" : "innerImgGamePlay"
+                            }
                             onClick={toggleSound}
                         />
                     </div>
                     <button
-                        className="aboutMeButton"
+                        className={
+                            !isMaxWidth649
+                                ? "aboutMeButton"
+                                : "aboutMeButtonGamePlay"
+                        }
                         onClick={handleClickAboutMe}
                     >
                         CLICK ME!
                     </button>
 
-                    <div className="imgWrapper">
+                    <div
+                        className={
+                            !isMaxWidth649 ? "imgWrapper" : "imgWrapperGamePlay"
+                        }
+                    >
                         <img
                             src={isDarkMode ? sun : moon}
                             alt="dark mode"
-                            className="innerImg"
+                            className={
+                                !isMaxWidth649 ? "innerImg" : "innerImgGamePlay"
+                            }
                             onClick={toggleDarkMode}
                         />
                     </div>

@@ -584,7 +584,7 @@ const Modal = ({
                         <div>{leaderboard}</div>
                         <div className="buttonsContainerLeaderboard">
                             <button
-                                className="activeButtonModal"
+                                className="activeButtonModalLeaderboard"
                                 onClick={handleCancelAllModals}
                             >
                                 OK

@@ -77,7 +77,7 @@ body {
 /* -------------------------------------------------- Home Page Styling -- */
 
 .headerHome {
-    height: 40%;
+    height: 35%;
     display: flex;
     justify-content: center;
     padding-top: 10px;
@@ -145,6 +145,33 @@ body {
     align-items: center;
 }
 
+.footerHomeSinglePlayer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 7%;
+    height: 90px;
+    align-items: center;
+}
+
+.footerHomeSinglePlayer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 7%;
+    height: 90px;
+    align-items: center;
+}
+
+.footerHomeTwoPlayer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 7%;
+    height: 90px;
+    align-items: center;
+}
+
 .footerHomeTwoPlayerInfo {
     margin-top: 0px;
     display: flex;
@@ -171,7 +198,38 @@ body {
     cursor: pointer;
 }
 
+.imgWrapperGamePlay {
+    background-color: var(--settings-button);
+    height: 60px;
+    width: 60px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--button-box-shadow);
+    cursor: pointer;
+}
+
 .aboutMeButton {
+    height: 60px;
+    width: 120px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--button-box-shadow);
+    cursor: pointer;
+    outline: none;
+    font-family: "Mouse Memoirs", "sans-serif";
+    border: none;
+    font-size: 30px;
+    position: relative;
+    overflow: hidden;
+    background-color: #ffdd61;
+    color: #a15a02;
+}
+
+.aboutMeButtonGamePlay {
     height: 60px;
     width: 120px;
     border-radius: 50px;
@@ -207,7 +265,41 @@ body {
     animation: shine 1.5s infinite linear;
 }
 
+.aboutMeButtonGamePlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.6),
+        rgba(255, 255, 255, 0.3)
+    );
+    transform: skewX(-30deg);
+    animation: shine 1.5s infinite linear;
+}
+
 .aboutMeButton:hover {
+    font-size: 35px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--hover-button-box-shadow);
+    cursor: pointer;
+    outline: none;
+    font-family: "Mouse Memoirs", "sans-serif";
+    border: none;
+    position: relative;
+    overflow: hidden;
+    background-color: #ffdd61;
+    color: #a15a02;
+}
+
+.aboutMeButtonGamePlay:hover {
     font-size: 35px;
     border-radius: 50px;
     display: flex;
@@ -228,7 +320,15 @@ body {
     animation: shine 1.5s infinite linear;
 }
 
+.aboutMeButtonGamePlay:hover::before {
+    animation: shine 1.5s infinite linear;
+}
+
 .imgWrapper:hover {
+    box-shadow: var(--hover-button-box-shadow);
+}
+
+.imgWrapperGamePlay:hover {
     box-shadow: var(--hover-button-box-shadow);
 }
 
@@ -239,7 +339,18 @@ body {
     border-radius: 50%;
 }
 
+.innerImgGamePlay {
+    height: 50px;
+    opacity: 0.4;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
 .innerImg:hover {
+    opacity: 1;
+}
+
+.innerImgGamePlay:hover {
     opacity: 1;
 }
 
@@ -430,6 +541,22 @@ body {
 }
 
 .activeButtonModal {
+    background: var(--active-button-color);
+    border: 2px solid white;
+    color: rgb(53, 18, 110);
+    height: 70px;
+    width: 120px;
+    font-size: 20px;
+    border-radius: 50px;
+    box-shadow: var(--hover-button-box-shadow);
+    cursor: pointer;
+    outline: none;
+    font-family: "Mouse Memoirs", "sans-serif";
+    font-size: 45px;
+    text-align: center;
+}
+
+.activeButtonModalLeaderboard {
     background: var(--active-button-color);
     border: 2px solid white;
     color: rgb(53, 18, 110);
@@ -839,6 +966,14 @@ td {
     text-align: center;
 }
 
+.avatarInfoTwoPlayer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 300px;
+    text-align: center;
+}
+
 .avatarName {
     font-family: "Mouse Memoirs", "sans-serif";
     color: rgb(233, 194, 67);
@@ -1158,6 +1293,7 @@ td {
     height: 280px;
     display: flex;
     flex-wrap: wrap;
+    padding-left: 20px;
 }
 
 .headerRight {
@@ -1574,6 +1710,14 @@ td {
         height: 110px;
         width: 125px;
     }
+
+    .wrongGuesses {
+        padding-left: 10px;
+    }
+
+    .wrongGuessesTwoPlayer {
+        padding-left: 10px;
+    }
 }
 
 @media only screen and (max-width: 1134px) {
@@ -1621,6 +1765,60 @@ td {
     .headerHome {
         height: 30%;
     }
+
+    .infoMain {
+        height: 430px;
+    }
+
+    .inputContainer {
+        margin-top: 20px;
+    }
+
+    .gameHeader {
+        height: 320px;
+    }
+
+    .headerTwoPlayer {
+        -webkit-text-stroke: 1px var(--header-two-player-border);
+    }
+
+    .titleTwoPlayer {
+        -webkit-text-stroke: 1px var(--text-border);
+    }
+
+    .inputTwoPlayer {
+        height: 40px;
+    }
+
+    .inputFocusTwoPlayer {
+        height: 40px;
+    }
+
+    .activeButtonTwoPlayer {
+        height: 50px;
+        font-size: 35px;
+    }
+
+    .footerPlayButton {
+        height: 50px;
+    }
+
+    .footerHomeTwoPlayerInfo {
+        margin-top: 5px;
+    }
+
+    .puzzleWord {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .puzzleLetterBorder {
+        width: 20px;
+    }
+
+    .puzzleLetter {
+        width: 20px;
+    }
 }
 
 @media only screen and (max-width: 1052px) {
@@ -1631,6 +1829,19 @@ td {
 
     .wrongGuessesTwoPlayer {
         padding-left: 20px;
+    }
+
+    .puzzleWord {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .puzzleLetterBorder {
+        width: 20px;
+    }
+
+    .puzzleLetter {
+        width: 20px;
     }
 }
 
@@ -1685,11 +1896,41 @@ td {
     .selectedAvatarContainer {
         gap: 0px;
     }
+
+    .puzzleWord {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .puzzleLetterBorder {
+        width: 20px;
+    }
+
+    .puzzleLetter {
+        width: 20px;
+    }
 }
 
 @media only screen and (max-width: 1000px) {
     .wrongGuessesTwoPlayer {
         padding-left: 0px;
+    }
+
+    .categoryList {
+        gap: 1rem;
+    }
+
+    .puzzleWord {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .puzzleLetterBorder {
+        width: 20px;
+    }
+
+    .puzzleLetter {
+        width: 20px;
     }
 }
 
@@ -1700,7 +1941,25 @@ td {
     }
 
     .wrongGuessesTwoPlayer {
+        padding-left: 30px;
+    }
+
+    .buttonsContainer {
+        margin-top: 40px;
+        gap: 8.5%;
+    }
+
+    .puzzleWord {
         padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .puzzleLetterBorder {
+        width: 20px;
+    }
+
+    .puzzleLetter {
+        width: 20px;
     }
 }
 
@@ -1749,7 +2008,13 @@ td {
     }
 
     .buttonsContainer {
-        gap: 13.5%;
+        gap: 13%;
+        height: 70px;
+    }
+
+    .buttonContainer {
+        height: 70px;
+        margin-top: 20px;
     }
 
     .inputContainer {
@@ -1770,11 +2035,35 @@ td {
     }
 
     .infoMain {
-        height: 200px;
+        height: 180px;
     }
 
     .selectedAvatarContainer {
-        height: 180px;
+        height: 150px;
+        align-items: center;
+    }
+
+    .headerHome {
+        height: 25%;
+    }
+
+    .activeButtonTwoPlayer {
+        height: 50px;
+        width: 150px;
+        font-size: 30px;
+    }
+
+    .puzzleLetterBorder {
+        width: 20px;
+    }
+
+    .puzzleLetter {
+        width: 20px;
+    }
+
+    .puzzleWord {
+        padding-left: 20px;
+        padding-right: 20px;
     }
 }
 
@@ -1794,23 +2083,8 @@ td {
         padding-top: 20px;
     }
 
-    .innerImg {
-        height: 30px;
-    }
-
-    .imgWrapper {
-        height: 40px;
-        width: 40px;
-    }
-
-    .aboutMeButton {
-        height: 40px;
-        width: 80px;
-        font-size: 20px;
-    }
-
-    .aboutMeButton:hover {
-        font-size: 25px;
+    .wrongGuessesTwoPlayer {
+        padding-left: 10px;
     }
 
     .gameHeader {
@@ -1876,6 +2150,31 @@ td {
         width: 200px;
         height: 60%;
         font-size: 30px;
+    }
+
+    .footerHomeSinglePlayer {
+        margin-top: 20px;
+        height: 70px;
+        gap: 4%;
+    }
+
+    .footerHomeTwoPlayer {
+        margin-top: 20px;
+        height: 70px;
+        gap: 4%;
+    }
+
+    .avatarInfoTwoPlayer {
+        width: 240px;
+    }
+
+    .puzzleWord {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .puzzleLetterBorder {
+        width: 20px;
     }
 }
 
@@ -1976,12 +2275,13 @@ td {
 
     .wrongGuesses {
         width: 60%;
-        padding-left: 145px;
+        padding-left: 80px;
         height: 160px;
     }
 
     .titleSinglePlayer {
-        padding-left: 45px;
+        padding-left: 0px;
+        -webkit-text-stroke: 1px var(--text-border);
     }
 
     .gameHeader {
@@ -2029,8 +2329,8 @@ td {
 
     .wrongGuessesTwoPlayer {
         height: 160px;
-        width: 80%;
-        padding-left: 50px;
+        width: 100%;
+        padding-left: 25px;
     }
 
     .singleBalloon {
@@ -2057,6 +2357,42 @@ td {
     .playerTwoTurn {
         height: 120px;
     }
+
+    .innerImgGamePlay {
+        height: 30px;
+    }
+
+    .imgWrapperGamePlay {
+        height: 40px;
+        width: 40px;
+    }
+
+    .outerButtonWrapper {
+        width: 180px;
+    }
+
+    .aboutMeButtonGamePlay {
+        height: 40px;
+        width: 80px;
+        font-size: 20px;
+    }
+
+    .aboutMeButtonGamePlay:hover {
+        font-size: 20px;
+    }
+
+    .headerCenter {
+        width: 380px;
+    }
+
+    .headerRight {
+        width: 180px;
+    }
+
+    .puzzleWord {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
 
 @media only screen and (max-width: 800px) {
@@ -2066,47 +2402,52 @@ td {
     }
 
     .wrongGuesses {
-        padding-left: 125px;
+        padding-left: 80px;
     }
 
     .wrongGuessesTwoPlayer {
-        padding-left: 40px;
+        padding-left: 18px;
     }
 
-    .imgWrapper {
-        height: 40px;
-        width: 100px;
+    .title {
+        -webkit-text-stroke: 1px var(--text-border);
     }
 
-    .aboutMeButton {
-        font-size: 15px;
-        width: 130px;
-    }
-
-    .aboutMeButton:hover {
-        font-size: 17px;
-    }
-
-    .footerHome {
-        gap: 3%;
+    .puzzleWord {
+        padding-left: 10px;
+        padding-right: 10px;
     }
 }
 
 @media only screen and (max-width: 772px) {
     .wrongGuesses {
         width: 80%;
-        padding-left: 105px;
+        padding-left: 45px;
     }
 
     .headerTwoPlayer {
         padding-left: 0px;
     }
+
+    .headerCenter {
+        width: 300px;
+    }
+
+    .wrongGuessesTwoPlayer {
+        padding-left: 20px;
+        width: 250px;
+    }
+
+    .puzzleWord {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
 
 @media only screen and (max-width: 731px) {
     .wrongGuessesTwoPlayer {
-        width: 90%;
-        padding-left: 20px;
+        width: 240px;
+        padding-left: 0px;
     }
 
     .headerTwoPlayer {
@@ -2119,6 +2460,20 @@ td {
 
     .footerHomeTwoPlayerInfo {
         padding-left: 0px;
+    }
+
+    .puzzleWord {
+        padding-left: 0px;
+    }
+
+    .puzzleLetter {
+        width: 11px;
+        font-size: 20px;
+        padding-bottom: 2px;
+    }
+
+    .puzzleLetterBorder {
+        width: 11px;
     }
 }
 
@@ -2173,11 +2528,7 @@ td {
     }
 
     .wrongGuesses {
-        padding-left: 75px;
-    }
-
-    .titleSinglePlayer {
-        padding-left: 25px;
+        padding-left: 55px;
     }
 
     .headerTwoPlayer {
@@ -2251,8 +2602,30 @@ td {
         font-size: 25px;
     }
 
-    .avatarInfo {
+    .avatarInfoTwoPlayer {
         width: 180px;
+    }
+
+    .headerCenter {
+        width: 430px;
+    }
+
+    .puzzleWord {
+        padding-left: 0px;
+    }
+
+    .puzzleLetter {
+        width: 11px;
+        font-size: 20px;
+        padding-bottom: 2px;
+    }
+
+    .puzzleLetterBorder {
+        width: 11px;
+    }
+
+    .footerHomeTwoPlayer {
+        height: 40px;
     }
 }
 
@@ -2297,6 +2670,33 @@ td {
         padding-left: 20px;
         padding-right: 20px;
     }
+
+    .wrongGuesses {
+        padding-left: 45px;
+    }
+
+    .titleSinglePlayer {
+        padding-left: 10px;
+    }
+
+    .puzzleWord {
+        padding-left: 0px;
+    }
+
+    .puzzleLetter {
+        width: 11px;
+        font-size: 20px;
+        padding-bottom: 2px;
+    }
+
+    .puzzleLetterBorder {
+        width: 11px;
+    }
+
+    .wrongGuessesTwoPlayer {
+        width: 250px;
+        padding-left: 20px;
+    }
 }
 
 @media only screen and (max-width: 600px) {
@@ -2334,6 +2734,26 @@ td {
 
     .playerScoreTwoPlayer {
         font-size: 20px;
+    }
+
+    .leaderboardModal {
+        height: 410px;
+        width: 300px;
+    }
+
+    .activeButtonModalLeaderboard {
+        height: 40px;
+        width: 60px;
+        font-size: 25px;
+    }
+
+    .buttonsContainerLeaderboard {
+        height: 40px;
+        margin-top: 7px;
+    }
+
+    .puzzleLetterBorder {
+        width: 8px;
     }
 }
 
@@ -2394,6 +2814,8 @@ td {
 
     .outerButtonWrapper {
         height: 60px;
+        width: 100px;
+        margin-right: 20px;
     }
 
     .crown {
@@ -2403,11 +2825,30 @@ td {
     .playerCrown {
         height: 20px;
     }
+
+    .wrongGuesses {
+        padding-left: 0px;
+        width: 100%;
+    }
+
+    .headerLeft {
+        padding-left: 0px;
+    }
+
+    .titleSinglePlayer {
+        margin-right: 20px;
+    }
+
+    .headerCenter {
+        width: 230px;
+        margin-right: 20px;
+    }
 }
 
 @media only screen and (max-width: 542px) {
     .wrongGuesses {
-        padding-left: 30px;
+        padding-left: 0px;
+        width: 100%;
     }
 
     .headerTwoPlayer {
@@ -2452,11 +2893,19 @@ td {
     .playerTwoContainer {
         gap: 0rem;
     }
+
+    .puzzleLetterBorder {
+        width: 6px;
+    }
+
+    .headerLeft {
+        width: 140px;
+    }
 }
 
 @media only screen and (max-width: 526px) {
     .wrongGuesses {
-        width: 90%;
+        width: 100%;
     }
 
     .button {
@@ -2488,9 +2937,29 @@ td {
         width: 70px;
         font-size: 12px;
     }
+
+    .buttonsContainer {
+        height: 40px;
+    }
+
+    .innerButtonContainer {
+        width: 145px;
+    }
+
+    .buttonContainer {
+        height: 40px;
+    }
+
+    .puzzleContainer {
+        margin-bottom: 10px;
+    }
 }
 
 @media only screen and (max-width: 494px) {
+    .avatarTraitTwoPlayer {
+        width: 120px;
+    }
+
     .titleTwoPlayer {
         font-size: 35px;
     }
@@ -2527,7 +2996,7 @@ td {
     .wrongGuessesTwoPlayer {
         height: 120px;
         width: 90%;
-        padding-left: 20px;
+        padding-left: 15px;
     }
 
     .gameHeader {
@@ -2552,6 +3021,10 @@ td {
         height: 20px;
     }
 
+    .avatarTrait {
+        font-size: 8px;
+    }
+
     .imgWrapper {
         height: 30px;
     }
@@ -2560,9 +3033,8 @@ td {
         height: 30px;
     }
 
-    .selectedAvatarContainer {
-        height: 110px;
-        align-items: center;
+    .aboutMeButton:hover {
+        height: 30px;
     }
 
     .buttonContainer {
@@ -2586,7 +3058,7 @@ td {
     }
 
     .wrongGuesses {
-        padding-left: 70px;
+        padding-left: 50px;
         width: 70%;
         height: 120px;
     }
@@ -2716,10 +3188,6 @@ td {
         width: 50px;
     }
 
-    .avatarInfo {
-        width: 160px;
-    }
-
     .avatarName {
         font-size: 15px;
     }
@@ -2730,6 +3198,7 @@ td {
 
     .selectedAvatarContainerTwoPlayer {
         height: 80px;
+        width: 200px;
     }
 
     .inputTwoPlayer {
@@ -2763,5 +3232,285 @@ td {
 
     .footerHomeTwoPlayerInfo {
         height: 50px;
+    }
+
+    .innerButtonContainer {
+        width: 140px;
+    }
+
+    .inputTwoPlayer {
+        width: 110px;
+    }
+
+    .inputFocusTwoPlayer {
+        width: 110px;
+    }
+
+    .footerHomeTwoPlayer {
+        margin-top: 10px;
+    }
+
+    .avatarInfo {
+        width: 200px;
+    }
+
+    .footerHomeSinglePlayer {
+        height: 50px;
+    }
+
+    .headerLeftTwoPlayer {
+        width: 150px;
+    }
+
+    .headerRightTwoPlayer {
+        width: 150px;
+    }
+
+    .headerCenter {
+        margin-right: 0px;
+    }
+
+    .puzzleLetterBorder {
+        width: 4px;
+    }
+
+    .puzzleLetter {
+        padding-bottom: 0px;
+        height: 20px;
+    }
+}
+
+@media only screen and (max-width: 431px) {
+    .playerOneTurn {
+        padding: 1px;
+        height: 115px;
+    }
+
+    .playerTwoTurn {
+        padding: 1px;
+        height: 115px;
+    }
+
+    .wrongGuessesTwoPlayer {
+        padding-left: 10px;
+        width: 100%;
+    }
+
+    .aboutMeButton {
+        font-size: 10px;
+    }
+
+    .aboutMeButton:hover {
+        font-size: 10px;
+    }
+
+    .wrongGuesses {
+        padding-left: 5px;
+        width: 100%;
+    }
+
+    .headerCenter {
+        width: 150px;
+    }
+
+    .titleSinglePlayer {
+        padding-left: 0px;
+    }
+
+    .imgWrapperGamePlay {
+        height: 30px;
+    }
+
+    .innerImgGamePlay {
+        height: 20px;
+    }
+
+    .aboutMeButtonGamePlay {
+        height: 30px;
+        width: 60px;
+        font-size: 15px;
+    }
+
+    .footerHomeSinglePlayer {
+        height: 30px;
+    }
+
+    .puzzleLetterBorder {
+        width: 2px;
+        font-size: 15px;
+    }
+
+    .avatarGalleryTwoPlayer {
+        height: 50px;
+    }
+
+    .selectedAvatarTwoPlayer {
+        height: 37px;
+        width: 37px;
+    }
+
+    .selectedAvatarWrapperTwoPlayer {
+        height: 45px;
+        width: 45px;
+    }
+
+    .avatarInfoTwoPlayer {
+        width: 120px;
+    }
+
+    .headerLeftTwoPlayer {
+        width: 120px;
+    }
+
+    .headerRightTwoPlayer {
+        width: 120px;
+    }
+
+    .headerCenter {
+        width: 200px;
+    }
+}
+
+@media only screen and (max-width: 408px) {
+    .wrongGuesses {
+        padding-left: 20px;
+        width: 100%;
+        padding-top: 10px;
+    }
+
+    .headerLeftTwoPlayer {
+        width: 110px;
+    }
+
+    .headerRightTwoPlayer {
+        width: 110px;
+    }
+
+    .outerButtonWrapper {
+        width: 60px;
+        margin-right: 5px;
+    }
+
+    .headerRight {
+        justify-content: center;
+    }
+
+    .puzzleLetter {
+        font-size: 10px;
+        height: 15px;
+    }
+
+    .playerNameOneTwo {
+        font-size: 15px;
+    }
+
+    .playerScoreTwoPlayer {
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width: 395px) {
+    .avatarWrapperTwoPlayer {
+        height: 43px;
+        width: 43px;
+    }
+
+    .activeAvatarWrapperTwoPlayer {
+        height: 48px;
+        width: 48px;
+    }
+
+    .outerButtonWrapper {
+        width: 100px;
+    }
+
+    .avatar {
+        height: 33px;
+        width: 33px;
+    }
+
+    .avatarWrapper {
+        height: 37px;
+        width: 37px;
+    }
+
+    .avatarTwoPlayer {
+        height: 33px;
+        width: 33px;
+    }
+
+    .avatarWrapperTwoPlayer {
+        height: 37px;
+        width: 37px;
+    }
+
+    .avatarDisabledTwoPlayer {
+        height: 33px;
+        width: 33px;
+    }
+
+    .activeAvatarTwoPlayer {
+        height: 35px;
+        width: 35px;
+    }
+
+    .activeAvatarWrapperTwoPlayer {
+        height: 39px;
+        width: 39px;
+    }
+
+    .selectedAvatarTwoPlayer {
+        height: 33px;
+        width: 33px;
+    }
+
+    .selectedAvatarWrapperTwoPlayer {
+        height: 37px;
+        width: 37px;
+    }
+
+    .playerOneContainer {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .playerTwoContainer {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .avatarGalleryTwoPlayer {
+        width: 170px;
+        height: 40px;
+    }
+
+    .wrongGuesses {
+        padding-left: 15px;
+    }
+
+    .wrongGuessesTwoPlayer {
+        padding-left: 0px;
+    }
+}
+
+@media only screen and (max-width: 380px) {
+    .wrongGuesses {
+        padding-left: 10px;
+    }
+
+    .aboutMeButtonGamePlay {
+        font-size: 12px;
+    }
+
+    .puzzleLetterBorder {
+        width: 1px;
+    }
+
+    .selectedAvatarContainerTwoPlayer {
+        width: 170px;
+    }
+
+    .players {
+        justify-content: space-around;
     }
 }

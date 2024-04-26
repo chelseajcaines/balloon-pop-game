@@ -30,6 +30,24 @@ const Home = () => {
     const [isDarkMode, setIsDarkMode] = useState(getInitialMode())
     const [showAboutMeModal, setShowAboutMeModal] = useState(false)
     const [soundOn, setSoundOn] = useState(true)
+    const [isMaxWidth649, setIsMaxWidth649] = useState(false)
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMaxWidth649(window.innerWidth <= 649) // Adjust threshold as needed
+        }
+
+        // Set initial size
+        handleResize()
+
+        // Add event listener to handle window resize
+        window.addEventListener("resize", handleResize)
+
+        // Cleanup function to remove event listener
+        return () => {
+            window.removeEventListener("resize", handleResize)
+        }
+    }, [])
 
     useEffect(() => {
         localStorage.setItem("dark", JSON.stringify(isDarkMode))
@@ -214,27 +232,47 @@ const Home = () => {
                     ))}
                 </div>
 
-                <div className="footerHome">
-                    <div className="imgWrapper">
+                <div
+                    className={
+                        !isMaxWidth649 ? "footerHome" : "footerHomeTwoPlayer"
+                    }
+                >
+                    <div
+                        className={
+                            !isMaxWidth649 ? "imgWrapper" : "imgWrapperGamePlay"
+                        }
+                    >
                         <img
                             src={soundOn ? sound : noSound}
                             alt="sound ON/OFF"
-                            className="innerImg"
+                            className={
+                                !isMaxWidth649 ? "innerImg" : "innerImgGamePlay"
+                            }
                             onClick={toggleSound}
                         />
                     </div>
                     <button
-                        className="aboutMeButton"
+                        className={
+                            !isMaxWidth649
+                                ? "aboutMeButton"
+                                : "aboutMeButtonGamePlay"
+                        }
                         onClick={handleClickAboutMe}
                     >
                         CLICK ME!
                     </button>
 
-                    <div className="imgWrapper">
+                    <div
+                        className={
+                            !isMaxWidth649 ? "imgWrapper" : "imgWrapperGamePlay"
+                        }
+                    >
                         <img
                             src={isDarkMode ? sun : moon}
                             alt="dark mode"
-                            className="innerImg"
+                            className={
+                                !isMaxWidth649 ? "innerImg" : "innerImgGamePlay"
+                            }
                             onClick={toggleDarkMode}
                         />
                     </div>

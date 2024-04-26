@@ -627,7 +627,7 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                 handleGuessedLetter={addGuessedLetter}
             />
 
-            <div className="footerHome">
+            <div className="footerHomeSinglePlayer">
                 <div className="outerButtonWrapper">
                     <div className="buttonWrapper">
                         <Button
@@ -640,23 +640,26 @@ const SinglePlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                     </div>
                     <p className="buttonCommand">Ctrl + B</p>
                 </div>
-                <div className="imgWrapper">
+                <div className="imgWrapperGamePlay">
                     <img
                         src={soundOn ? sound : noSound}
                         alt="sound ON/OFF"
-                        className="innerImg"
+                        className="innerImgGamePlay"
                         onClick={toggleSound}
                     />
                 </div>
-                <button className="aboutMeButton" onClick={handleClickAboutMe}>
+                <button
+                    className="aboutMeButtonGamePlay"
+                    onClick={handleClickAboutMe}
+                >
                     CLICK ME!
                 </button>
 
-                <div className="imgWrapper">
+                <div className="imgWrapperGamePlay">
                     <img
                         src={isDarkMode ? sun : moon}
                         alt="dark mode"
-                        className="innerImg"
+                        className="innerImgGamePlay"
                         onClick={toggleDarkMode}
                     />
                 </div>
