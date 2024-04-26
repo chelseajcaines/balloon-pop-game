@@ -1,4 +1,4 @@
-import SinglePlayerGamePlay from "../../components/SinglePlayerGamePlay"
+import SinglePlayerGamePlay from "/SinglePlayerGamePlay.jsx"
 import "/src/App.css"
 
 const SinglePlayerMovieTitles = () => {
