@@ -1,7 +1,7 @@
 import "/src/App.css"
 import Avatar from "/src/components/Avatar"
 import Button from "/src/components/Button"
-import Modal from "./Modal"
+import Modal from "../src/components/Modal"
 import noSound from "/src/assets/noSound.png"
 import sound from "/src/assets/sound.png"
 import sun from "/src/assets/sun.png"
