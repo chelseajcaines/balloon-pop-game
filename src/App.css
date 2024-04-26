@@ -3571,15 +3571,15 @@ td {
     .modal {
         top: 25%;
     }
+
+    .aboutMeButtonGamePlay {
+        font-size: 12px;
+    }
 }
 
 @media only screen and (max-width: 380px) {
     .wrongGuesses {
         padding-left: 10px;
-    }
-
-    .aboutMeButtonGamePlay {
-        font-size: 12px;
     }
 
     .puzzleLetterBorder {
