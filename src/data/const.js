@@ -6,14 +6,14 @@ import pinkBalloon from "/src/assets/pinkBalloon.png"
 import orangeBalloon from "/src/assets/orangeBalloon.png"
 import greenBalloon from "/src/assets/greenBalloon.png"
 import pinkBalloonTwo from "/pinkBalloonTwo.png"
-import orangeBalloonTwo from "/src/assets/orangeBalloonTwo.png"
-import greenBalloonTwo from "/src/assets/greenBalloonTwo.png"
+import orangeBalloonTwo from "/orangeBalloonTwo.png"
+import greenBalloonTwo from "/greenBalloonTwo.png"
 import pinkBalloonPop from "/src/assets/pinkBalloonPop.gif"
 import orangeBalloonPop from "/src/assets/orangeBalloonPop.gif"
 import greenBalloonPop from "/src/assets/greenBalloonPop.gif"
 import pinkBalloonPopTwo from "/pinkBalloonPopTwo.gif"
-import orangeBalloonPopTwo from "/src/assets/orangeBalloonPopTwo.gif"
-import greenBalloonPopTwo from "/src/assets/greenBalloonPopTwo.gif"
+import orangeBalloonPopTwo from "/orangeBalloonPopTwo.gif"
+import greenBalloonPopTwo from "/greenBalloonPopTwo.gif"
 
 export const avatars = [
     {
