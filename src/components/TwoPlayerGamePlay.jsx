@@ -304,14 +304,14 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
         }
     }, [usedPuzzles, isWinner, isLoser])
 
-    useEffect(() => {
-        const activeLettersNew = guessedLetters.filter((letter) =>
-            puzzle.includes(letter)
-        )
-        if (!activeLetters.includes(currentLetter)) {
-            setPlayerTwoTurn(!playerTwoTurn)
-        }
-    }, [guessedLetters, currentLetter])
+    // useEffect(() => {
+    //     const activeLettersNew = guessedLetters.filter((letter) =>
+    //         puzzle.includes(letter)
+    //     )
+    //     if (!activeLetters.includes(currentLetter)) {
+    //         setPlayerTwoTurn(!playerTwoTurn)
+    //     }
+    // }, [guessedLetters, currentLetter])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -518,7 +518,11 @@ const TwoPlayerGamePlay = ({ text, movieTitles, phrases, food, brands }) => {
                 </div>
             </div>
 
-            <PuzzleDisplay puzzle={puzzle} guessedLetters={guessedLetters} />
+            <PuzzleDisplay
+                puzzle={puzzle}
+                guessedLetters={guessedLetters}
+                reveal={isLoser}
+            />
 
             <FetchStatus isLoading={isLoading} error={error} />
 

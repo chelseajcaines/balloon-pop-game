@@ -2475,6 +2475,77 @@ td {
     .puzzleLetterBorder {
         width: 11px;
     }
+
+    .aboutMeModal {
+        height: 500px;
+        width: 375px;
+        top: 40%;
+        padding: 20px;
+    }
+
+    .aboutMeParagraph {
+        font-size: 16px;
+    }
+
+    .profileContainer {
+        padding-left: 20px;
+    }
+
+    .textContainer {
+        padding-right: 20px;
+    }
+
+    .aboutMeText {
+        font-size: 40px;
+    }
+
+    .puzzlesPlayedModal {
+        height: 300px;
+        width: 375px;
+    }
+
+    .modalText {
+        font-size: 30px;
+    }
+
+    .loadingPageModal {
+        top: 35%;
+        width: 300px;
+        height: 300px;
+    }
+
+    .modal {
+        top: 30%;
+        width: 300px;
+    }
+
+    .winActiveButtonModal {
+        height: 60px;
+        width: 120px;
+        font-size: 35px;
+    }
+
+    .winButtonModal {
+        height: 50px;
+        width: 110px;
+        font-size: 30px;
+    }
+
+    .buttonsContainerModal {
+        gap: 1rem;
+    }
+
+    .activeButtonModal {
+        height: 50px;
+        width: 80px;
+        font-size: 35px;
+    }
+
+    .buttonModal {
+        height: 40px;
+        width: 70px;
+        font-size: 30px;
+    }
 }
 
 @media only screen and (max-width: 649px) {
@@ -2739,6 +2810,7 @@ td {
     .leaderboardModal {
         height: 410px;
         width: 300px;
+        top: 35%;
     }
 
     .activeButtonModalLeaderboard {
@@ -3490,6 +3562,14 @@ td {
 
     .wrongGuessesTwoPlayer {
         padding-left: 0px;
+    }
+
+    .aboutMeModal {
+        top: 32%;
+    }
+
+    .modal {
+        top: 25%;
     }
 }
 
