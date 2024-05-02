@@ -27,7 +27,7 @@ I love games; boardgames, video games, card games.. you name it. I am also inter
 ### Built with
 
 <br/>
-<span><img src="https://static.vecteezy.com/system/resources/previews/032/050/116/original/figma-3d-icon-free-png.png" alt="figma" height="40" width="40" style="max-width: 100%;"/></span><span><img src="https://github.com/chelseajcaines/balloon-pop-game/assets/132682524/57512226-0e3b-4ec4-8cbe-72c09e858ed8" alt="node" height="40" width="40" style="max-width: 100%;"/></span><span><img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Vitejs-logo.svg" alt="vite" height="40" width="40" style="max-width: 100%;"/></span><span><img src="/src/assets/science.png" alt="react" height="40" width="40" style="max-width: 100%;"/></span><span><img src="https://logos-world.net/wp-content/uploads/2023/02/Procreate-Symbol.png" alt="procreate" height="40" width="70" style="max-width: 100%;"/></span>
+<span><img src="https://static.vecteezy.com/system/resources/previews/032/050/116/original/figma-3d-icon-free-png.png" alt="figma" height="40" width="40" style="max-width: 100%;"/></span><span><img src="https://github.com/chelseajcaines/chelseajcaines/assets/132682524/9d5090cd-847b-4d85-b73a-300ba08009fc" alt="CSS" height="40" width="40" style="max-width: 100%;"/></span><span><img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Vitejs-logo.svg" alt="vite" height="40" width="40" style="max-width: 100%;"/></span><span><img src="/src/assets/science.png" alt="react" height="40" width="40" style="max-width: 100%;"/></span><span><img src="https://logos-world.net/wp-content/uploads/2023/02/Procreate-Symbol.png" alt="procreate" height="40" width="70" style="max-width: 100%;"/></span>
 
 <hr/>
 
