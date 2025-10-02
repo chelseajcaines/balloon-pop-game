@@ -16,8 +16,6 @@ Balloon Pop is a fun word puzzle game where the player guesses one letter per tu
 ⚔️ Two Player - Battle your friend for most wins! Turns alternate when a player guesses wrong.<br/>
 ⌨️ 🖱️ Mouse and Keyboard functionallity - Use the mouse or keyboard to navigate and play the game!
 
-## 🎬 Run through video coming soon! 🎬
-
 ### Motivation
 
 I love games; boardgames, video games, card games.. you name it. I am also interested in touching on all sorts of fields of development so building a game was definitely up there on my to do list. I went with a word puzzle game becuase it is my favourite type of game to play on my phone :D.
